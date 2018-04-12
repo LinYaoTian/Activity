@@ -72,6 +72,9 @@ public class MainActivity extends BaseActivity {
             case R.id.more_menu_act_main:
                 showToast("更多");
                 break;
+            case android.R.id.home:
+                mDrawerLayout.openDrawer(GravityCompat.START);
+                break;
         }
         return true;
     }
@@ -117,12 +120,6 @@ public class MainActivity extends BaseActivity {
         });
         mTlCategory.setupWithViewPager(mVpActivities);
         mDrawerToggle = new ActionBarDrawerToggle(this,mDrawerLayout,mToolbar,R.string.open,R.string.close);
-        mDrawerToggle.setToolbarNavigationClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
         mDrawerToggle.syncState();
         mDrawerLayout.addDrawerListener(mDrawerToggle);
     }

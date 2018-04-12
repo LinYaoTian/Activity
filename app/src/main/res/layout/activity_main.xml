@@ -61,7 +61,7 @@
             android:layout_margin="25dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:backgroundTint="@color/colorPrimary"
+            app:backgroundTint="@color/colorPrimary"
             android:src="@drawable/iv_send"
             android:clickable="true"
             android:focusable="true" />
