@@ -13,7 +13,7 @@ public class ActivityFragment extends BaseFragment {
 
     @Override
     protected int setLayoutResourceId() {
-        return R.layout.fragment_activity_list;
+        return R.layout.fragment_activities;
     }
 
     @Override
