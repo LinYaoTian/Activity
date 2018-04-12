@@ -61,7 +61,6 @@ public class MainActivity extends BaseActivity {
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setDisplayShowTitleEnabled(false);
-//
         }
         mToolbar.setTitle("");
     }
@@ -77,9 +76,6 @@ public class MainActivity extends BaseActivity {
         switch (item.getItemId()) {
             case R.id.more_menu_act_main:
                 showToast("更多");
-                break;
-            case android.R.id.home:
-                mDrawerLayout.openDrawer(GravityCompat.START);
                 break;
         }
         return true;
