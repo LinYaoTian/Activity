@@ -1,7 +1,9 @@
 package rdc.avtivity;
 
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -12,6 +14,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,7 +22,6 @@ import android.view.View;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.transform.sax.TemplatesHandler;
 
 import butterknife.BindView;
 import rdc.base.BaseActivity;
@@ -38,10 +40,13 @@ public class MainActivity extends BaseActivity {
     TabLayout mTlCategory;
     @BindView(R.id.drawer_layout_act_main)
     DrawerLayout mDrawerLayout;
+    @BindView(R.id.nav_view)
+    NavigationView mNavigationView;
 
     private List<String> mTabNameList;//顶部Tab名字列表
     private List<ActivityFragment> mActivityFragmentList;
     private ActionBarDrawerToggle mDrawerToggle;
+    private static final String TAG = "MainActivity";
 
 
     @Override
@@ -53,7 +58,7 @@ public class MainActivity extends BaseActivity {
     private void initToolbar() {
         setSupportActionBar(mToolbar);
         ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null){
+        if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setDisplayShowTitleEnabled(false);
 //
@@ -63,13 +68,13 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main,menu);
+        getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.more_menu_act_main:
                 showToast("更多");
                 break;
@@ -120,7 +125,7 @@ public class MainActivity extends BaseActivity {
             }
         });
         mTlCategory.setupWithViewPager(mVpActivities);
-        mDrawerToggle = new ActionBarDrawerToggle(this,mDrawerLayout,mToolbar,R.string.open,R.string.close);
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.open, R.string.close);
         mDrawerToggle.setToolbarNavigationClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -133,6 +138,30 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initListener() {
+        //侧滑栏按钮的监听事件
+        mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                mDrawerLayout.closeDrawers();
+                switch (item.getItemId()) {
+                    case R.id.nav_trip:
+                        Log.e(TAG, "onNavigationItemSelected: " );
+                        break;
+                    case R.id.nav_organization:
+                        Log.e(TAG, "onNavigationItemSelected: " );
+                        break;
+                    case R.id.nav_individual:
+                        Log.e(TAG, "onNavigationItemSelected: " );
+                        break;
+                    case R.id.nav_activity:
+                        Log.e(TAG, "onNavigationItemSelected: ");
+                        break;
+                    default:
+                        break;
 
+                }
+                return true;
+            }
+        });
     }
 }
