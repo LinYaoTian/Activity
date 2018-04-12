@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">Avtivity</string>
+
+    <!--首页 MainActivity-->
+    <string name="title">活动 plus</string>
+    <string name="title_activity_scrolling">ScrollingActivity</string>
+    <string name="more">更多</string>
+    <string name="mine">我的</string>
+    <string name="homePage">首页</string>
+    <string name="lecture">讲座</string>
+    <string name="competition">比赛</string>
+    <string name="public_welfare">公益</string>
+    <string name="outdoor_activities">户外活动</string>
+    <string name="open">打开</string>
+    <string name="close">关闭</string>
 </resources>
