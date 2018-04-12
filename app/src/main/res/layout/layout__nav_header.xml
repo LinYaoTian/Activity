@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dimenHeaderHeight">
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="@dimen/dimenCircleImageView"
+        android:layout_height="@dimen/dimenCircleImageView"
+        android:layout_centerInParent="true"
+        android:id="@+id/imv_photo"
+        />
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_alignParentBottom="true"
+        android:textSize="@dimen/dimenTextSize"
+        android:textColor="@color/colorTextColor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>

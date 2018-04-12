@@ -13,4 +13,12 @@
     <string name="outdoor_activities">户外活动</string>
     <string name="open">打开</string>
     <string name="close">关闭</string>
+
+
+
+    <!--侧滑栏-->
+    <string name="myTrip">我的行程</string>
+    <string name="myConcernedOrganization">我关注的组织</string>
+    <string name="myManagedActivity">我管理的活动</string>
+    <string name="myIndividual">个人中心</string>
 </resources>

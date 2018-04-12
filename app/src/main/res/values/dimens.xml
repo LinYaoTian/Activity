@@ -1,3 +1,8 @@
 <resources>
 
+    <!--侧滑栏头布局 include_nav_header -->
+    <dimen name="dimenHeaderHeight">180dp</dimen>
+    <dimen name="dimenPadding">10dp</dimen>
+    <dimen name="dimenCircleImageView">70dp</dimen>
+    <dimen name="dimenTextSize">16sp</dimen>
 </resources>
