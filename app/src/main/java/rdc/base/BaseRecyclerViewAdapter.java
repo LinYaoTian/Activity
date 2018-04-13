@@ -17,6 +17,7 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter {
     //更新数据
     public void updateData(List<T> dataList) {
         mDataList = dataList;
+        notifyDataSetChanged();
     }
 
     //分页加载，追加数据

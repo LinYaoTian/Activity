@@ -1,5 +1,7 @@
 package rdc.avtivity;
 
+import android.animation.ObjectAnimator;
+import android.animation.PropertyValuesHolder;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -17,7 +19,6 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,10 +44,12 @@ public class MainActivity extends BaseActivity {
     @BindView(R.id.nav_view)
     NavigationView mNavigationView;
 
+    private static final String TAG = "MainActivity";
+
     private List<String> mTabNameList;//顶部Tab名字列表
     private List<ActivityFragment> mActivityFragmentList;
     private ActionBarDrawerToggle mDrawerToggle;
-    private static final String TAG = "MainActivity";
+
 
 
     @Override
@@ -93,6 +96,7 @@ public class MainActivity extends BaseActivity {
     protected void initData() {
         mTabNameList = new ArrayList<>();
         mTabNameList.add(getResources().getString(R.string.homePage));
+        mTabNameList.add(getResources().getString(R.string.hot));
         mTabNameList.add(getResources().getString(R.string.competition));
         mTabNameList.add(getResources().getString(R.string.public_welfare));
         mTabNameList.add(getResources().getString(R.string.lecture));
@@ -100,13 +104,16 @@ public class MainActivity extends BaseActivity {
 
         mActivityFragmentList = new ArrayList<>();
         for (int i = 0; i < mTabNameList.size(); i++) {
-            mActivityFragmentList.add(new ActivityFragment());
+            ActivityFragment activityFragment = new ActivityFragment();
+            activityFragment.setTabName(mTabNameList.get(i));
+            mActivityFragmentList.add(activityFragment);
         }
 
     }
 
     @Override
     protected void initView() {
+        mVpActivities.setOffscreenPageLimit(mActivityFragmentList.size());
         mVpActivities.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
@@ -127,6 +134,7 @@ public class MainActivity extends BaseActivity {
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.open, R.string.close);
         mDrawerToggle.syncState();
         mDrawerLayout.addDrawerListener(mDrawerToggle);
+
     }
 
     @Override
@@ -156,5 +164,25 @@ public class MainActivity extends BaseActivity {
                 return true;
             }
         });
+    }
+
+    /**
+     *  使用动画隐藏FAB按钮
+     */
+    public void hideFabAnimation() {
+        PropertyValuesHolder pvhX = PropertyValuesHolder.ofFloat("alpha", 0f);
+        PropertyValuesHolder pvhY = PropertyValuesHolder.ofFloat("scaleX", 0f);
+        PropertyValuesHolder pvhZ = PropertyValuesHolder.ofFloat("scaleY", 0f);
+        ObjectAnimator.ofPropertyValuesHolder(mFabSend, pvhX, pvhY,pvhZ).setDuration(400).start();
+    }
+
+    /**
+     * 使用动画显示FAB按钮
+     */
+    public void showFabAnimation() {
+        PropertyValuesHolder pvhX = PropertyValuesHolder.ofFloat("alpha", 1f);
+        PropertyValuesHolder pvhY = PropertyValuesHolder.ofFloat("scaleX", 1f);
+        PropertyValuesHolder pvhZ = PropertyValuesHolder.ofFloat("scaleY", 1f);
+        ObjectAnimator.ofPropertyValuesHolder(mFabSend, pvhX, pvhY,pvhZ).setDuration(400).start();
     }
 }
