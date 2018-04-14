@@ -50,10 +50,40 @@
     <android.support.design.widget.TextInputLayout
         android:layout_width="0dp"
         android:layout_height="@dimen/textInputLayoutHeight"
-        android:id="@+id/til_account_number_act_register"
+        android:id="@+id/til_university_act_register"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/til_nickname_act_register"
+        android:layout_marginEnd="@dimen/editTextMargin"
+        android:layout_marginStart="@dimen/editTextMargin"
+        android:layout_marginTop="10dp"
+        android:gravity="bottom"
+        android:theme="@style/TextInputLayoutTheme">
+
+        <EditText
+            android:id="@+id/et_university_act_register"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/editTextHeight"
+            android:background="@drawable/bg_account_input"
+            android:paddingEnd="@dimen/editTextPadding"
+            android:paddingStart="@dimen/editTextPadding"
+            android:gravity="center_vertical|start"
+            android:hint="@string/university"
+            android:textColor="@color/black"
+            android:textSize="@dimen/titleTextSize"
+            android:singleLine="true"
+            tools:ignore="Deprecated,TextFields"
+            android:focusable="false"/>
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="0dp"
+        android:layout_height="@dimen/textInputLayoutHeight"
+        android:id="@+id/til_account_number_act_register"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/til_university_act_register"
         android:layout_marginEnd="@dimen/editTextMargin"
         android:layout_marginStart="@dimen/editTextMargin"
         android:layout_marginTop="10dp"
@@ -69,7 +99,6 @@
         android:paddingStart="@dimen/editTextPadding"
         android:gravity="center_vertical|start"
         android:hint="@string/account_number"
-        android:digits="@string/digits"
         android:textColor="@color/black"
         android:textSize="@dimen/titleTextSize"
         android:singleLine="true"
