@@ -16,13 +16,23 @@
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
     </android.support.v7.widget.Toolbar>
 
-    <EditText
-        android:id="@+id/et_nickname_act_register"
+    <android.support.design.widget.TextInputLayout
         android:layout_width="0dp"
-        android:layout_height="@dimen/editTextHeight"
+        android:layout_height="@dimen/textInputLayoutHeight"
+        android:id="@+id/til_nickname_act_register"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_act_Register"
         android:layout_marginEnd="@dimen/editTextMargin"
         android:layout_marginStart="@dimen/editTextMargin"
-        android:layout_marginTop="@dimen/editTextMargin"
+        android:layout_marginTop="10dp"
+        android:gravity="bottom"
+        android:theme="@style/TextInputLayoutTheme">
+
+    <EditText
+        android:id="@+id/et_nickname_act_register"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/editTextHeight"
         android:background="@drawable/bg_account_input"
         android:paddingEnd="@dimen/editTextPadding"
         android:paddingStart="@dimen/editTextPadding"
@@ -32,19 +42,28 @@
         android:textColor="@color/black"
         android:textSize="@dimen/titleTextSize"
         android:singleLine="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar_act_Register"
         tools:ignore="TextFields"
         android:maxLength="10"/>
 
-    <EditText
-        android:id="@+id/et_account_number_act_register"
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
         android:layout_width="0dp"
-        android:layout_height="@dimen/editTextHeight"
+        android:layout_height="@dimen/textInputLayoutHeight"
+        android:id="@+id/til_account_number_act_register"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/til_nickname_act_register"
         android:layout_marginEnd="@dimen/editTextMargin"
         android:layout_marginStart="@dimen/editTextMargin"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="10dp"
+        android:gravity="bottom"
+        android:theme="@style/TextInputLayoutTheme">
+
+    <EditText
+        android:id="@+id/et_account_number_act_register"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/editTextHeight"
         android:background="@drawable/bg_account_input"
         android:paddingEnd="@dimen/editTextPadding"
         android:paddingStart="@dimen/editTextPadding"
@@ -54,19 +73,27 @@
         android:textColor="@color/black"
         android:textSize="@dimen/titleTextSize"
         android:singleLine="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_nickname_act_register"
         tools:ignore="TextFields" />
 
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="0dp"
+        android:layout_height="@dimen/textInputLayoutHeight"
+        android:id="@+id/til_password_act_register"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/til_account_number_act_register"
+        android:layout_marginEnd="@dimen/editTextMargin"
+        android:layout_marginStart="@dimen/editTextMargin"
+        android:layout_marginTop="10dp"
+        android:gravity="bottom"
+        android:theme="@style/TextInputLayoutTheme">
 
     <EditText
         android:id="@+id/et_password_act_register"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="@dimen/editTextHeight"
-        android:layout_marginEnd="@dimen/editTextMargin"
-        android:layout_marginStart="@dimen/editTextMargin"
-        android:layout_marginTop="8dp"
         android:background="@drawable/bg_account_input"
         android:paddingEnd="33dp"
         android:paddingStart="@dimen/editTextPadding"
@@ -76,21 +103,21 @@
         android:textColor="@color/black"
         android:textSize="@dimen/titleTextSize"
         android:singleLine="true"
-        android:maxLength="16"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_account_number_act_register" />
+        android:maxLength="16" />
+
+    </android.support.design.widget.TextInputLayout>
 
     <ImageView
         android:id="@+id/iv_see_password_act_register"
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginTop="17.5dp"
         android:src="@drawable/iv_eye_grey"
         android:clickable="true"
-        app:layout_constraintBottom_toBottomOf="@+id/et_password_act_register"
-        app:layout_constraintEnd_toEndOf="@+id/et_password_act_register"
-        app:layout_constraintTop_toTopOf="@+id/et_password_act_register"
+        app:layout_constraintBottom_toBottomOf="@+id/til_password_act_register"
+        app:layout_constraintEnd_toEndOf="@+id/til_password_act_register"
+        app:layout_constraintTop_toTopOf="@+id/til_password_act_register"
         android:focusable="true" />
 
 
@@ -107,7 +134,7 @@
         android:background="@drawable/bg_state_login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_password_act_register" />
+        app:layout_constraintTop_toBottomOf="@+id/til_password_act_register" />
 
 
 </android.support.constraint.ConstraintLayout>

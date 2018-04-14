@@ -13,4 +13,5 @@
     <dimen name="editTextHeight">55dp</dimen>
     <dimen name="titleTextSize">18sp</dimen>
     <dimen name="inputTextSize">15sp</dimen>
+    <dimen name="textInputLayoutHeight">75dp</dimen>
 </resources>

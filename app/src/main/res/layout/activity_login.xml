@@ -13,7 +13,11 @@
         android:layout_height="?attr/actionBarSize"
         android:background="@color/colorPrimary"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
     </android.support.v7.widget.Toolbar>
 
     <ImageView
@@ -22,17 +26,28 @@
         android:layout_height="@dimen/editTextHeight"
         android:src="@drawable/iv_app_ic_white"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar_act_login" />
 
 
+<android.support.design.widget.TextInputLayout
+    android:layout_width="0dp"
+    android:layout_height="@dimen/textInputLayoutHeight"
+    android:id="@+id/til_account_number_act_login"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/iv_app_ic"
+    android:layout_marginEnd="@dimen/editTextMargin"
+    android:layout_marginStart="@dimen/editTextMargin"
+    android:layout_marginTop="40dp"
+    android:gravity="bottom"
+    android:theme="@style/TextInputLayoutTheme">
+
     <EditText
         android:id="@+id/et_account_number_act_login"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="@dimen/editTextHeight"
-        android:layout_marginEnd="@dimen/editTextMargin"
-        android:layout_marginStart="@dimen/editTextMargin"
-        android:layout_marginTop="?attr/actionBarSize"
         android:paddingStart="@dimen/editTextPadding"
         android:paddingEnd="@dimen/editTextPadding"
         android:background="@drawable/bg_account_input"
@@ -40,33 +55,43 @@
         android:hint="@string/account_number"
         android:textColor="@color/black"
         android:gravity="center_vertical|start"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_app_ic"
         tools:ignore="TextFields"
         android:textSize="@dimen/titleTextSize"
-        android:singleLine="true"/>
+        android:singleLine="true"
+        />
+
+</android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="0dp"
+        android:layout_height="@dimen/textInputLayoutHeight"
+        android:id="@+id/til_password_act_login"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/til_account_number_act_login"
+        android:layout_marginEnd="@dimen/editTextMargin"
+        android:layout_marginStart="@dimen/editTextMargin"
+        android:layout_marginTop="10dp"
+        android:gravity="bottom"
+        android:theme="@style/TextInputLayoutTheme">
 
     <EditText
         android:id="@+id/et_password_act_login"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="@dimen/editTextHeight"
-        android:layout_marginEnd="@dimen/editTextMargin"
-        android:layout_marginStart="@dimen/editTextMargin"
-        android:layout_marginTop="8dp"
+        android:paddingStart="@dimen/editTextPadding"
+        android:paddingEnd="@dimen/editTextPadding"
         android:background="@drawable/bg_account_input"
         android:gravity="center_vertical|start"
-        android:hint="@string/password"
         android:inputType="textPassword"
-        android:paddingEnd="@dimen/editTextPadding"
-        android:paddingStart="@dimen/editTextPadding"
+        android:hint="@string/password"
         android:textColor="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_account_number_act_login"
         tools:ignore="TextFields"
         android:textSize="@dimen/titleTextSize"
-        android:singleLine="true"/>
+        android:singleLine="true"
+        />
+
+    </android.support.design.widget.TextInputLayout>
 
     <Button
         android:id="@+id/btn_login_act_login"
@@ -81,7 +106,7 @@
         android:background="@drawable/bg_state_login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_password_act_login" />
+        app:layout_constraintTop_toBottomOf="@+id/til_password_act_login" />
 
     <TextView
         android:id="@+id/tv_register_act_login"
@@ -90,7 +115,7 @@
         android:layout_marginTop="@dimen/editTextMargin"
         android:text="@string/register"
         android:textColor="@color/tab_unselected_TextColor"
-        android:textSize="@dimen/titleTextSize"
+        android:textSize="@dimen/inputTextSize"
         app:layout_constraintEnd_toEndOf="@+id/btn_login_act_login"
         app:layout_constraintTop_toBottomOf="@+id/btn_login_act_login"
         android:clickable="true"
@@ -107,5 +132,33 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_register_act_login" />
+
+
+    <!--<android.support.design.widget.TextInputLayout-->
+        <!--android:id="@+id/til_account"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="75dp"-->
+        <!--android:layout_margin="15dp"-->
+        <!--android:gravity="center"-->
+        <!--android:layout_marginBottom="8dp"-->
+        <!--android:layout_marginEnd="8dp"-->
+        <!--android:layout_marginStart="8dp"-->
+        <!--android:layout_marginTop="8dp"-->
+        <!--app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintTop_toBottomOf="@+id/tv_register_act_login">-->
+
+        <!--<EditText-->
+            <!--android:id="@+id/et_account"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="55dp"-->
+            <!--android:layout_gravity="center_vertical|start"-->
+            <!--android:background="@drawable/bg_account_input"-->
+            <!--android:hint="用户名"-->
+            <!--android:paddingEnd="@dimen/editTextPadding"-->
+            <!--android:paddingStart="@dimen/editTextPadding" />-->
+
+    <!--</android.support.design.widget.TextInputLayout>-->
 
 </android.support.constraint.ConstraintLayout>
