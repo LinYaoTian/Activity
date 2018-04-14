@@ -9,6 +9,7 @@ android {
         versionCode 1
         versionName "1.0"
         useLibrary 'org.apache.http.legacy'
+        multiDexEnabled true
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
@@ -20,6 +21,8 @@ android {
     }
     productFlavors {
     }
+
+
 }
 
 dependencies {
@@ -36,8 +39,8 @@ dependencies {
     compile 'cn.bmob.android:bmob-sdk:3.5.5'
     compile 'cn.bmob.android:http-legacy:1.0'
     compile 'com.android.support:support-v4:26.1.0'
-    compile 'cn.bmob.android:http-legacy:1.0'
     compile 'de.hdodenhof:circleimageview:2.2.0'
+    compile 'noman.weekcalendar:weekcalendar:1.0.6'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'

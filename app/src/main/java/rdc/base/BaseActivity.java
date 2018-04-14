@@ -21,7 +21,10 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         presenter = getInstance();
-        presenter.attachView(this);
+        if (presenter!=null){
+            presenter.attachView(this);
+
+        }
         setContentView(setLayoutResID());
         ButterKnife.bind(this);
         initData();

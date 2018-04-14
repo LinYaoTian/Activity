@@ -4,7 +4,7 @@
     <dimen name="dimenHeaderHeight">180dp</dimen>
     <dimen name="dimenPadding">10dp</dimen>
     <dimen name="dimenCircleImageView">70dp</dimen>
-    <dimen name="dimenTextSize">16sp</dimen>
+    <dimen name="dimenNavTextSize">16sp</dimen>
 
     <!--登录和主界面-->
     <dimen name="cornerRadius">5dp</dimen>
@@ -14,4 +14,45 @@
     <dimen name="titleTextSize">18sp</dimen>
     <dimen name="inputTextSize">15sp</dimen>
     <dimen name="textInputLayoutHeight">75dp</dimen>
+    <dimen name="dimenTextSize">20sp</dimen>
+    <dimen name="dimenMarginStart">40dp</dimen>
+    <dimen name="dimenMarginLeft">10dp</dimen>
+
+
+    <!--我的行程 activity_main-->
+    <dimen name="dimenButtonSize">20dp</dimen>
+    <dimen name="dimenButtonMargin">10dp</dimen>
+    <dimen name="dimenWeekCalendar">65dp</dimen>
+    <integer name="integerPagerNum">150</integer>
+    <dimen name="dimenCalendarTextSize">13sp</dimen>
+
+    <!--我的行程的item-->
+    <dimen name="dimenMargin">10dp</dimen>
+    <dimen name="dimenWidth">0dp</dimen>
+    <dimen name="dimenItemHeight">101dp</dimen>
+    <dimen name="dimenItemHeightContent">100dp</dimen>
+    <dimen name="dimenImageHeight">80dp</dimen>
+    <dimen name="dimenBigTextSize">15sp</dimen>
+    <dimen name="dimenSmallTextSize">12sp</dimen>
+    <integer name="integerBigWeight">5</integer>
+    <integer name="integerMediumWeight">3</integer>
+    <integer name="integerSmallWeight">2</integer>
+
+
+    <!--我关注的组织的item-->
+    <dimen name="dimenItemsHeight">60dp</dimen>
+    <dimen name="dimenItemContentHeight">59dp</dimen>
+    <dimen name="dimenAboveTextHeight">30dp</dimen>
+    <dimen name="dimenImageSize">50dp</dimen>
+    <dimen name="dimenMarginTen">10dp</dimen>
+    <dimen name="dimenMarginForty">40dp</dimen>
+    <dimen name="dimenLargeTextSize">20sp</dimen>
+    <dimen name="dimenLittleTextSize">15sp</dimen>
+    <dimen name="dimenDivider">1dp</dimen>
+    <integer name="dimenMaxLines">1</integer>
+    <dimen name="dimenTextHeight">20dp</dimen>
+
+
+
+
 </resources>

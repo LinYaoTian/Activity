@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import butterknife.BindView;
+import rdc.activity.MainActivity;
 import rdc.base.BaseActivity;
 import rdc.base.BasePresenter;
 import rdc.bean.User;

@@ -18,4 +18,17 @@
 
     <!--侧滑栏 -->
     <color name="colorTextColor">#636262</color>
+
+
+    <!--行程-->
+    <color name="colorOrange">#f1a841</color>
+    <color name="colorYellow">#ffe047</color>
+    <color name="colorBlue">#29ace4</color>
+    <color name="colorDivider">#f1f1f1</color>
+
+
+    <!--item 的点击背景-->
+    <drawable name="drawableItemPressed">#d8d8d8</drawable>
+    <drawable name="drawableItemBackground">#ffffff</drawable>
+
 </resources>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dimenItemHeight"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimenItemHeightContent"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/imv_trip_image"
+            android:layout_width="@dimen/dimenWidth"
+            android:layout_height="@dimen/dimenImageHeight"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/dimenMargin"
+            android:layout_weight="@integer/integerSmallWeight"
+            android:background="@drawable/iv_test_folwer" />
+
+        <LinearLayout
+            android:layout_width="@dimen/dimenWidth"
+            android:layout_height="@dimen/dimenImageHeight"
+            android:layout_margin="@dimen/dimenMargin"
+            android:layout_weight="@integer/integerMediumWeight"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_trip_title"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimenWidth"
+                android:layout_weight="@integer/integerBigWeight"
+                android:textColor="@color/colorTextColor"
+                android:textSize="@dimen/dimenBigTextSize" />
+
+            <TextView
+                android:id="@+id/tv_trip_time"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimenWidth"
+                android:layout_weight="@integer/integerSmallWeight"
+                android:textSize="@dimen/dimenSmallTextSize" />
+
+            <TextView
+                android:id="@+id/tv_trip_place"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimenWidth"
+                android:layout_weight="@integer/integerSmallWeight"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/colorDivider" />
+
+</LinearLayout>

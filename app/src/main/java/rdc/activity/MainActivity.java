@@ -1,5 +1,6 @@
-package rdc.avtivity;
+package rdc.activity;
 
+import android.content.Intent;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.support.annotation.NonNull;
@@ -25,7 +26,9 @@ import java.util.List;
 
 
 import butterknife.BindView;
+import rdc.avtivity.R;
 import rdc.base.BaseActivity;
+import rdc.bean.ManagedActivity;
 import rdc.contract.MainContract;
 import rdc.fragment.ActivityFragment;
 import rdc.presenter.MainPresenter;
@@ -150,19 +153,18 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                mDrawerLayout.closeDrawers();
                 switch (item.getItemId()) {
                     case R.id.nav_trip:
-                        Log.e(TAG, "onNavigationItemSelected: " );
+                        TripActivity.actionStart(MainActivity.this);
                         break;
                     case R.id.nav_organization:
-                        Log.e(TAG, "onNavigationItemSelected: " );
+                        ConcernedActivity.actionStart(MainActivity.this);
                         break;
                     case R.id.nav_individual:
-                        Log.e(TAG, "onNavigationItemSelected: " );
+                        IndividualActivity.actionStart(MainActivity.this);
                         break;
                     case R.id.nav_activity:
-                        Log.e(TAG, "onNavigationItemSelected: ");
+                        ManageActivity.actionStart(MainActivity.this);
                         break;
                     default:
                         break;

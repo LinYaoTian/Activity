@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dimenItemsHeight"
+    android:background="@drawable/item_background_selector"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/rl"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimenItemContentHeight">
+
+        <ImageView
+            android:id="@+id/imv_image"
+            android:layout_width="@dimen/dimenImageSize"
+            android:layout_height="@dimen/dimenImageSize"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dimenMarginTen"
+            android:background="@drawable/ic_launcher_background" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dimenAboveTextHeight"
+            android:layout_alignTop="@+id/imv_image"
+            android:layout_marginLeft="@dimen/dimenMarginTen"
+            android:layout_marginRight="@dimen/dimenMarginForty"
+            android:layout_toRightOf="@+id/imv_image"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:maxLines="@integer/dimenMaxLines"
+            android:text="名字是发士大夫撒打发手动阀手动阀撒旦飞洒"
+            android:textColor="@color/colorTextColor"
+            android:textSize="@dimen/dimenLargeTextSize" />
+
+        <TextView
+
+            android:id="@+id/tv_message"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dimenTextHeight"
+            android:layout_below="@+id/tv_name"
+            android:layout_marginLeft="@dimen/dimenMarginTen"
+            android:layout_marginRight="@dimen/dimenMarginForty"
+            android:layout_toRightOf="@+id/imv_image"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:maxLines="@integer/dimenMaxLines"
+            android:text="名字"
+            android:textColor="@color/colorTextColor"
+            android:textSize="@dimen/dimenSmallTextSize" />
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dimenTextHeight"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/imv_image"
+            android:layout_marginLeft="@dimen/dimenMarginTen"
+            android:layout_marginRight="@dimen/dimenMarginTen"
+            android:ellipsize="end"
+            android:maxLines="@integer/dimenMaxLines"
+            android:text="下午几点" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorDivider" />
+
+
+</LinearLayout>

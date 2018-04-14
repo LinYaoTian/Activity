@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+  >
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_act_main"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+     <Button
+
+         android:layout_marginRight="@dimen/dimenButtonMargin"
+         android:layout_gravity="center"
+         android:background="@drawable/btn_arrow_left"
+         android:id="@+id/btn_pre_week"
+         android:layout_width="@dimen/dimenButtonSize"
+         android:layout_height="@dimen/dimenButtonSize" />
+        <TextView
+            android:layout_marginRight="@dimen/dimenButtonMargin"
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/thisWeek"
+            android:layout_gravity="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/dimenTextSize" />
+        <Button
+            android:layout_gravity="center"
+            android:background="@drawable/btn_arrow_right"
+            android:id="@+id/btn_next_week"
+            android:layout_width="@dimen/dimenButtonSize"
+            android:layout_height="@dimen/dimenButtonSize" />
+    </android.support.v7.widget.Toolbar>
+    <noman.weekcalendar.WeekCalendar
+        android:id="@+id/weekCalendar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimenWeekCalendar"
+        android:background="@color/colorPrimary"
+        app:dayNameLength="threeLetters"
+        app:numOfPages="@integer/integerPagerNum"
+        app:weekTextSize="@dimen/dimenCalendarTextSize"
+        app:todaysDateBgColor="@color/colorOrange"
+        app:selectedBgColor="@color/colorOrange"
+        app:daysTextSize="@dimen/dimenCalendarTextSize"
+        />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_activity"
+        android:background="@color/grey"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </android.support.v7.widget.RecyclerView>
+
+
+</LinearLayout>

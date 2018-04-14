@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <group android:checkableBehavior="single">
+    <group >
         <item
+
             android:id="@+id/nav_trip"
             android:icon="@drawable/iv_menu_trip"
             android:title="@string/myTrip" />
@@ -14,6 +15,7 @@
             android:icon="@drawable/iv_menu_activity"
             android:title="@string/myManagedActivity" />
         <item
+
             android:id="@+id/nav_individual"
             android:icon="@drawable/iv_menu_individual"
             android:title="@string/myIndividual" />

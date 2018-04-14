@@ -24,10 +24,14 @@
     <string name="register">注册帐号</string>
     <string name="accountName">昵称</string>
 
-
     <!--侧滑栏-->
     <string name="myTrip">我的行程</string>
     <string name="myConcernedOrganization">我关注的组织</string>
     <string name="myManagedActivity">我管理的活动</string>
     <string name="myIndividual">个人中心</string>
+    <string name="thisWeek">本周</string>
+    <string name="emptyTrip">今天没有什么安排哦！</string>
+    <string name="recommendTrip">今日推荐行程</string>
+    <string name="myConcerned">我关注的组织</string>
+    <string name="individual">个人中心</string>
 </resources>

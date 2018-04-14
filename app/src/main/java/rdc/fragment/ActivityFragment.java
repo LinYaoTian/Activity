@@ -13,8 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import rdc.activity.MainActivity;
 import rdc.adapter.ActivityListRvAdapter;
-import rdc.avtivity.MainActivity;
 import rdc.avtivity.R;
 import rdc.base.BaseLazyLoadFragment;
 import rdc.bean.ItemActivity;
