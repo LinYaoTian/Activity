@@ -1,8 +1,8 @@
 <resources>
-    <string name="app_name">Avtivity</string>
+    <string name="app_name">活动Plus</string>
 
     <!--首页 MainActivity-->
-    <string name="title">活动 plus</string>
+    <string name="title">活动Plus</string>
     <string name="title_activity_scrolling">ScrollingActivity</string>
     <string name="more">更多</string>
     <string name="mine">我的</string>
@@ -15,6 +15,13 @@
     <string name="open">打开</string>
     <string name="close">关闭</string>
 
+    <!--登录-->
+    <string name="login">登录</string>
+    <string name="account_number">手机/邮箱</string>
+    <string name="password">密码</string>
+    <string name="digits">0123456789abcdefghijklmnopqrstuvwxyz</string>
+    <string name="register">注册帐号</string>
+    <string name="accountName">昵称</string>
 
 
     <!--侧滑栏-->

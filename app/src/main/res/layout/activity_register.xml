@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="rdc.avtivity.RegisterActivity"
+    android:background="@color/colorPrimary">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_act_Register"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+    </android.support.v7.widget.Toolbar>
+
+    <EditText
+        android:id="@+id/et_nickname_act_register"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/editTextHeight"
+        android:layout_marginEnd="@dimen/editTextMargin"
+        android:layout_marginStart="@dimen/editTextMargin"
+        android:layout_marginTop="@dimen/editTextMargin"
+        android:background="@drawable/bg_account_input"
+        android:paddingEnd="@dimen/editTextPadding"
+        android:paddingStart="@dimen/editTextPadding"
+        android:gravity="center_vertical|start"
+        android:hint="@string/accountName"
+        android:inputType="textPersonName"
+        android:textColor="@color/black"
+        android:textSize="@dimen/titleTextSize"
+        android:singleLine="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_act_Register"
+        tools:ignore="TextFields"
+        android:maxLength="10"/>
+
+    <EditText
+        android:id="@+id/et_account_number_act_register"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/editTextHeight"
+        android:layout_marginEnd="@dimen/editTextMargin"
+        android:layout_marginStart="@dimen/editTextMargin"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/bg_account_input"
+        android:paddingEnd="@dimen/editTextPadding"
+        android:paddingStart="@dimen/editTextPadding"
+        android:gravity="center_vertical|start"
+        android:hint="@string/account_number"
+        android:digits="@string/digits"
+        android:textColor="@color/black"
+        android:textSize="@dimen/titleTextSize"
+        android:singleLine="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_nickname_act_register"
+        tools:ignore="TextFields" />
+
+
+    <EditText
+        android:id="@+id/et_password_act_register"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/editTextHeight"
+        android:layout_marginEnd="@dimen/editTextMargin"
+        android:layout_marginStart="@dimen/editTextMargin"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/bg_account_input"
+        android:paddingEnd="33dp"
+        android:paddingStart="@dimen/editTextPadding"
+        android:gravity="center_vertical|start"
+        android:hint="@string/password"
+        android:inputType="textPassword"
+        android:textColor="@color/black"
+        android:textSize="@dimen/titleTextSize"
+        android:singleLine="true"
+        android:maxLength="16"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_account_number_act_register" />
+
+    <ImageView
+        android:id="@+id/iv_see_password_act_register"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginEnd="8dp"
+        android:src="@drawable/iv_eye_grey"
+        android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="@+id/et_password_act_register"
+        app:layout_constraintEnd_toEndOf="@+id/et_password_act_register"
+        app:layout_constraintTop_toTopOf="@+id/et_password_act_register"
+        android:focusable="true" />
+
+
+    <Button
+        android:id="@+id/btn_register_act_register"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/editTextMargin"
+        android:layout_marginStart="@dimen/editTextMargin"
+        android:layout_marginTop="@dimen/editTextMargin"
+        android:text="@string/register"
+        android:textColor="@color/white"
+        android:textSize="@dimen/titleTextSize"
+        android:background="@drawable/bg_state_login"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_password_act_register" />
+
+
+</android.support.constraint.ConstraintLayout>

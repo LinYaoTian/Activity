@@ -13,12 +13,15 @@ import butterknife.ButterKnife;
  * Created by asus on 18-4-2.
  */
 
-public abstract class BaseActivity extends AppCompatActivity {
-    private static final String TAG = "BaseActivity";
+public abstract class BaseActivity<T extends BasePresenter> extends AppCompatActivity {
+
+    protected T presenter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        presenter = getInstance();
+        presenter.attachView(this);
         setContentView(setLayoutResID());
         ButterKnife.bind(this);
         initData();
@@ -29,7 +32,12 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        if (presenter != null) {
+            presenter.detachView();
+        }
     }
+
+    public abstract T getInstance();
 
     protected abstract int setLayoutResID();
 

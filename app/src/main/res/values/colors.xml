@@ -6,7 +6,13 @@
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
     <color name="grey">#F8F8F8</color>
+    
+    <!--首页-->
     <color name="tab_unselected_TextColor">#7dffffff</color>
+    
+    <!--登录-->
+    <color name="bg_login_state_normal">#006BD8</color>
+    <color name="bg_login_state_pressed">#0167cf</color>
 
 
     <!--侧滑栏 -->

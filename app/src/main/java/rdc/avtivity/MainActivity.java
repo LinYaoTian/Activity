@@ -26,10 +26,12 @@ import java.util.List;
 
 import butterknife.BindView;
 import rdc.base.BaseActivity;
+import rdc.contract.MainContract;
 import rdc.fragment.ActivityFragment;
+import rdc.presenter.MainPresenter;
 
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity<MainPresenter> implements MainContract.View {
 
     @BindView(R.id.toolbar_act_main)
     Toolbar mToolbar;
@@ -56,6 +58,11 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initToolbar();
+    }
+
+    @Override
+    public MainPresenter getInstance() {
+        return new MainPresenter();
     }
 
     private void initToolbar() {

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="rdc.avtivity.LoginActivity"
+    android:background="@color/colorPrimary">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_act_login"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+    </android.support.v7.widget.Toolbar>
+
+    <ImageView
+        android:id="@+id/iv_app_ic"
+        android:layout_width="@dimen/editTextHeight"
+        android:layout_height="@dimen/editTextHeight"
+        android:src="@drawable/iv_app_ic_white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_act_login" />
+
+
+    <EditText
+        android:id="@+id/et_account_number_act_login"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/editTextHeight"
+        android:layout_marginEnd="@dimen/editTextMargin"
+        android:layout_marginStart="@dimen/editTextMargin"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:paddingStart="@dimen/editTextPadding"
+        android:paddingEnd="@dimen/editTextPadding"
+        android:background="@drawable/bg_account_input"
+        android:digits="@string/digits"
+        android:hint="@string/account_number"
+        android:textColor="@color/black"
+        android:gravity="center_vertical|start"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_app_ic"
+        tools:ignore="TextFields"
+        android:textSize="@dimen/titleTextSize"
+        android:singleLine="true"/>
+
+    <EditText
+        android:id="@+id/et_password_act_login"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/editTextHeight"
+        android:layout_marginEnd="@dimen/editTextMargin"
+        android:layout_marginStart="@dimen/editTextMargin"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/bg_account_input"
+        android:gravity="center_vertical|start"
+        android:hint="@string/password"
+        android:inputType="textPassword"
+        android:paddingEnd="@dimen/editTextPadding"
+        android:paddingStart="@dimen/editTextPadding"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_account_number_act_login"
+        tools:ignore="TextFields"
+        android:textSize="@dimen/titleTextSize"
+        android:singleLine="true"/>
+
+    <Button
+        android:id="@+id/btn_login_act_login"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/editTextMargin"
+        android:layout_marginStart="@dimen/editTextMargin"
+        android:layout_marginTop="@dimen/editTextMargin"
+        android:text="@string/login"
+        android:textColor="@color/white"
+        android:textSize="@dimen/titleTextSize"
+        android:background="@drawable/bg_state_login"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_password_act_login" />
+
+    <TextView
+        android:id="@+id/tv_register_act_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/editTextMargin"
+        android:text="@string/register"
+        android:textColor="@color/tab_unselected_TextColor"
+        android:textSize="@dimen/titleTextSize"
+        app:layout_constraintEnd_toEndOf="@+id/btn_login_act_login"
+        app:layout_constraintTop_toBottomOf="@+id/btn_login_act_login"
+        android:clickable="true"
+        android:focusable="true" />
+
+    <TextView
+        android:id="@+id/tv_app_name_act_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"
+        android:textColor="@color/white"
+        android:textSize="@dimen/titleTextSize"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_register_act_login" />
+
+</android.support.constraint.ConstraintLayout>

@@ -8,7 +8,7 @@
     android:layout_marginEnd="10dp"
     android:layout_marginTop="6dp"
     android:layout_marginBottom="6dp"
-    app:cardCornerRadius="5dp">
+    app:cardCornerRadius="@dimen/cornerRadius">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -107,14 +107,15 @@
             app:layout_constraintTop_toTopOf="@+id/iv_time_item_act_main"
             android:singleLine="true"
             android:gravity="center"
-            tools:text="1k" />
+            tools:text="999"
+            android:maxLength="4"/>
 
 
         <ImageView
             android:id="@+id/iv_see_num_item_act_main"
             android:layout_width="15dp"
             android:layout_height="15dp"
-            android:src="@drawable/iv_see"
+            android:src="@drawable/iv_eye_blue"
             app:layout_constraintBottom_toBottomOf="@+id/tv_saw_num_item_act_main"
             app:layout_constraintEnd_toStartOf="@+id/tv_saw_num_item_act_main"
             app:layout_constraintTop_toTopOf="@+id/tv_saw_num_item_act_main" />

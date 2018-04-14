@@ -5,4 +5,12 @@
     <dimen name="dimenPadding">10dp</dimen>
     <dimen name="dimenCircleImageView">70dp</dimen>
     <dimen name="dimenTextSize">16sp</dimen>
+
+    <!--登录和主界面-->
+    <dimen name="cornerRadius">5dp</dimen>
+    <dimen name="editTextMargin">20dp</dimen>
+    <dimen name="editTextPadding">10dp</dimen>
+    <dimen name="editTextHeight">55dp</dimen>
+    <dimen name="titleTextSize">18sp</dimen>
+    <dimen name="inputTextSize">15sp</dimen>
 </resources>

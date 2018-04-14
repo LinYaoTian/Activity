@@ -1,7 +1,6 @@
 package rdc.app;
 
 import android.app.Application;
-import android.content.Context;
 
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobConfig;
@@ -26,6 +25,7 @@ public class App extends Application {
                 .setFileExpiration(2500)
                 .build();
         Bmob.initialize(config);
+
 
     }
 
