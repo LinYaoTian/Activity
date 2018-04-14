@@ -10,7 +10,7 @@ import cn.bmob.v3.datatype.BmobFile;
 public class User extends BmobUser {
 
     private String nickname;
-    private BmobFile accountImg;
+    private BmobFile userImg;
     private String university;
 
     public String getNickname() {
@@ -29,11 +29,11 @@ public class User extends BmobUser {
         this.university = university;
     }
 
-    public BmobFile getAccountImg() {
-        return accountImg;
+    public BmobFile getUserImg() {
+        return userImg;
     }
 
-    public void setAccountImg(BmobFile accountImg) {
-        this.accountImg = accountImg;
+    public void setUserImg(BmobFile userImg) {
+        this.userImg = userImg;
     }
 }

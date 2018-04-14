@@ -1,7 +1,7 @@
 package rdc.base;
 
 
-public class BasePresenter<V>{
+public class BasePresenter<V> implements BaseContract.Prsenter{
 
     private V view;
 

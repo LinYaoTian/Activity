@@ -18,6 +18,24 @@ public class Activity extends BmobObject {
     private User manager;
     private BmobFile image;
     private BmobRelation attcipator;
+    private String university;
+    private String tag;
+
+    public String getUniversity() {
+        return university;
+    }
+
+    public void setUniversity(String university) {
+        this.university = university;
+    }
+
+    public String getTag() {
+        return tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
+    }
 
     public String getTitle() {
         return title == null ? "" : title;

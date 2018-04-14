@@ -15,7 +15,7 @@ public class RegisterUtils {
      * @param accountNumber 帐号
      * @return true or false
      */
-    public static boolean checkAccountNumber(String accountNumber){
+    public static boolean checkUsername(String accountNumber){
         return accountNumber.matches(Constant.REGEX_EMAIL) ||
                 accountNumber.matches(Constant.REGEX_PHONE_NUMBER);
     }

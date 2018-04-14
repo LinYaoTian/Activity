@@ -19,4 +19,9 @@ public class Constant {
      * 密码位数
      */
     public static final Integer PASSWORD_NUM = 6;
+
+    /**
+     * 每日的必应背景图
+     */
+    public static final String BI_YING_BG_PIC = "http://guolin.tech/api/bing_pic";
 }

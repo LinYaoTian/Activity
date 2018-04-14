@@ -2,6 +2,7 @@ package rdc.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -28,6 +29,8 @@ public class ActivityFragment extends BaseLazyLoadFragment {
 
     @BindView(R.id.rv_activity_list_fragment)
     RecyclerView mRvActivityList;
+    @BindView(R.id.srl_refresh_fragment)
+    SwipeRefreshLayout mSrlRefresh;
 
     private ActivityListRvAdapter mActivityListAdapter;
     private List<ItemActivity> mActivityList;
@@ -78,11 +81,29 @@ public class ActivityFragment extends BaseLazyLoadFragment {
 
     @Override
     protected void initView() {
+        mSrlRefresh.setColorSchemeResources(R.color.colorPrimary);
         mActivityListAdapter = new ActivityListRvAdapter();
+        mRvActivityList.setLayoutManager(
+                new LinearLayoutManager(mBaseActivity,LinearLayoutManager.VERTICAL, false));
+        mRvActivityList.setAdapter(mActivityListAdapter);
+    }
+
+    @Override
+    protected void setListener() {
+        mSrlRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                //获取数据
+                mActivityListAdapter.updateData(mActivityList);
+                isLoaded = true;
+                mSrlRefresh.setRefreshing(false);
+            }
+        });
+
         mActivityListAdapter.setOnRecyclerViewListener(new OnClickRecyclerViewListener() {
             @Override
             public void onItemClick(int position) {
-                showToast(position+"");
+
             }
 
             @Override
@@ -90,10 +111,8 @@ public class ActivityFragment extends BaseLazyLoadFragment {
                 return false;
             }
         });
-        mRvActivityList.setLayoutManager(
-                new LinearLayoutManager(mBaseActivity,LinearLayoutManager.VERTICAL, false));
-        mRvActivityList.setAdapter(mActivityListAdapter);
-        mRvActivityList.setOnScrollListener(new RecyclerView.OnScrollListener() {
+
+        mRvActivityList.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
@@ -119,11 +138,6 @@ public class ActivityFragment extends BaseLazyLoadFragment {
     }
 
     @Override
-    protected void setListener() {
-
-    }
-
-    @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
     }
@@ -134,8 +148,10 @@ public class ActivityFragment extends BaseLazyLoadFragment {
             return;
         }
         if (!isLoaded){
+            mSrlRefresh.setRefreshing(true);
             mActivityListAdapter.updateData(mActivityList);
             isLoaded = true;
+            mSrlRefresh.setRefreshing(false);
         }
     }
 

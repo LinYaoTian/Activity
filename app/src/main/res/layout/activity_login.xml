@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="rdc.avtivity.LoginActivity"
     android:background="@color/colorPrimary">
 
     <android.support.v7.widget.Toolbar
@@ -45,7 +44,7 @@
     android:theme="@style/TextInputLayoutTheme">
 
     <EditText
-        android:id="@+id/et_account_number_act_login"
+        android:id="@+id/et_username_act_login"
         android:layout_width="match_parent"
         android:layout_height="@dimen/editTextHeight"
         android:paddingStart="@dimen/editTextPadding"

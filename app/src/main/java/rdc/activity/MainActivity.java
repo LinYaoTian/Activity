@@ -14,6 +14,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
@@ -34,7 +35,7 @@ import rdc.fragment.ActivityFragment;
 import rdc.presenter.MainPresenter;
 
 
-public class MainActivity extends BaseActivity<MainPresenter> implements MainContract.View {
+public class MainActivity extends BaseActivity<MainPresenter> implements MainContract.View{
 
     @BindView(R.id.toolbar_act_main)
     Toolbar mToolbar;
@@ -53,8 +54,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
     private List<String> mTabNameList;//顶部Tab名字列表
     private List<ActivityFragment> mActivityFragmentList;
-    private ActionBarDrawerToggle mDrawerToggle;
-
 
 
     @Override
@@ -141,7 +140,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
             }
         });
         mTlCategory.setupWithViewPager(mVpActivities);
-        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.open, R.string.close);
+        ActionBarDrawerToggle mDrawerToggle =
+                new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.open, R.string.close);
         mDrawerToggle.syncState();
         mDrawerLayout.addDrawerListener(mDrawerToggle);
 

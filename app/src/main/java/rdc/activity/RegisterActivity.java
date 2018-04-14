@@ -1,4 +1,4 @@
-package rdc.avtivity;
+package rdc.activity;
 
 import android.support.v7.app.ActionBar;
 import android.os.Bundle;
@@ -21,6 +21,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import butterknife.BindView;
+import rdc.avtivity.R;
 import rdc.base.BaseActivity;
 import rdc.bean.User;
 import rdc.constant.Constant;
@@ -33,8 +34,8 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
 
     @BindView(R.id.toolbar_act_Register)
     Toolbar mToolbar;
-    @BindView(R.id.et_account_number_act_register)
-    EditText mEtAccountNumber;
+    @BindView(R.id.et_username_act_register)
+    EditText mEtUsername;
     @BindView(R.id.et_nickname_act_register)
     EditText mEtNickname;
     @BindView(R.id.et_password_act_register)
@@ -136,11 +137,11 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
                 }
             }
         });
-        mEtAccountNumber.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        mEtUsername.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
                 if (!b){
-                    if (!RegisterUtils.checkAccountNumber(getString(mEtAccountNumber))){
+                    if (!RegisterUtils.checkUsername(getString(mEtUsername))){
                         showToast("请输入正确的手机/邮箱！");
                     }
                 }
@@ -164,7 +165,7 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
         mBtnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!RegisterUtils.checkAccountNumber(getString(mEtAccountNumber))){
+                if (!RegisterUtils.checkUsername(getString(mEtUsername))){
                     showToast("请输入正确的手机/邮箱！");
                 }else if (!RegisterUtils.checkPassword(getString(mEtPassword))){
                     showToast("密码位数必须不小于"+Constant.PASSWORD_NUM+"位");
@@ -172,7 +173,7 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
                     showToast("昵称不能为空！");
                 } else{
                     User user = new User();
-                    user.setUsername(getString(mEtAccountNumber));
+                    user.setUsername(getString(mEtUsername));
                     user.setPassword(getString(mEtPassword));
                     user.setNickname(getString(mEtNickname));
                     user.setUniversity(getString(mEtUniversity));

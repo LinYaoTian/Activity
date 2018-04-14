@@ -41,6 +41,8 @@
 
         </android.support.design.widget.TabLayout>
 
+
+
         <android.support.v4.view.ViewPager
             android:id="@+id/vp_activity_list_act_main"
             android:layout_width="0dp"

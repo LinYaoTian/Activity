@@ -13,7 +13,7 @@ import butterknife.ButterKnife;
  * Created by asus on 18-4-2.
  */
 
-public abstract class BaseActivity<T extends BasePresenter> extends AppCompatActivity {
+public abstract class BaseActivity<T extends BasePresenter> extends AppCompatActivity implements BaseContract.View {
 
     protected T presenter;
 
@@ -23,7 +23,6 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
         presenter = getInstance();
         if (presenter!=null){
             presenter.attachView(this);
-
         }
         setContentView(setLayoutResID());
         ButterKnife.bind(this);

@@ -1,11 +1,9 @@
-package rdc.avtivity;
+package rdc.activity;
 
 import android.content.Intent;
 import android.support.annotation.Nullable;
-import android.support.design.widget.TextInputLayout;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
@@ -13,9 +11,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import butterknife.BindView;
-import rdc.activity.MainActivity;
+import cn.bmob.v3.BmobUser;
+import rdc.avtivity.R;
 import rdc.base.BaseActivity;
-import rdc.base.BasePresenter;
 import rdc.bean.User;
 import rdc.constant.Constant;
 import rdc.contract.LoginContract;
@@ -26,8 +24,8 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
     @BindView(R.id.toolbar_act_login)
     Toolbar mToolbar;
-    @BindView(R.id.et_account_number_act_login)
-    EditText mEtAccountNumber;
+    @BindView(R.id.et_username_act_login)
+    EditText mEtUsername;
     @BindView(R.id.et_password_act_login)
     EditText mEtPassword;
     @BindView(R.id.btn_login_act_login)
@@ -38,6 +36,22 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initToolbar();
+        User user = BmobUser.getCurrentUser(User.class);
+        if (user != null){
+            finish();
+            startActivity(new Intent(this,MainActivity.class));
+        }
+    }
+
+    private void initToolbar() {
+        setSupportActionBar(mToolbar);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null){
+            actionBar.setDisplayHomeAsUpEnabled(false);
+            actionBar.setDisplayShowTitleEnabled(false);
+        }
+        mToolbar.setTitle("");
     }
 
     @Override
@@ -66,15 +80,24 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
         mBtnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!RegisterUtils.checkAccountNumber(getString(mEtAccountNumber))){
+                if (!RegisterUtils.checkUsername(getString(mEtUsername))){
                     showToast("请输入正确的手机/邮箱！");
                 }else if (!RegisterUtils.checkPassword(getString(mEtPassword))){
                     showToast("密码位数必须不小于"+ Constant.PASSWORD_NUM+"位");
                 }else {
                     User user = new User();
-                    user.setUsername(getString(mEtAccountNumber));
+                    user.setUsername(getString(mEtUsername));
                     user.setPassword(getString(mEtPassword));
                     presenter.login(user);
+                }
+            }
+        });
+        mEtUsername.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if (!b && !RegisterUtils.checkUsername(getString(mEtUsername))){
+                    //在 EditText 失去焦点时检查用户的输入的信息
+                    showToast("请输入正确的手机/邮箱！");
                 }
             }
         });
