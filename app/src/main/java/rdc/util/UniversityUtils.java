@@ -16,8 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import rdc.app.App;
-import rdc.bean.Provinces;
-import rdc.bean.Universities;
 
 /**
  * Created by Lin Yaotian on 2018/4/14.
@@ -56,8 +54,15 @@ public class UniversityUtils {
      */
     public static List<String> getProvinces(){
         String json = getJson("provinces.json", App.getmContext());
-        Gson gson = new Gson();
-        return gson.fromJson(json,Provinces.class).getProvinces();
+        try {
+            JSONObject jsonObj = new JSONObject(json);
+            JSONArray provinceArray = jsonObj.getJSONArray("provinces");
+            Gson gson = new Gson();
+            return gson.fromJson(provinceArray.toString(),List.class);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return new ArrayList<>();
     }
 
     /**
@@ -75,8 +80,7 @@ public class UniversityUtils {
                 if (provinceObj.has(province)){
                     JSONArray universityArray = provinceObj.getJSONArray(province);
                     Gson gson = new Gson();
-                    List list = gson.fromJson(universityArray.toString(),List.class);
-                    return list;
+                    return gson.fromJson(universityArray.toString(),List.class);
                 }
             }
         } catch (JSONException e) {
