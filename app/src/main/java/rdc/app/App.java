@@ -1,6 +1,8 @@
 package rdc.app;
 
+import android.annotation.SuppressLint;
 import android.app.Application;
+import android.content.Context;
 
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobConfig;
@@ -9,10 +11,13 @@ import cn.bmob.v3.BmobConfig;
  * Created by asus on 18-4-10.
  */
 public class App extends Application {
+
+    @SuppressLint("StaticFieldLeak")
+    private static Context mContext;
+
     @Override
     public void onCreate() {
         super.onCreate();
-
 
         BmobConfig config =new BmobConfig.Builder(this)
                 //设置appkey
@@ -26,8 +31,13 @@ public class App extends Application {
                 .build();
         Bmob.initialize(config);
 
+        mContext = getApplicationContext();
+
 
     }
 
+    public static Context getmContext() {
+        return mContext;
+    }
 
 }

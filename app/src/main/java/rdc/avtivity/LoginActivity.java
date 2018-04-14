@@ -15,8 +15,11 @@ import android.widget.TextView;
 import butterknife.BindView;
 import rdc.base.BaseActivity;
 import rdc.base.BasePresenter;
+import rdc.bean.User;
+import rdc.constant.Constant;
 import rdc.contract.LoginContract;
 import rdc.presenter.LoginPresenter;
+import rdc.util.RegisterUtils;
 
 public class LoginActivity extends BaseActivity<LoginPresenter> implements LoginContract.View {
 
@@ -59,10 +62,37 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
                 startActivity(new Intent(LoginActivity.this,RegisterActivity.class));
             }
         });
+        mBtnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!RegisterUtils.checkAccountNumber(getString(mEtAccountNumber))){
+                    showToast("请输入正确的手机/邮箱！");
+                }else if (!RegisterUtils.checkPassword(getString(mEtPassword))){
+                    showToast("密码位数必须不小于"+ Constant.PASSWORD_NUM+"位");
+                }else {
+                    User user = new User();
+                    user.setUsername(getString(mEtAccountNumber));
+                    user.setPassword(getString(mEtPassword));
+                    presenter.login(user);
+                }
+            }
+        });
     }
 
     @Override
     protected void initListener() {
 
+    }
+
+    @Override
+    public void loginSuccess() {
+        showToast("登录成功！");
+        finish();
+        startActivity(new Intent(this,MainActivity.class));
+    }
+
+    @Override
+    public void loginError(String message) {
+        showToast(message);
     }
 }

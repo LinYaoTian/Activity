@@ -24,6 +24,10 @@ public class RegisterModel implements RegisterContract.Model {
             public void done(User u, BmobException e) {
                 if (e == null){
                     mPresenter.registerResult(true,null);
+                }else if (e.getMessage().startsWith("username")){
+                    mPresenter.registerResult(false,"用户名已存在!");
+                }else if (e.getMessage().startsWith("The network is not")){
+                    mPresenter.registerResult(false,"无网络！");
                 }else {
                     mPresenter.registerResult(false,e.getMessage());
                 }

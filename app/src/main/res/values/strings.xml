@@ -19,7 +19,7 @@
     <string name="login">登录</string>
     <string name="account_number">手机/邮箱</string>
     <string name="password">密码</string>
-    <string name="digits">0123456789abcdefghijklmnopqrstuvwxyz</string>
+    <string name="digits">0123456789abcdefghijklmnopqrstuvwxyz@.</string>
     <string name="register">注册帐号</string>
     <string name="accountName">昵称</string>
 

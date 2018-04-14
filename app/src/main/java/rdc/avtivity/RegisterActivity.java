@@ -1,5 +1,6 @@
 package rdc.avtivity;
 
+import android.os.VibrationEffect;
 import android.support.v7.app.ActionBar;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -14,8 +15,10 @@ import android.widget.ImageView;
 import butterknife.BindView;
 import rdc.base.BaseActivity;
 import rdc.bean.User;
+import rdc.constant.Constant;
 import rdc.contract.RegisterContract;
 import rdc.presenter.RegisterPresenter;
+import rdc.util.RegisterUtils;
 
 public class RegisterActivity extends BaseActivity<RegisterPresenter> implements RegisterContract.View {
 
@@ -96,14 +99,21 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
         mBtnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                User user = new User();
-                user.setUsername(getString(mEtAccountNumber));
-                user.setPassword(getString(mEtPassword));
-                user.setNickname(getString(mEtNickname));
-                presenter.register(user);
+                if (!RegisterUtils.checkAccountNumber(getString(mEtAccountNumber))){
+                    showToast("请输入正确的手机/邮箱！");
+                }else if (!RegisterUtils.checkPassword(getString(mEtPassword))){
+                    showToast("密码位数必须不小于"+Constant.PASSWORD_NUM+"位");
+                }else {
+                    User user = new User();
+                    user.setUsername(getString(mEtAccountNumber));
+                    user.setPassword(getString(mEtPassword));
+                    user.setNickname(getString(mEtNickname));
+                    presenter.register(user);
+                }
             }
         });
     }
+
 
     @Override
     protected void initListener() {
@@ -113,10 +123,11 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
     @Override
     public void registerSuccess() {
         showToast("注册成功！");
+        finish();
     }
 
     @Override
     public void registerError(String message) {
-        showToast("组册失败!");
+        showToast(message);
     }
 }

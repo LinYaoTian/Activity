@@ -51,7 +51,7 @@
         android:paddingStart="@dimen/editTextPadding"
         android:paddingEnd="@dimen/editTextPadding"
         android:background="@drawable/bg_account_input"
-        android:digits="@string/digits"
+        android:inputType="text"
         android:hint="@string/account_number"
         android:textColor="@color/black"
         android:gravity="center_vertical|start"
