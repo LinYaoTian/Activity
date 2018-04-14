@@ -4,6 +4,7 @@ import android.support.v7.app.ActionBar;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.view.LayoutInflater;
@@ -125,6 +126,26 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
                 dialog.getWindow().setContentView(view1);
             }
         });
+        mEtNickname.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if (!b){
+                    if (TextUtils.isEmpty(getString(mEtNickname))){
+                        showToast("昵称不能为空！");
+                    }
+                }
+            }
+        });
+        mEtAccountNumber.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if (!b){
+                    if (!RegisterUtils.checkAccountNumber(getString(mEtAccountNumber))){
+                        showToast("请输入正确的手机/邮箱！");
+                    }
+                }
+            }
+        });
         mIvSeePassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -147,7 +168,9 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
                     showToast("请输入正确的手机/邮箱！");
                 }else if (!RegisterUtils.checkPassword(getString(mEtPassword))){
                     showToast("密码位数必须不小于"+Constant.PASSWORD_NUM+"位");
-                }else {
+                }if (TextUtils.isEmpty(getString(mEtNickname))){
+                    showToast("昵称不能为空！");
+                } else{
                     User user = new User();
                     user.setUsername(getString(mEtAccountNumber));
                     user.setPassword(getString(mEtPassword));
