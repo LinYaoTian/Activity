@@ -1,8 +1,10 @@
 package rdc.base;
 
 
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,11 +13,31 @@ import butterknife.ButterKnife;
 import rdc.listener.OnClickRecyclerViewListener;
 
 public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter {
+
+    protected static final int TYPE_FOOTER = 0;  //说明是带有Footer的
+    protected static final int TYPE_NORMAL = 1;  //说明是不带有header和footer的
+//    protected static final int TYPE_NONE = 2; //没有数据
+
     protected List<T> mDataList = new ArrayList<>();
-    protected OnClickRecyclerViewListener mOnRecyclerViewListener;
+    private OnClickRecyclerViewListener mOnRecyclerViewListener;
+    //HeaderView, FooterView
+    protected View mFooterView;
+
+
+    //FooterView的get和set函数
+
+    public View getFooterView() {
+        return mFooterView;
+    }
+
+    public void setFooterView(View footerView) {
+        mFooterView = footerView;
+        notifyItemInserted(getItemCount()-1);
+    }
 
     //更新数据
-    public void updateData(List<T> dataList) {
+
+    public void updateData(@NonNull List<T> dataList) {
         mDataList = dataList;
         notifyDataSetChanged();
     }
@@ -23,18 +45,43 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter {
     //分页加载，追加数据
     public void appendData(List<T> dataList) {
         if (null != dataList && !dataList.isEmpty()) {
+            int startPosition =  mDataList.size();
             mDataList.addAll(dataList);
-            notifyDataSetChanged();
+            notifyItemRangeChanged(startPosition,mDataList.size());
         } else if (dataList != null && dataList.isEmpty()) {
             notifyDataSetChanged();
             //空数据更新
         }
     }
 
+    /**
+     * 判断item的类型，从而绑定不同的view
+     */
+    @Override
+    public int getItemViewType(int position) {
+//        if (mDataList.size() == 0){
+//            //没有数据
+//            return TYPE_NONE;
+//        }
+        if (mFooterView == null){
+            //普通item
+            return TYPE_NORMAL;
+        }else if (position == getItemCount()-1 && mFooterView != null){
+            //最后一个,应该加载Footer
+            return TYPE_FOOTER;
+        }
+        return TYPE_NORMAL;
+    }
+
+
 
     @Override
     public int getItemCount() {
-        return mDataList.size();
+        if (mDataList.size() == 0){
+            // 当 normal item 的数量为0时，不需要 footerView
+            return 0;
+        }
+        return mDataList.size()+ (mFooterView == null ? 0 : 1 );
     }
 
     /**
@@ -49,9 +96,22 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter {
 
         public BaseRvHolder(View itemView) {
             super(itemView);
-            ButterKnife.bind(this, itemView);
-            itemView.setOnClickListener(this);
-            itemView.setOnLongClickListener(this);
+            //如果是footerView,设置点击事件，不 bind。
+            if (itemView == mFooterView){
+                itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (mOnRecyclerViewListener != null) {
+                            mOnRecyclerViewListener.onFooterViewClick();
+                        }
+                    }
+                });
+            }else {
+                //这里的ButterKnife的bind要放在最后，否则报错
+                ButterKnife.bind(this, itemView);
+                itemView.setOnClickListener(this);
+                itemView.setOnLongClickListener(this);
+            }
         }
 
         protected abstract void bindView(T t);

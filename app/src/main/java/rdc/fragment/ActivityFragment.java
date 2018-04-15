@@ -3,6 +3,7 @@ package rdc.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -18,20 +19,24 @@ import rdc.activity.MainActivity;
 import rdc.adapter.ActivityListRvAdapter;
 import rdc.avtivity.R;
 import rdc.base.BaseLazyLoadFragment;
+import rdc.bean.Activity;
 import rdc.bean.ItemActivity;
+import rdc.contract.ActivityFragmentContract;
 import rdc.listener.OnClickRecyclerViewListener;
+import rdc.presenter.ActivityFragmentPresenter;
 
 /**
  * Created by Lin Yaotian on 2018/4/12.
  */
 
-public class ActivityFragment extends BaseLazyLoadFragment {
+public class ActivityFragment extends BaseLazyLoadFragment<ActivityFragmentPresenter> implements ActivityFragmentContract.View {
 
     @BindView(R.id.rv_activity_list_fragment)
     RecyclerView mRvActivityList;
     @BindView(R.id.srl_refresh_fragment)
     SwipeRefreshLayout mSrlRefresh;
 
+    private View mViewLoadMore;
     private ActivityListRvAdapter mActivityListAdapter;
     private List<ItemActivity> mActivityList;
     private int mDistance;
@@ -52,6 +57,11 @@ public class ActivityFragment extends BaseLazyLoadFragment {
     @Override
     protected int setLayoutResourceId() {
         return R.layout.fragment_activities;
+    }
+
+    @Override
+    public ActivityFragmentPresenter getInstance() {
+        return new ActivityFragmentPresenter();
     }
 
     @Override
@@ -81,11 +91,15 @@ public class ActivityFragment extends BaseLazyLoadFragment {
 
     @Override
     protected void initView() {
-        mSrlRefresh.setColorSchemeResources(R.color.colorPrimary);
+
         mActivityListAdapter = new ActivityListRvAdapter();
         mRvActivityList.setLayoutManager(
                 new LinearLayoutManager(mBaseActivity,LinearLayoutManager.VERTICAL, false));
         mRvActivityList.setAdapter(mActivityListAdapter);
+        mViewLoadMore = LayoutInflater.from(mBaseActivity).inflate(R.layout.layout_loadmore,mRvActivityList,false);
+        mActivityListAdapter.setFooterView(mViewLoadMore);
+
+        mSrlRefresh.setColorSchemeResources(R.color.colorPrimary);
     }
 
     @Override
@@ -101,6 +115,7 @@ public class ActivityFragment extends BaseLazyLoadFragment {
         });
 
         mActivityListAdapter.setOnRecyclerViewListener(new OnClickRecyclerViewListener() {
+            int i = 0;
             @Override
             public void onItemClick(int position) {
 
@@ -109,6 +124,24 @@ public class ActivityFragment extends BaseLazyLoadFragment {
             @Override
             public boolean onItemLongClick(int position) {
                 return false;
+            }
+
+            @Override
+            public void onFooterViewClick() {
+                List<ItemActivity> list = new ArrayList<>();
+                ItemActivity item = new ItemActivity();
+                item.setLocation("广东省广州市白云区广州大道北1883");
+                item.setTime("2017年4月30号 9:30至11:00");
+                item.setTitle("【DIY】亲手制作一支大牌口红，自己唇色自己调！");
+                item.setSawNum(i++);
+                item.setCoverImageUrl(R.drawable.iv_test_cover+"");
+                list.add(item);
+                mActivityListAdapter.appendData(list);
+            }
+
+            @Override
+            public void onHeaderViewClick() {
+
             }
         });
 
@@ -161,5 +194,25 @@ public class ActivityFragment extends BaseLazyLoadFragment {
      */
     public void setTabName(String name){
         this.mTabName = name;
+    }
+
+    @Override
+    public void update(List<Activity> list) {
+
+    }
+
+    @Override
+    public void append(List<Activity> list) {
+
+    }
+
+    @Override
+    public void updateError(String message) {
+
+    }
+
+    @Override
+    public void getMoreError(String message) {
+
     }
 }

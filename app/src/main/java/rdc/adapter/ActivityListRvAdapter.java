@@ -29,13 +29,25 @@ public class ActivityListRvAdapter extends BaseRecyclerViewAdapter<ItemActivity>
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         mContext = parent.getContext();
+        if(mFooterView != null && viewType == TYPE_FOOTER){
+            return new ActivityHolder(mFooterView);
+        }
+
         View view = LayoutInflater.from(mContext).inflate(R.layout.item_activity_main,parent,false);
         return new ActivityHolder(view);
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        ((ActivityHolder)holder).bindView(mDataList.get(position));
+        switch (getItemViewType(position)){
+            case TYPE_NORMAL:
+                ((ActivityHolder)holder).bindView(mDataList.get(position));
+                break;
+//            case TYPE_NONE:
+//                break;
+            case TYPE_FOOTER:
+                break;
+        }
     }
 
     class ActivityHolder extends BaseRvHolder{

@@ -13,10 +13,11 @@ import android.widget.Toast;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public abstract class BaseFragment extends Fragment {
+public abstract class BaseFragment<T extends BasePresenter> extends Fragment {
     protected BaseActivity mBaseActivity;  //贴附的activity,Fragment中可能用到
     protected View mRootView;           //根view
     Unbinder mUnbinder;
+    protected T presenter;
 
     @Override
     public void onAttach(Context context) {
@@ -32,10 +33,24 @@ public abstract class BaseFragment extends Fragment {
         initData(getArguments());
         initView();
         setListener();
+        presenter = getInstance();
+        if (presenter!=null){
+            presenter.attachView(this);
+        }
         return mRootView;
     }
 
+    @Override
+    public void onDestroy() {
+        if (presenter != null) {
+            presenter.detachView();
+        }
+        super.onDestroy();
+    }
+
     protected abstract int setLayoutResourceId();
+
+    public abstract T getInstance();
 
     /**
      * 初始化数据
