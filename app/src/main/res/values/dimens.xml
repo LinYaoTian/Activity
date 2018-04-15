@@ -17,6 +17,7 @@
     <dimen name="dimenTextSize">20sp</dimen>
     <dimen name="dimenMarginStart">40dp</dimen>
     <dimen name="dimenMarginLeft">10dp</dimen>
+    <dimen name="dimenAppIcSize">70dp</dimen>
 
 
     <!--我的行程 activity_main-->

@@ -101,9 +101,8 @@ public class ActivityFragment extends BaseLazyLoadFragment<ActivityFragmentPrese
         mViewLoadMore = LayoutInflater.from(mBaseActivity).inflate(R.layout.layout_loadmore, mRvActivities,false);
         mActivityListAdapter.setFooterView(mViewLoadMore);
         View noneView = LayoutInflater.from(mBaseActivity).inflate(R.layout.layout_none, mRvActivities,false);
-        if (mTabName.equals("热门")){
-            mActivityListAdapter.setNoneView(noneView);
-        }
+        mActivityListAdapter.setNoneView(noneView);
+
         mSrlRefresh.setColorSchemeResources(R.color.colorPrimary);
     }
 

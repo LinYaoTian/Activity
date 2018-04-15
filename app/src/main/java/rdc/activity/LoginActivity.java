@@ -37,11 +37,6 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initToolbar();
-//        User user = BmobUser.getCurrentUser(User.class);
-//        if (user != null){
-//            finish();
-//            startActivity(new Intent(this,MainActivity.class));
-//        }
     }
 
     private void initToolbar() {

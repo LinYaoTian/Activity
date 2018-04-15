@@ -23,17 +23,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="rdc.activity.MainActivity" >
-
-        </activity>
+        <activity android:name="rdc.activity.MainActivity"/>
         <activity
             android:name="rdc.activity.LoginActivity"
             android:windowSoftInputMode="adjustPan">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name="rdc.activity.TripActivity" />
         <activity android:name="rdc.activity.ConcernedActivity" />
@@ -43,7 +37,15 @@
         <activity
             android:name="rdc.activity.RegisterActivity"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name="rdc.activity.ManageActivity"></activity>
+        <activity android:name="rdc.activity.ManageActivity" />
+        <activity android:name="rdc.activity.LaunchActivity"
+            android:theme="@style/AppTheme.launch">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

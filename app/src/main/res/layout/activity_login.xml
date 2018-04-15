@@ -21,8 +21,8 @@
 
     <ImageView
         android:id="@+id/iv_app_ic"
-        android:layout_width="@dimen/editTextHeight"
-        android:layout_height="@dimen/editTextHeight"
+        android:layout_width="@dimen/dimenAppIcSize"
+        android:layout_height="@dimen/dimenAppIcSize"
         android:src="@drawable/iv_app_ic_white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
