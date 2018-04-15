@@ -13,6 +13,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.model.stream.UrlLoader;
 
+import java.util.List;
+
 import butterknife.BindView;
 import rdc.avtivity.R;
 import rdc.base.BaseRecyclerViewAdapter;
@@ -22,7 +24,7 @@ import rdc.bean.ItemActivity;
  * Created by Lin Yaotian on 2018/4/13.
  */
 
-public class ActivityListRvAdapter extends BaseRecyclerViewAdapter<ItemActivity> {
+public class ActivitiesRvAdapter extends BaseRecyclerViewAdapter<ItemActivity> {
 
     private Context mContext;
 
@@ -31,8 +33,9 @@ public class ActivityListRvAdapter extends BaseRecyclerViewAdapter<ItemActivity>
         mContext = parent.getContext();
         if(mFooterView != null && viewType == TYPE_FOOTER){
             return new ActivityHolder(mFooterView);
+        }else if (mNoneView != null && viewType == TYPE_NONE){
+            return new ActivityHolder(mNoneView);
         }
-
         View view = LayoutInflater.from(mContext).inflate(R.layout.item_activity_main,parent,false);
         return new ActivityHolder(view);
     }
@@ -43,8 +46,8 @@ public class ActivityListRvAdapter extends BaseRecyclerViewAdapter<ItemActivity>
             case TYPE_NORMAL:
                 ((ActivityHolder)holder).bindView(mDataList.get(position));
                 break;
-//            case TYPE_NONE:
-//                break;
+            case TYPE_NONE:
+                break;
             case TYPE_FOOTER:
                 break;
         }

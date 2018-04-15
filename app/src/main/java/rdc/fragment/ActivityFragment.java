@@ -3,7 +3,6 @@ package rdc.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -16,7 +15,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import rdc.activity.MainActivity;
-import rdc.adapter.ActivityListRvAdapter;
+import rdc.adapter.ActivitiesRvAdapter;
 import rdc.avtivity.R;
 import rdc.base.BaseLazyLoadFragment;
 import rdc.bean.Activity;
@@ -31,18 +30,18 @@ import rdc.presenter.ActivityFragmentPresenter;
 
 public class ActivityFragment extends BaseLazyLoadFragment<ActivityFragmentPresenter> implements ActivityFragmentContract.View {
 
-    @BindView(R.id.rv_activity_list_fragment)
-    RecyclerView mRvActivityList;
+    @BindView(R.id.rv_activities_fragment)
+    RecyclerView mRvActivities;
     @BindView(R.id.srl_refresh_fragment)
     SwipeRefreshLayout mSrlRefresh;
 
     private View mViewLoadMore;
-    private ActivityListRvAdapter mActivityListAdapter;
+    private ActivitiesRvAdapter mActivityListAdapter;
     private List<ItemActivity> mActivityList;
     private int mDistance;
     private boolean mFabIsVisible;//Fab按钮是否可见
-    private boolean isPrepare;
-    private boolean isLoaded;//数据是否加载完成
+    private boolean isPrepare;//View 是否初始化好
+    private boolean isLoaded;//懒加载时判断数据是否加载过
     private String mTabName;
 
     @Nullable
@@ -71,6 +70,9 @@ public class ActivityFragment extends BaseLazyLoadFragment<ActivityFragmentPrese
         isPrepare = false;
         isLoaded = false;
         mActivityList = new ArrayList<>();
+        if (mTabName.equals("热门") ||mTabName.equals("讲座")){
+            return;
+        }
         for (int i = 0; i < 10; i++) {
             ItemActivity item = new ItemActivity();
             item.setLocation("广东省广州市白云区广州大道北1883");
@@ -92,13 +94,16 @@ public class ActivityFragment extends BaseLazyLoadFragment<ActivityFragmentPrese
     @Override
     protected void initView() {
 
-        mActivityListAdapter = new ActivityListRvAdapter();
-        mRvActivityList.setLayoutManager(
+        mActivityListAdapter = new ActivitiesRvAdapter();
+        mRvActivities.setLayoutManager(
                 new LinearLayoutManager(mBaseActivity,LinearLayoutManager.VERTICAL, false));
-        mRvActivityList.setAdapter(mActivityListAdapter);
-        mViewLoadMore = LayoutInflater.from(mBaseActivity).inflate(R.layout.layout_loadmore,mRvActivityList,false);
+        mRvActivities.setAdapter(mActivityListAdapter);
+        mViewLoadMore = LayoutInflater.from(mBaseActivity).inflate(R.layout.layout_loadmore, mRvActivities,false);
         mActivityListAdapter.setFooterView(mViewLoadMore);
-
+        View noneView = LayoutInflater.from(mBaseActivity).inflate(R.layout.layout_none, mRvActivities,false);
+        if (mTabName.equals("热门")){
+            mActivityListAdapter.setNoneView(noneView);
+        }
         mSrlRefresh.setColorSchemeResources(R.color.colorPrimary);
     }
 
@@ -107,8 +112,6 @@ public class ActivityFragment extends BaseLazyLoadFragment<ActivityFragmentPrese
         mSrlRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                //获取数据
-                mActivityListAdapter.updateData(mActivityList);
                 isLoaded = true;
                 mSrlRefresh.setRefreshing(false);
             }
@@ -138,14 +141,9 @@ public class ActivityFragment extends BaseLazyLoadFragment<ActivityFragmentPrese
                 list.add(item);
                 mActivityListAdapter.appendData(list);
             }
-
-            @Override
-            public void onHeaderViewClick() {
-
-            }
         });
 
-        mRvActivityList.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        mRvActivities.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);

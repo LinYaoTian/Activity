@@ -21,8 +21,4 @@ public interface OnClickRecyclerViewListener {
      */
     void onFooterViewClick();
 
-    /**
-     * 点击 headerView
-     */
-    void onHeaderViewClick();
 }

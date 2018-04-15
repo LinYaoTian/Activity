@@ -15,6 +15,7 @@
     <string name="open">打开</string>
     <string name="close">关闭</string>
     <string name="load_error">出问题了，点击重试</string>
+    <string name="none">这里空空的，什么也没有！</string>
 
     <!--登录-->
     <string name="login">登录</string>
