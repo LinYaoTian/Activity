@@ -36,4 +36,9 @@
     <string name="recommendTrip">今日推荐行程</string>
     <string name="myConcerned">我关注的组织</string>
     <string name="individual">个人中心</string>
+    <string name="empty_organization">您还没有关注任何组织哦！</string>
+    <string name="emptyManaged">您还没有发布过任何活动哦！</string>
+    <string name="editInfo">编辑资料</string>
+    <string name="name">名称</string>
+    <string name="backgroundPhoto">背景照片</string>
 </resources>

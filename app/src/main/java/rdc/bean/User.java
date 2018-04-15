@@ -2,6 +2,7 @@ package rdc.bean;
 
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.datatype.BmobFile;
+import cn.bmob.v3.datatype.BmobRelation;
 
 /**
  * Created by Lin Yaotian on 2018/4/13.
@@ -12,6 +13,16 @@ public class User extends BmobUser {
     private String nickname;
     private BmobFile userImg;
     private String university;
+    private String introduction;
+    private BmobRelation conncerned;
+
+    public String getIntroduction() {
+        return introduction == null ? "" : introduction;
+    }
+
+    public void setIntroduction(String introduction) {
+        this.introduction = introduction;
+    }
 
     public String getNickname() {
         return nickname;
@@ -35,5 +46,13 @@ public class User extends BmobUser {
 
     public void setUserImg(BmobFile userImg) {
         this.userImg = userImg;
+    }
+
+    public BmobRelation getConncerned() {
+        return conncerned;
+    }
+
+    public void setConncerned(BmobRelation conncerned) {
+        this.conncerned = conncerned;
     }
 }

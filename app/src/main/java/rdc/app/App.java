@@ -2,7 +2,10 @@ package rdc.app;
 
 import android.annotation.SuppressLint;
 import android.app.Application;
+import android.content.ContentResolver;
 import android.content.Context;
+
+import java.io.File;
 
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobConfig;
@@ -15,6 +18,9 @@ public class App extends Application {
 
     @SuppressLint("StaticFieldLeak")
     private static Context mContext;
+
+    private static File sCacheDir;
+    private static ContentResolver sContentResolver;
 
     @Override
     public void onCreate() {
@@ -33,7 +39,8 @@ public class App extends Application {
         Bmob.initialize(config);
 
         mContext = getApplicationContext();
-
+        sCacheDir = getExternalCacheDir();
+        sContentResolver = getContentResolver();
 
     }
 
@@ -41,4 +48,11 @@ public class App extends Application {
         return mContext;
     }
 
+    public static File getsCacheDir() {
+        return sCacheDir;
+    }
+
+    public static ContentResolver getsContentResolver() {
+        return sContentResolver;
+    }
 }

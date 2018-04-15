@@ -8,7 +8,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="rdc.activity.ConcernedActivity">
     <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar_act_main"
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/colorPrimary"

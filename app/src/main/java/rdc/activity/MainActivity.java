@@ -3,6 +3,7 @@ package rdc.activity;
 import android.content.Intent;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
+import android.media.Image;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -21,15 +22,27 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
 import butterknife.BindView;
+import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.DownloadFileListener;
+import cn.bmob.v3.listener.QueryListener;
+import de.hdodenhof.circleimageview.CircleImageView;
 import rdc.avtivity.R;
 import rdc.base.BaseActivity;
 import rdc.bean.ManagedActivity;
+import rdc.bean.User;
 import rdc.contract.MainContract;
 import rdc.fragment.ActivityFragment;
 import rdc.presenter.MainPresenter;
@@ -49,6 +62,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     DrawerLayout mDrawerLayout;
     @BindView(R.id.nav_view)
     NavigationView mNavigationView;
+
+
 
     private static final String TAG = "MainActivity";
 
@@ -145,6 +160,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         mDrawerToggle.syncState();
         mDrawerLayout.addDrawerListener(mDrawerToggle);
 
+        initUserView();
     }
 
     @Override
@@ -173,6 +189,13 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 return true;
             }
         });
+
+        mNavigationView.getHeaderView(0).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                IndividualActivity.actionStart(MainActivity.this);
+            }
+        });
     }
 
     /**
@@ -193,5 +216,17 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         PropertyValuesHolder pvhY = PropertyValuesHolder.ofFloat("scaleX", 1f);
         PropertyValuesHolder pvhZ = PropertyValuesHolder.ofFloat("scaleY", 1f);
         ObjectAnimator.ofPropertyValuesHolder(mFabSend, pvhX, pvhY,pvhZ).setDuration(400).start();
+    }
+
+
+    public void initUserView(){
+        View view = mNavigationView.getHeaderView(0);
+        TextView  name = view.findViewById(R.id.tv_name);
+        TextView introduction = view.findViewById(R.id.tv_introduction);
+        ImageView image = view.findViewById(R.id.imv_photo);
+        User user = BmobUser.getCurrentUser(User.class);
+        name.setText(user.getNickname());
+        introduction.setText(user.getIntroduction());
+        Glide.with(this).load(user.getUserImg().getUrl()).into(image);
     }
 }
