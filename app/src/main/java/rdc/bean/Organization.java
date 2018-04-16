@@ -1,20 +1,31 @@
 package rdc.bean;
 
+import cn.bmob.v3.datatype.BmobFile;
+
 /**
  * Created by asus on 18-4-14.
  */
 
 public class Organization {
-    private String mImage;
+    private BmobFile mImage;
     private String mName;
     private String mTime;
     private String mMessage;
+    private int mType  ;
 
-    public String getImage() {
-        return mImage == null ? "" : mImage;
+    public int getType() {
+        return mType;
     }
 
-    public void setImage(String image) {
+    public void setType(int type) {
+        mType = type;
+    }
+
+    public BmobFile getImage() {
+        return mImage;
+    }
+
+    public void setImage(BmobFile image) {
         mImage = image;
     }
 

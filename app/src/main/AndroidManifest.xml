@@ -23,22 +23,30 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="rdc.activity.MainActivity"/>
+        <activity android:name="rdc.activity.MainActivity" />
         <activity
             android:name="rdc.activity.LoginActivity"
-            android:windowSoftInputMode="adjustPan">
-
-        </activity>
+            android:windowSoftInputMode="adjustPan"></activity>
         <activity android:name="rdc.activity.TripActivity" />
         <activity android:name="rdc.activity.ConcernedActivity" />
         <activity android:name="rdc.activity.IndividualActivity" />
-        <activity android:name="rdc.activity.ChangeNameActivity" />
-        <activity android:name="rdc.activity.ChangeIntroductionActivity" />
         <activity
             android:name="rdc.activity.RegisterActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity android:name="rdc.activity.ManageActivity" />
-        <activity android:name="rdc.activity.LaunchActivity"
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.rdc.activity.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+        <activity
+            android:name="rdc.activity.LaunchActivity"
             android:theme="@style/AppTheme.launch">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

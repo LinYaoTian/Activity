@@ -8,6 +8,15 @@ public class ManagedActivity {
      private String mImageUrl;
      private String mTitle;
      private String mSendTime;
+     private int mType ;
+
+    public int getType() {
+        return mType;
+    }
+
+    public void setType(int type) {
+        mType = type;
+    }
 
     public String getImageUrl() {
         return mImageUrl == null ? "" : mImageUrl;
