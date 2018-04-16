@@ -1,6 +1,9 @@
 package rdc.presenter;
 
+import java.util.List;
+
 import rdc.base.BasePresenter;
+import rdc.bean.Activity;
 import rdc.contract.ActivityFragmentContract;
 import rdc.model.ActivityFragmentModel;
 
@@ -18,13 +21,27 @@ public class ActivityFragmentPresenter extends BasePresenter<ActivityFragmentCon
     }
 
     @Override
+    public void refreshSuccess(List<Activity> list) {
+        if (isAttachView()){
+            getMvpView().refresh(list);
+        }
+    }
+
+    @Override
+    public void appendSuccess(List<Activity> list) {
+        if (isAttachView()){
+            getMvpView().append(list);
+        }
+    }
+
+    @Override
     public void refresh(String tag) {
         model.refresh(tag);
     }
 
     @Override
-    public void getMore() {
-        model.getMore();
+    public void getMore(String tag) {
+        model.getMore(tag);
     }
 
     @Override
@@ -38,6 +55,13 @@ public class ActivityFragmentPresenter extends BasePresenter<ActivityFragmentCon
     public void getMoreError(String message) {
         if (isAttachView()){
             getMvpView().getMoreError(message);
+        }
+    }
+
+    @Override
+    public void noMoreData() {
+        if (isAttachView()){
+            getMvpView().noMoreData();
         }
     }
 }

@@ -18,8 +18,8 @@ public class LoginPresenter extends BasePresenter<LoginContract.View> implements
     }
 
     @Override
-    public void login(User user) {
-        model.login(user);
+    public void login(String userName, String password) {
+        model.login(userName, password);
     }
 
     @Override

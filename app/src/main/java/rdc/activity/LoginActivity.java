@@ -1,10 +1,13 @@
 package rdc.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.Nullable;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,6 +15,7 @@ import android.widget.TextView;
 
 import butterknife.BindView;
 import cn.bmob.v3.BmobUser;
+import rdc.app.App;
 import rdc.avtivity.R;
 import rdc.base.BaseActivity;
 import rdc.bean.User;
@@ -80,10 +84,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
                 }else if (!RegisterUtils.checkPassword(getString(mEtPassword))){
                     showToast("密码位数必须不小于"+ Constant.PASSWORD_NUM+"位");
                 }else {
-                    User user = new User();
-                    user.setUsername(getString(mEtUsername));
-                    user.setPassword(getString(mEtPassword));
-                    presenter.login(user);
+                    presenter.login(getString(mEtUsername),getString(mEtPassword));
                 }
             }
         });

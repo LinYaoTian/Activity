@@ -93,6 +93,12 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
 
     @Override
     protected void initView() {
+
+    }
+
+
+    @Override
+    protected void initListener() {
         mEtUniversity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -169,7 +175,7 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
                     showToast("请输入正确的手机/邮箱！");
                 }else if (!RegisterUtils.checkPassword(getString(mEtPassword))){
                     showToast("密码位数必须不小于"+Constant.PASSWORD_NUM+"位");
-                }if (TextUtils.isEmpty(getString(mEtNickname))){
+                }else if (TextUtils.isEmpty(getString(mEtNickname))){
                     showToast("昵称不能为空！");
                 } else{
                     User user = new User();
@@ -181,12 +187,6 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
                 }
             }
         });
-    }
-
-
-    @Override
-    protected void initListener() {
-
     }
 
     @Override

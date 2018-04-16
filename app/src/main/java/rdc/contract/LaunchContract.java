@@ -6,7 +6,8 @@ package rdc.contract;
 
 public interface LaunchContract {
     interface View{
-
+        void updateUserSuccess();
+        void updateUserError();
     }
 
     interface Model{
@@ -15,5 +16,7 @@ public interface LaunchContract {
 
     interface Presenter{
         void updateUser();
+        void updateSuccess();
+        void updateError();
     }
 }

@@ -15,6 +15,27 @@ public class User extends BmobUser {
     private String university;
     private String introduction;
     private BmobRelation conncerned;
+    private BmobRelation trip;
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "nickname='" + nickname + '\'' +
+                ", userImg=" + userImg +
+                ", university='" + university + '\'' +
+                ", introduction='" + introduction + '\'' +
+                ", conncerned=" + conncerned +
+                ", trip=" + trip +
+                '}';
+    }
+
+    public BmobRelation getTrip() {
+        return trip;
+    }
+
+    public void setTrip(BmobRelation trip) {
+        this.trip = trip;
+    }
 
     public String getIntroduction() {
         return introduction == null ? "" : introduction;
@@ -25,7 +46,7 @@ public class User extends BmobUser {
     }
 
     public String getNickname() {
-        return nickname;
+        return nickname == null ? "" : nickname;
     }
 
     public void setNickname(String nickname) {
@@ -41,7 +62,7 @@ public class User extends BmobUser {
     }
 
     public BmobFile getUserImg() {
-        return userImg;
+        return userImg == null ? new BmobFile() : userImg;
     }
 
     public void setUserImg(BmobFile userImg) {

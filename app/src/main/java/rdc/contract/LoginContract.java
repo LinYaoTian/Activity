@@ -13,11 +13,11 @@ public interface LoginContract {
     }
 
     interface Model{
-        void login(User user);
+        void login(String userName,String password);
     }
 
     interface Presenter{
-        void login(User user);
+        void login(String userName,String password);
         void loginResult(Boolean state,String message);
     }
 }

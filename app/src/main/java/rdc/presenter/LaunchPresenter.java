@@ -1,5 +1,7 @@
 package rdc.presenter;
 
+import javax.xml.transform.sax.TemplatesHandler;
+
 import rdc.base.BasePresenter;
 import rdc.contract.LaunchContract;
 import rdc.model.LaunchModel;
@@ -13,11 +15,25 @@ public class LaunchPresenter extends BasePresenter<LaunchContract.View> implemen
     private LaunchContract.Model model;
 
     public LaunchPresenter(){
-        model = new LaunchModel();
+        model = new LaunchModel(this);
     }
 
     @Override
     public void updateUser() {
         model.updateUser();
+    }
+
+    @Override
+    public void updateSuccess() {
+        if (isAttachView()){
+            getMvpView().updateUserSuccess();
+        }
+    }
+
+    @Override
+    public void updateError() {
+        if (isAttachView()){
+            getMvpView().updateUserError();
+        }
     }
 }

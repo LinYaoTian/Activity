@@ -49,11 +49,9 @@ public class LaunchActivity extends BaseActivity<LaunchPresenter> implements Lau
                     public void run() {
                         if (BmobUser.getCurrentUser(User.class) != null){
                             presenter.updateUser();
-                            startActivity(new Intent(LaunchActivity.this,MainActivity.class));
                         }else {
                             startActivity(new Intent(LaunchActivity.this,LoginActivity.class));
                         }
-                        finish();
                     }
                 });
             }
@@ -63,5 +61,18 @@ public class LaunchActivity extends BaseActivity<LaunchPresenter> implements Lau
     @Override
     protected void initListener() {
 
+    }
+
+    @Override
+    public void updateUserSuccess() {
+        finish();
+        startActivity(new Intent(LaunchActivity.this,MainActivity.class));
+    }
+
+    @Override
+    public void updateUserError() {
+        finish();
+        showToast("更新用户信息失败！");
+        startActivity(new Intent(LaunchActivity.this,MainActivity.class));
     }
 }

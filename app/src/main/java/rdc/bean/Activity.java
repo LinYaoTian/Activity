@@ -21,6 +21,23 @@ public class Activity extends BmobObject {
     private String university;
     private String tag;
 
+    @Override
+    public String toString() {
+        return "Activity{" +
+                "title='" + title + '\'' +
+                ", time='" + time + '\'' +
+                ", sendtime='" + sendtime + '\'' +
+                ", sawnum=" + sawnum +
+                ", place='" + place + '\'' +
+                ", content='" + content + '\'' +
+                ", manager=" + manager +
+                ", image=" + image +
+                ", attcipator=" + attcipator +
+                ", university='" + university + '\'' +
+                ", tag='" + tag + '\'' +
+                '}';
+    }
+
     public String getUniversity() {
         return university;
     }
@@ -94,7 +111,7 @@ public class Activity extends BmobObject {
     }
 
     public BmobFile getImage() {
-        return image;
+        return image == null ? new BmobFile():image;
     }
 
     public void setImage(BmobFile image) {

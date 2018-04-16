@@ -14,17 +14,21 @@ public interface ActivityFragmentContract {
         void append(List<Activity> list);
         void refreshError(String message);
         void getMoreError(String message);
+        void noMoreData();
     }
 
     interface Model{
         void refresh(String tag);
-        void getMore();
+        void getMore(String tag);
     }
 
     interface Presenter{
+        void refreshSuccess(List<Activity> list);
+        void appendSuccess(List<Activity> list);
         void refresh(String tag);
-        void getMore();
+        void getMore(String tag);
         void refreshError(String message);
         void getMoreError(String message);
+        void noMoreData();
     }
 }

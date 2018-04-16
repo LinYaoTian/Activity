@@ -37,15 +37,21 @@ public class ActivityFragment extends BaseLazyLoadFragment<ActivityFragmentPrese
     @BindView(R.id.srl_refresh_fragment)
     SwipeRefreshLayout mSrlRefresh;
 
+    public static final String TAG = "LYT";
+
     private ProgressBar mPbLoading;
-    private TextView mTvLoadError;
-    private View mViewLoadMore;
+    private TextView mTvLoadTip;
     private ActivitiesRvAdapter mActivityListAdapter;
+    private LinearLayoutManager mActivityRvLayoutManager;
     private List<Activity> mActivityList;
     private int mDistance;
     private boolean mFabIsVisible;//Fab按钮是否可见
     private boolean isPrepare;//View 是否初始化好
-    private boolean isLoaded;//懒加载时判断数据是否加载过
+    private boolean isLazyLoadFinished;//是否懒加载完数据
+//    private boolean isRefreshing;//是否正在刷新
+//    private boolean isLoadingMore;//是否正在加载更多
+//    private boolean isNoMoreData;//没有更多数据
+//    private boolean isLoadMoreError;//由于网络原因等等，加载更多是否出错
     private String mTag;//所在标签页
 
     @Nullable
@@ -77,25 +83,12 @@ public class ActivityFragment extends BaseLazyLoadFragment<ActivityFragmentPrese
         mDistance = 0;
         mFabIsVisible = true;
         isPrepare = false;
-        isLoaded = false;
+        isLazyLoadFinished = false;
+//        isRefreshing = false;
+//        isLoadingMore = false;
+//        isNoMoreData = false;
+//        isLoadMoreError = false;
         mActivityList = new ArrayList<>();
-
-//        for (int i = 0; i < 10; i++) {
-//            ItemActivity item = new ItemActivity();
-//            item.setLocation("广东省广州市白云区广州大道北1883");
-//            item.setTime("2017年4月30号 9:30至11:00");
-//            item.setTitle("【DIY】亲手制作一支大牌口红，自己唇色自己调！");
-//            item.setSawNum(256);
-//            item.setCoverImageUrl(R.drawable.iv_test_cover+"");
-//            mActivityList.add(item);
-//            ItemActivity item1 = new ItemActivity();
-//            item1.setLocation("广东省广州市先烈中路76号中侨大厦13A层H");
-//            item1.setTime("2018年5月30号 7:30至11:00");
-//            item1.setTitle("油纸伞彩绘DIY|最美的雨季,我们不见不'伞'");
-//            item1.setSawNum(120);
-//            item1.setCoverImageUrl(R.drawable.iv_test_folwer+"");
-//            mActivityList.add(item1);
-//        }
     }
 
     @Override
@@ -109,17 +102,16 @@ public class ActivityFragment extends BaseLazyLoadFragment<ActivityFragmentPrese
 
     @Override
     protected void initView() {
-
         mActivityListAdapter = new ActivitiesRvAdapter();
-        mRvActivities.setLayoutManager(
-                new LinearLayoutManager(mBaseActivity,LinearLayoutManager.VERTICAL, false));
+        mActivityRvLayoutManager = new LinearLayoutManager(mBaseActivity,LinearLayoutManager.VERTICAL, false);
+        mRvActivities.setLayoutManager(mActivityRvLayoutManager);
         mRvActivities.setAdapter(mActivityListAdapter);
-        mViewLoadMore = LayoutInflater.from(mBaseActivity).inflate(R.layout.layout_loadmore, mRvActivities,false);
+        View mViewLoadMore = LayoutInflater.from(mBaseActivity).inflate(R.layout.layout_loadmore, mRvActivities, false);
         mActivityListAdapter.setFooterView(mViewLoadMore);
         mPbLoading = mViewLoadMore.findViewById(R.id.pb_loading_layout);
-        mTvLoadError = mViewLoadMore.findViewById(R.id.tv_load_error_layout);
-        View noneView = LayoutInflater.from(mBaseActivity).inflate(R.layout.layout_none, mRvActivities,false);
-        mActivityListAdapter.setNoneView(noneView);
+        mTvLoadTip = mViewLoadMore.findViewById(R.id.tv_load_tip_layout);
+        View noDataView = LayoutInflater.from(mBaseActivity).inflate(R.layout.layout_none, mRvActivities,false);
+        mActivityListAdapter.setNoneView(noDataView);
 
         mSrlRefresh.setColorSchemeResources(R.color.colorPrimary);
     }
@@ -129,8 +121,8 @@ public class ActivityFragment extends BaseLazyLoadFragment<ActivityFragmentPrese
         mSrlRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                isLoaded = true;
-                mSrlRefresh.setRefreshing(false);
+//                isRefreshing = true;
+                presenter.refresh(mTag);
             }
         });
 
@@ -147,16 +139,43 @@ public class ActivityFragment extends BaseLazyLoadFragment<ActivityFragmentPrese
 
             @Override
             public void onFooterViewClick() {
-                mPbLoading.setVisibility(View.VISIBLE);
-                mTvLoadError.setVisibility(View.GONE);
-                presenter.getMore();
+//                if (isNoMoreData){
+//                    //没有更多数据，直接返回
+//                    return;
+//                }
+//                if (isLoadMoreError && !isRefreshing){
+                    //如果之前由于各种原因加载错误，则这里可以点击重新加载
+                    mPbLoading.setVisibility(View.VISIBLE);
+                    mTvLoadTip.setVisibility(View.GONE);
+//                    isLoadingMore = true;
+                    presenter.getMore(mTag);
+//                }
             }
         });
 
         mRvActivities.addOnScrollListener(new RecyclerView.OnScrollListener() {
+
+//            @Override
+//            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+//                super.onScrollStateChanged(recyclerView, newState);
+//                if(newState == RecyclerView.SCROLL_STATE_IDLE){
+//                    int lastVisiblePosition = mActivityRvLayoutManager.findLastVisibleItemPosition();
+//                    if(lastVisiblePosition >= mActivityRvLayoutManager.getItemCount() - 1){
+//                        //发起网络请求获取数据
+//                        presenter.getMore(mTag);
+//                        Log.d(TAG, "onScrollStateChanged: getMore");
+//                    }
+//                }
+//            }
+
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
+//                if (!recyclerView.canScrollVertically(1) ) {
+//                    //发起网络请求获取数据
+//                    presenter.getMore(mTag);
+//                }
+
                 if (mDistance < -ViewConfiguration.get(mBaseActivity).getScaledTouchSlop() && !mFabIsVisible){
                     //显示FAB
                     mFabIsVisible = true;
@@ -183,8 +202,9 @@ public class ActivityFragment extends BaseLazyLoadFragment<ActivityFragmentPrese
         if (!isPrepare || !isVisible){
             return;
         }
-        if (!isLoaded){
+        if (!isLazyLoadFinished){
             mSrlRefresh.setRefreshing(true);
+//            isRefreshing = true;
             presenter.refresh(mTag);
         }
     }
@@ -193,32 +213,51 @@ public class ActivityFragment extends BaseLazyLoadFragment<ActivityFragmentPrese
      * 设置页面名字
      * @param name
      */
-    public void setTabName(String name){
+    public void setTagName(String name){
         this.mTag = name;
     }
 
     @Override
     public void refresh(List<Activity> list) {
         mActivityListAdapter.updateData(list);
-        isLoaded = true;
+        isLazyLoadFinished = true;
+//        isRefreshing = false;
+//        isLoadingMore = false;
+//        isNoMoreData = false;
+//        isLoadMoreError = false;
         mSrlRefresh.setRefreshing(false);
     }
 
     @Override
     public void append(List<Activity> list) {
+//        isLoadingMore = false;
+//        if (isRefreshing){
+//            //如果正在重新加载数据，则把加载更多的数据抛弃
+//            return;
+//        }
         mActivityListAdapter.appendData(list);
     }
 
     @Override
     public void refreshError(String message) {
+
         mSrlRefresh.setRefreshing(false);
         showToast(message);
     }
 
     @Override
     public void getMoreError(String message) {
+//        isLoadMoreError = true;
         mPbLoading.setVisibility(View.GONE);
-        mTvLoadError.setVisibility(View.VISIBLE);
-        showToast(message);
+        mTvLoadTip.setVisibility(View.VISIBLE);
+        mTvLoadTip.setText(getResources().getString(R.string.load_error));
+    }
+
+    @Override
+    public void noMoreData() {
+//        isNoMoreData = true;
+        mPbLoading.setVisibility(View.GONE);
+        mTvLoadTip.setVisibility(View.VISIBLE);
+        mTvLoadTip.setText(getResources().getString(R.string.no_more_data));
     }
 }
