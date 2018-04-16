@@ -73,7 +73,7 @@ public class LaunchActivity extends BaseActivity<LaunchPresenter> implements Lau
     @Override
     public void updateUserError() {
         finish();
-        showToast("更新用户信息失败！");
-        startActivity(new Intent(LaunchActivity.this,MainActivity.class));
+        showToast("自动登录失败，请重新登录！");
+        startActivity(new Intent(LaunchActivity.this,LoginActivity.class));
     }
 }

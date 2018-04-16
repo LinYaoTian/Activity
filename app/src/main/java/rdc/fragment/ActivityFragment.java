@@ -50,7 +50,7 @@ public class ActivityFragment extends BaseLazyLoadFragment<ActivityFragmentPrese
     private boolean isLazyLoadFinished;//是否懒加载完数据
 //    private boolean isRefreshing;//是否正在刷新
 //    private boolean isLoadingMore;//是否正在加载更多
-//    private boolean isNoMoreData;//没有更多数据
+    private boolean hasMoreData;//没有更多数据
 //    private boolean isLoadMoreError;//由于网络原因等等，加载更多是否出错
     private String mTag;//所在标签页
 
@@ -84,6 +84,7 @@ public class ActivityFragment extends BaseLazyLoadFragment<ActivityFragmentPrese
         mFabIsVisible = true;
         isPrepare = false;
         isLazyLoadFinished = false;
+        hasMoreData = true;
 //        isRefreshing = false;
 //        isLoadingMore = false;
 //        isNoMoreData = false;
@@ -139,43 +140,32 @@ public class ActivityFragment extends BaseLazyLoadFragment<ActivityFragmentPrese
 
             @Override
             public void onFooterViewClick() {
-//                if (isNoMoreData){
-//                    //没有更多数据，直接返回
-//                    return;
-//                }
-//                if (isLoadMoreError && !isRefreshing){
-                    //如果之前由于各种原因加载错误，则这里可以点击重新加载
+                if (hasMoreData){
                     mPbLoading.setVisibility(View.VISIBLE);
                     mTvLoadTip.setVisibility(View.GONE);
-//                    isLoadingMore = true;
                     presenter.getMore(mTag);
-//                }
+                }
             }
         });
 
         mRvActivities.addOnScrollListener(new RecyclerView.OnScrollListener() {
 
-//            @Override
-//            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-//                super.onScrollStateChanged(recyclerView, newState);
-//                if(newState == RecyclerView.SCROLL_STATE_IDLE){
-//                    int lastVisiblePosition = mActivityRvLayoutManager.findLastVisibleItemPosition();
-//                    if(lastVisiblePosition >= mActivityRvLayoutManager.getItemCount() - 1){
-//                        //发起网络请求获取数据
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if(newState == RecyclerView.SCROLL_STATE_IDLE){
+                    int lastVisiblePosition = mActivityRvLayoutManager.findLastVisibleItemPosition();
+                    if(lastVisiblePosition >= mActivityRvLayoutManager.getItemCount() - 1){
+                        //发起网络请求获取数据
 //                        presenter.getMore(mTag);
-//                        Log.d(TAG, "onScrollStateChanged: getMore");
-//                    }
-//                }
-//            }
+                        Log.d(TAG, "onScrollStateChanged: getMore");
+                    }
+                }
+            }
 
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-//                if (!recyclerView.canScrollVertically(1) ) {
-//                    //发起网络请求获取数据
-//                    presenter.getMore(mTag);
-//                }
-
                 if (mDistance < -ViewConfiguration.get(mBaseActivity).getScaledTouchSlop() && !mFabIsVisible){
                     //显示FAB
                     mFabIsVisible = true;
@@ -204,7 +194,6 @@ public class ActivityFragment extends BaseLazyLoadFragment<ActivityFragmentPrese
         }
         if (!isLazyLoadFinished){
             mSrlRefresh.setRefreshing(true);
-//            isRefreshing = true;
             presenter.refresh(mTag);
         }
     }
@@ -221,33 +210,22 @@ public class ActivityFragment extends BaseLazyLoadFragment<ActivityFragmentPrese
     public void refresh(List<Activity> list) {
         mActivityListAdapter.updateData(list);
         isLazyLoadFinished = true;
-//        isRefreshing = false;
-//        isLoadingMore = false;
-//        isNoMoreData = false;
-//        isLoadMoreError = false;
         mSrlRefresh.setRefreshing(false);
     }
 
     @Override
     public void append(List<Activity> list) {
-//        isLoadingMore = false;
-//        if (isRefreshing){
-//            //如果正在重新加载数据，则把加载更多的数据抛弃
-//            return;
-//        }
         mActivityListAdapter.appendData(list);
     }
 
     @Override
     public void refreshError(String message) {
-
         mSrlRefresh.setRefreshing(false);
         showToast(message);
     }
 
     @Override
     public void getMoreError(String message) {
-//        isLoadMoreError = true;
         mPbLoading.setVisibility(View.GONE);
         mTvLoadTip.setVisibility(View.VISIBLE);
         mTvLoadTip.setText(getResources().getString(R.string.load_error));
@@ -255,7 +233,7 @@ public class ActivityFragment extends BaseLazyLoadFragment<ActivityFragmentPrese
 
     @Override
     public void noMoreData() {
-//        isNoMoreData = true;
+        hasMoreData = false;
         mPbLoading.setVisibility(View.GONE);
         mTvLoadTip.setVisibility(View.VISIBLE);
         mTvLoadTip.setText(getResources().getString(R.string.no_more_data));

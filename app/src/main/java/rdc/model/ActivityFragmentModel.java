@@ -28,14 +28,14 @@ public class ActivityFragmentModel implements ActivityFragmentContract.Model {
     private ActivityFragmentContract.Presenter mPresenter;
     private boolean isRefreshing;//是否正在刷新
     private boolean isLoadingMore;//是否正在加载更多
-    private boolean isNoMoreData;//没有更多数据
+    private boolean hasMoreData;//没有更多数据
     private Activity mLastActivity;
 
     public ActivityFragmentModel(ActivityFragmentContract.Presenter presenter){
         mPresenter = presenter;
         isRefreshing = false;
         isLoadingMore = false;
-        isNoMoreData = false;
+        hasMoreData = true;
     }
 
     @Override
@@ -43,7 +43,7 @@ public class ActivityFragmentModel implements ActivityFragmentContract.Model {
         if (!isRefreshing){
             isRefreshing = true;
             isLoadingMore = false;
-            isNoMoreData = false;
+            hasMoreData = true;
             User user = BmobUser.getCurrentUser(User.class);
             BmobQuery<Activity> query = new BmobQuery<>();
             query.order("-createdAt");
@@ -58,6 +58,10 @@ public class ActivityFragmentModel implements ActivityFragmentContract.Model {
                     if (e == null){
                         mPresenter.refreshSuccess(list);
                         mLastActivity = list.get(list.size()-1);
+                        if (list.size() < 15){
+                            hasMoreData = false;
+                            mPresenter.noMoreData();
+                        }
                     }else {
                         mPresenter.refreshError(e.getMessage());
                     }
@@ -68,7 +72,8 @@ public class ActivityFragmentModel implements ActivityFragmentContract.Model {
 
     @Override
     public void getMore(String tag) {
-        if (!isRefreshing && !isLoadingMore && !isNoMoreData ){
+        if (!isRefreshing && !isLoadingMore && hasMoreData){
+            Log.d(TAG, "getMore: 进入加载更多");
             isLoadingMore = true;
             @SuppressLint("SimpleDateFormat")
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -89,17 +94,18 @@ public class ActivityFragmentModel implements ActivityFragmentContract.Model {
             query.findObjects(new FindListener<Activity>() {
                 @Override
                 public void done(List<Activity> list, BmobException e) {
-                    isLoadingMore = false;
                     if (e == null){
+                        Log.d(TAG, "done: "+list.size());
                         mPresenter.appendSuccess(list);
                         mLastActivity = list.get(list.size()-1);
-                    }else {
                         if (list.size() < 15){
-                            isNoMoreData = true;
+                            hasMoreData = false;
                             mPresenter.noMoreData();
                         }
+                    }else {
                         mPresenter.getMoreError(e.getMessage());
                     }
+                    isLoadingMore = false;
                 }
             });
         }
