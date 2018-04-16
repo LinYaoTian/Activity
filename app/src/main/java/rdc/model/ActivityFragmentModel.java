@@ -48,9 +48,11 @@ public class ActivityFragmentModel implements ActivityFragmentContract.Model {
             BmobQuery<Activity> query = new BmobQuery<>();
             query.order("-createdAt");
             query.addQueryKeys("title,time,tag,sawnum,place,image,createdAt");
-            query.addWhereEqualTo("tag",tag);
+            if (!tag.equals("首页")){
+                query.addWhereEqualTo("tag",tag);
+            }
             query.addWhereEqualTo("university",user.getUniversity());
-            query.setLimit(15);
+            query.setLimit(3);
             query.findObjects(new FindListener<Activity>() {
                 @Override
                 public void done(List<Activity> list, BmobException e) {
@@ -58,10 +60,13 @@ public class ActivityFragmentModel implements ActivityFragmentContract.Model {
                     if (e == null){
                         mPresenter.refreshSuccess(list);
                         mLastActivity = list.get(list.size()-1);
-                        if (list.size() < 15){
+                        if (list.size() < 3){
                             hasMoreData = false;
                             mPresenter.noMoreData();
                         }
+                    }else if (e.getMessage().startsWith("java.lang.ArrayIndexOutOfBoundsException")){
+                        hasMoreData = false;
+                        mPresenter.noMoreData();
                     }else {
                         mPresenter.refreshError(e.getMessage());
                     }
@@ -72,8 +77,8 @@ public class ActivityFragmentModel implements ActivityFragmentContract.Model {
 
     @Override
     public void getMore(String tag) {
+//        Log.d(TAG, "getMore: isRefreshing:"+isLoadingMore+",isLoadingMore:"+isLoadingMore+",hasMoreData:"+hasMoreData);
         if (!isRefreshing && !isLoadingMore && hasMoreData){
-            Log.d(TAG, "getMore: 进入加载更多");
             isLoadingMore = true;
             @SuppressLint("SimpleDateFormat")
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -87,10 +92,12 @@ public class ActivityFragmentModel implements ActivityFragmentContract.Model {
             BmobQuery<Activity> query = new BmobQuery<>();
             query.order("-createdAt");
             query.addQueryKeys("title,time,tag,sawnum,place,image,createdAt");
-            query.addWhereEqualTo("tag",tag);
+            if (!tag.equals("首页")){
+                query.addWhereEqualTo("tag",tag);
+            }
             query.addWhereEqualTo("university",user.getUniversity());
-            query.addWhereGreaterThan("createdAt",new BmobDate(date));
-            query.setLimit(15);
+            query.addWhereLessThan("createdAt",new BmobDate(date));
+            query.setLimit(3);
             query.findObjects(new FindListener<Activity>() {
                 @Override
                 public void done(List<Activity> list, BmobException e) {
@@ -98,7 +105,7 @@ public class ActivityFragmentModel implements ActivityFragmentContract.Model {
                         Log.d(TAG, "done: "+list.size());
                         mPresenter.appendSuccess(list);
                         mLastActivity = list.get(list.size()-1);
-                        if (list.size() < 15){
+                        if (list.size() < 3){
                             hasMoreData = false;
                             mPresenter.noMoreData();
                         }

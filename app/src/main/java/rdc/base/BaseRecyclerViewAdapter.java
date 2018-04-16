@@ -45,7 +45,6 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter {
     }
 
     //更新数据
-
     public void updateData(@NonNull List<T> dataList) {
         mDataList.clear();
         mDataList.addAll(dataList);
@@ -59,7 +58,7 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter {
             mDataList.addAll(dataList);
             notifyItemRangeChanged(startPosition-1,mDataList.size()-startPosition);
         } else if (dataList != null && dataList.isEmpty()) {
-            notifyDataSetChanged();
+//            notifyDataSetChanged();
             //空数据更新
         }
     }

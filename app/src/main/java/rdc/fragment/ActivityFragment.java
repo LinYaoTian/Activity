@@ -43,7 +43,6 @@ public class ActivityFragment extends BaseLazyLoadFragment<ActivityFragmentPrese
     private TextView mTvLoadTip;
     private ActivitiesRvAdapter mActivityListAdapter;
     private LinearLayoutManager mActivityRvLayoutManager;
-    private List<Activity> mActivityList;
     private int mDistance;
     private boolean mFabIsVisible;//Fab按钮是否可见
     private boolean isPrepare;//View 是否初始化好
@@ -89,7 +88,6 @@ public class ActivityFragment extends BaseLazyLoadFragment<ActivityFragmentPrese
 //        isLoadingMore = false;
 //        isNoMoreData = false;
 //        isLoadMoreError = false;
-        mActivityList = new ArrayList<>();
     }
 
     @Override
@@ -157,8 +155,7 @@ public class ActivityFragment extends BaseLazyLoadFragment<ActivityFragmentPrese
                     int lastVisiblePosition = mActivityRvLayoutManager.findLastVisibleItemPosition();
                     if(lastVisiblePosition >= mActivityRvLayoutManager.getItemCount() - 1){
                         //发起网络请求获取数据
-//                        presenter.getMore(mTag);
-                        Log.d(TAG, "onScrollStateChanged: getMore");
+                        presenter.getMore(mTag);
                     }
                 }
             }

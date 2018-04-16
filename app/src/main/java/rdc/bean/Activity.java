@@ -23,18 +23,7 @@ public class Activity extends BmobObject {
 
     @Override
     public String toString() {
-        return "Activity{" +
-                "title='" + title + '\'' +
-                ", time='" + time + '\'' +
-                ", sendtime='" + sendtime + '\'' +
-                ", sawnum=" + sawnum +
-                ", place='" + place + '\'' +
-                ", content='" + content + '\'' +
-                ", manager=" + manager +
-                ", image=" + image +
-                ", attcipator=" + attcipator +
-                ", university='" + university + '\'' +
-                ", tag='" + tag + '\'' +
+        return "Activity{" +"createdAt:"+getCreatedAt()+
                 '}';
     }
 
