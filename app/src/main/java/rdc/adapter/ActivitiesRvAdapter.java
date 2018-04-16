@@ -18,13 +18,14 @@ import java.util.List;
 import butterknife.BindView;
 import rdc.avtivity.R;
 import rdc.base.BaseRecyclerViewAdapter;
+import rdc.bean.Activity;
 import rdc.bean.ItemActivity;
 
 /**
  * Created by Lin Yaotian on 2018/4/13.
  */
 
-public class ActivitiesRvAdapter extends BaseRecyclerViewAdapter<ItemActivity> {
+public class ActivitiesRvAdapter extends BaseRecyclerViewAdapter<Activity> {
 
     private Context mContext;
 
@@ -72,18 +73,12 @@ public class ActivitiesRvAdapter extends BaseRecyclerViewAdapter<ItemActivity> {
         }
 
         @Override
-        protected void bindView(ItemActivity itemActivity) {
-            if (itemActivity.getSawNum() == 120){
-                mIvCover.setImageResource(R.drawable.iv_test_cover);
-            }else {
-                mIvCover.setImageResource(R.drawable.iv_test_folwer);
-            }
-
-//            Glide.with(mContext).load(mContext.getResources().getDrawable(Integer.valueOf(itemActivity.getCoverImageUrl()))).into(mIvCover);
-            mTvTitle.setText(itemActivity.getTitle());
-            mTvLocation.setText(itemActivity.getLocation());
-            mTvTime.setText(itemActivity.getTime());
-            mTvSawNum.setText(String.valueOf(itemActivity.getSawNum()));
+        protected void bindView(Activity activity) {
+            Glide.with(mContext).load(activity.getImage().getFileUrl()).into(mIvCover);
+            mTvTitle.setText(activity.getTitle());
+            mTvLocation.setText(activity.getPlace());
+            mTvTime.setText(activity.getTime());
+            mTvSawNum.setText(String.valueOf(activity.getSawnum()));
         }
     }
 }

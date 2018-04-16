@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import butterknife.ButterKnife;
+import rdc.util.ActivityCollectorUtil;
 
 /**
  * Created by asus on 18-4-2.
@@ -20,6 +21,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ActivityCollectorUtil.addActivity(this);
         presenter = getInstance();
         if (presenter!=null){
             presenter.attachView(this);
@@ -37,6 +39,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
         if (presenter != null) {
             presenter.detachView();
         }
+        ActivityCollectorUtil.removeActivity(this);
     }
 
     public abstract T getInstance();

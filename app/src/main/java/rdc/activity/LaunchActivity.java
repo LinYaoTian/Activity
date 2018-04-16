@@ -7,10 +7,12 @@ import cn.bmob.v3.BmobUser;
 import rdc.avtivity.R;
 import rdc.base.BaseActivity;
 import rdc.bean.User;
+import rdc.contract.LaunchContract;
 import rdc.contract.SimpleContract;
+import rdc.presenter.LaunchPresenter;
 import rdc.presenter.SimplePresenter;
 
-public class LaunchActivity extends BaseActivity<SimplePresenter> implements SimpleContract.View {
+public class LaunchActivity extends BaseActivity<LaunchPresenter> implements LaunchContract.View {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,8 +20,8 @@ public class LaunchActivity extends BaseActivity<SimplePresenter> implements Sim
     }
 
     @Override
-    public SimplePresenter getInstance() {
-        return new SimplePresenter();
+    public LaunchPresenter getInstance() {
+        return new LaunchPresenter();
     }
 
     @Override
@@ -46,6 +48,7 @@ public class LaunchActivity extends BaseActivity<SimplePresenter> implements Sim
                     @Override
                     public void run() {
                         if (BmobUser.getCurrentUser(User.class) != null){
+                            presenter.updateUser();
                             startActivity(new Intent(LaunchActivity.this,MainActivity.class));
                         }else {
                             startActivity(new Intent(LaunchActivity.this,LoginActivity.class));

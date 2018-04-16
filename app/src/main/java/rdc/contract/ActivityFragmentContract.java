@@ -10,21 +10,21 @@ import rdc.bean.Activity;
 
 public interface ActivityFragmentContract {
     interface View{
-        void update(List<Activity> list);
+        void refresh(List<Activity> list);
         void append(List<Activity> list);
-        void updateError(String message);
+        void refreshError(String message);
         void getMoreError(String message);
     }
 
     interface Model{
-        void update(String tag);
-        void getMore(Activity lastActivity);
+        void refresh(String tag);
+        void getMore();
     }
 
     interface Presenter{
-        void update(List<Activity> list);
-        void append(List<Activity> list);
-        void updateError(String message);
+        void refresh(String tag);
+        void getMore();
+        void refreshError(String message);
         void getMoreError(String message);
     }
 }

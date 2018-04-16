@@ -5,10 +5,13 @@ import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +22,6 @@ import rdc.adapter.ActivitiesRvAdapter;
 import rdc.avtivity.R;
 import rdc.base.BaseLazyLoadFragment;
 import rdc.bean.Activity;
-import rdc.bean.ItemActivity;
 import rdc.contract.ActivityFragmentContract;
 import rdc.listener.OnClickRecyclerViewListener;
 import rdc.presenter.ActivityFragmentPresenter;
@@ -35,22 +37,29 @@ public class ActivityFragment extends BaseLazyLoadFragment<ActivityFragmentPrese
     @BindView(R.id.srl_refresh_fragment)
     SwipeRefreshLayout mSrlRefresh;
 
+    private ProgressBar mPbLoading;
+    private TextView mTvLoadError;
     private View mViewLoadMore;
     private ActivitiesRvAdapter mActivityListAdapter;
-    private List<ItemActivity> mActivityList;
+    private List<Activity> mActivityList;
     private int mDistance;
     private boolean mFabIsVisible;//Fab按钮是否可见
     private boolean isPrepare;//View 是否初始化好
     private boolean isLoaded;//懒加载时判断数据是否加载过
-    private String mTabName;
+    private String mTag;//所在标签页
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
         isPrepare = true;
-        lazyLoad();
         return view;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("tag", mTag);
     }
 
     @Override
@@ -70,25 +79,32 @@ public class ActivityFragment extends BaseLazyLoadFragment<ActivityFragmentPrese
         isPrepare = false;
         isLoaded = false;
         mActivityList = new ArrayList<>();
-        if (mTabName.equals("热门") ||mTabName.equals("讲座")){
-            return;
+
+//        for (int i = 0; i < 10; i++) {
+//            ItemActivity item = new ItemActivity();
+//            item.setLocation("广东省广州市白云区广州大道北1883");
+//            item.setTime("2017年4月30号 9:30至11:00");
+//            item.setTitle("【DIY】亲手制作一支大牌口红，自己唇色自己调！");
+//            item.setSawNum(256);
+//            item.setCoverImageUrl(R.drawable.iv_test_cover+"");
+//            mActivityList.add(item);
+//            ItemActivity item1 = new ItemActivity();
+//            item1.setLocation("广东省广州市先烈中路76号中侨大厦13A层H");
+//            item1.setTime("2018年5月30号 7:30至11:00");
+//            item1.setTitle("油纸伞彩绘DIY|最美的雨季,我们不见不'伞'");
+//            item1.setSawNum(120);
+//            item1.setCoverImageUrl(R.drawable.iv_test_folwer+"");
+//            mActivityList.add(item1);
+//        }
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle bundle) {
+        super.onActivityCreated(bundle);
+        if (bundle != null){
+            mTag = bundle.getString("tag");
         }
-        for (int i = 0; i < 10; i++) {
-            ItemActivity item = new ItemActivity();
-            item.setLocation("广东省广州市白云区广州大道北1883");
-            item.setTime("2017年4月30号 9:30至11:00");
-            item.setTitle("【DIY】亲手制作一支大牌口红，自己唇色自己调！");
-            item.setSawNum(256);
-            item.setCoverImageUrl(R.drawable.iv_test_cover+"");
-            mActivityList.add(item);
-            ItemActivity item1 = new ItemActivity();
-            item1.setLocation("广东省广州市先烈中路76号中侨大厦13A层H");
-            item1.setTime("2018年5月30号 7:30至11:00");
-            item1.setTitle("油纸伞彩绘DIY|最美的雨季,我们不见不'伞'");
-            item1.setSawNum(120);
-            item1.setCoverImageUrl(R.drawable.iv_test_folwer+"");
-            mActivityList.add(item1);
-        }
+        lazyLoad();
     }
 
     @Override
@@ -100,6 +116,8 @@ public class ActivityFragment extends BaseLazyLoadFragment<ActivityFragmentPrese
         mRvActivities.setAdapter(mActivityListAdapter);
         mViewLoadMore = LayoutInflater.from(mBaseActivity).inflate(R.layout.layout_loadmore, mRvActivities,false);
         mActivityListAdapter.setFooterView(mViewLoadMore);
+        mPbLoading = mViewLoadMore.findViewById(R.id.pb_loading_layout);
+        mTvLoadError = mViewLoadMore.findViewById(R.id.tv_load_error_layout);
         View noneView = LayoutInflater.from(mBaseActivity).inflate(R.layout.layout_none, mRvActivities,false);
         mActivityListAdapter.setNoneView(noneView);
 
@@ -117,7 +135,6 @@ public class ActivityFragment extends BaseLazyLoadFragment<ActivityFragmentPrese
         });
 
         mActivityListAdapter.setOnRecyclerViewListener(new OnClickRecyclerViewListener() {
-            int i = 0;
             @Override
             public void onItemClick(int position) {
 
@@ -130,15 +147,9 @@ public class ActivityFragment extends BaseLazyLoadFragment<ActivityFragmentPrese
 
             @Override
             public void onFooterViewClick() {
-                List<ItemActivity> list = new ArrayList<>();
-                ItemActivity item = new ItemActivity();
-                item.setLocation("广东省广州市白云区广州大道北1883");
-                item.setTime("2017年4月30号 9:30至11:00");
-                item.setTitle("【DIY】亲手制作一支大牌口红，自己唇色自己调！");
-                item.setSawNum(i++);
-                item.setCoverImageUrl(R.drawable.iv_test_cover+"");
-                list.add(item);
-                mActivityListAdapter.appendData(list);
+                mPbLoading.setVisibility(View.VISIBLE);
+                mTvLoadError.setVisibility(View.GONE);
+                presenter.getMore();
             }
         });
 
@@ -168,20 +179,13 @@ public class ActivityFragment extends BaseLazyLoadFragment<ActivityFragmentPrese
     }
 
     @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-    }
-
-    @Override
     protected void lazyLoad() {
         if (!isPrepare || !isVisible){
             return;
         }
         if (!isLoaded){
             mSrlRefresh.setRefreshing(true);
-            mActivityListAdapter.updateData(mActivityList);
-            isLoaded = true;
-            mSrlRefresh.setRefreshing(false);
+            presenter.refresh(mTag);
         }
     }
 
@@ -190,26 +194,31 @@ public class ActivityFragment extends BaseLazyLoadFragment<ActivityFragmentPrese
      * @param name
      */
     public void setTabName(String name){
-        this.mTabName = name;
+        this.mTag = name;
     }
 
     @Override
-    public void update(List<Activity> list) {
-
+    public void refresh(List<Activity> list) {
+        mActivityListAdapter.updateData(list);
+        isLoaded = true;
+        mSrlRefresh.setRefreshing(false);
     }
 
     @Override
     public void append(List<Activity> list) {
-
+        mActivityListAdapter.appendData(list);
     }
 
     @Override
-    public void updateError(String message) {
-
+    public void refreshError(String message) {
+        mSrlRefresh.setRefreshing(false);
+        showToast(message);
     }
 
     @Override
     public void getMoreError(String message) {
-
+        mPbLoading.setVisibility(View.GONE);
+        mTvLoadError.setVisibility(View.VISIBLE);
+        showToast(message);
     }
 }

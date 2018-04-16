@@ -12,6 +12,15 @@ public class User extends BmobUser {
     private String nickname;
     private BmobFile userImg;
     private String university;
+    private String introduction;
+
+    public String getIntroduction() {
+        return introduction;
+    }
+
+    public void setIntroduction(String introduction) {
+        this.introduction = introduction;
+    }
 
     public String getNickname() {
         return nickname;
