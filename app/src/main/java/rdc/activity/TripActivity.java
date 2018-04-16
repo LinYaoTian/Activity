@@ -1,6 +1,7 @@
 package rdc.activity;
 
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -34,6 +35,7 @@ import rdc.bean.ItemActivity;
 import rdc.bean.Trip;
 import rdc.contract.ITripContract;
 import rdc.presenter.TripPresenter;
+import rdc.util.LoadingDialogUtil;
 
 import static rdc.configs.TripItemType.sACTIVITY;
 import static rdc.configs.TripItemType.sDIVIDER;
@@ -53,6 +55,7 @@ public class TripActivity extends BaseActivity<TripPresenter> implements ITripCo
 
     private List<Trip> mTripList;
     private TripListRvAdapter mAdapter;
+    private Dialog mLoadingDialog;
 
     @Override
     protected int setLayoutResID() {
@@ -64,31 +67,7 @@ public class TripActivity extends BaseActivity<TripPresenter> implements ITripCo
         mTripList = new ArrayList<>();
         mAdapter = new TripListRvAdapter(mTripList);
         presenter.getMyTripActivity();
-//        for (int i = 0; i < 10; i++) {
-//            Trip item = new Trip();
-//            item.setLocation("广东省广州市白云区广州大道北1883");
-//            item.setTime("2017年4月30号 9:30至11:00");
-//            item.setTitle("【DIY】亲手制作一支大牌口红，自己唇色自己调！");
-//            item.setSawNum(256);
-//            item.setCoverImageUrl(R.drawable.iv_test_cover + "");
-//            item.setType(sACTIVITY);
-//            mTripList.add(item);
-//
-//        }
-//        Trip trip = new Trip();
-//        trip.setType(sDIVIDER);
-//        mTripList.add(trip);
-//        for (int i = 0; i < 10; i++) {
-//
-//            Trip item1 = new Trip();
-//            item1.setLocation("广东省广州市先烈中路76号中侨大厦13A层H");
-//            item1.setTime("2018年5月30号 7:30至11:00");
-//            item1.setTitle("油纸伞彩绘DIY|最美的雨季,我们不见不'伞'");
-//            item1.setSawNum(120);
-//            item1.setCoverImageUrl(R.drawable.iv_test_folwer + "");
-//            mTripList.add(item1);
-//            item1.setType(sACTIVITY);
-//        }
+
 
 
     }
@@ -99,6 +78,7 @@ public class TripActivity extends BaseActivity<TripPresenter> implements ITripCo
         LinearLayoutManager manager = new LinearLayoutManager(TripActivity.this, LinearLayoutManager.VERTICAL, false);
         mActivityRecyclerView.setLayoutManager(manager);
         mActivityRecyclerView.setAdapter(mAdapter);
+        mLoadingDialog = LoadingDialogUtil.createLoadingDialog(TripActivity.this,"正在加载数据...");
     }
 
     @Override
@@ -161,6 +141,7 @@ public class TripActivity extends BaseActivity<TripPresenter> implements ITripCo
             mTripList.add(trip);
         }
         mAdapter.notifyDataSetChanged();
+        LoadingDialogUtil.closeDialog(mLoadingDialog);
 
     }
     @Override

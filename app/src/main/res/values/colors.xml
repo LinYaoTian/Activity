@@ -31,9 +31,8 @@
     <drawable name="drawableItemPressed">#d8d8d8</drawable>
     <drawable name="drawableItemBackground">#ffffff</drawable>
 
-
     <!--编辑后的button 的显示-->
-    <drawable name="drawableCommit">#4ba0f7</drawable>
-    <drawable name="drawableUnCommit">#0d4783</drawable>
+    <drawable name="drawableCommit">#0d4783</drawable>
+    <drawable name="drawableUnCommit">#4ba0f7</drawable>
 
 </resources>

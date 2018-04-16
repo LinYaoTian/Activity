@@ -14,7 +14,6 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.Display;
@@ -32,19 +31,14 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
-import java.util.ArrayList;
-
 import butterknife.BindView;
-import cn.bmob.v3.BmobUser;
 import rdc.avtivity.R;
 import rdc.base.BaseActivity;
-import rdc.base.BasePresenter;
 import rdc.bean.User;
 import rdc.contract.IIndividualContract;
-import rdc.model.IndividualModel;
 import rdc.presenter.IndividualPresenter;
+import rdc.util.LoadingDialogUtil;
 
-import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 import static rdc.configs.PhotoChooseType.sCHOOSEALBUM;
 import static rdc.configs.PhotoChooseType.sTAKEPHOTO;
 import static rdc.configs.PictureType.sIMAGE;
@@ -72,16 +66,20 @@ public class IndividualActivity extends BaseActivity<IndividualPresenter> implem
     @BindView(R.id.imv_photo)
     ImageView mPhotoView;
     @BindView(R.id.tv_university)
-    TextView mUnversityTextView;
+    TextView mUniversityTextView;
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
+    @BindView(R.id.btn_commit)
+    Button mCommitButton;
 
-    private Dialog mDialog;
+    private Dialog mLoadingDialog;
     private String mCommonPath;
     private String mImagePath;
     private String mPhotoPath;
     private Bundle mSave;
+   private Dialog mDialog ;
 
+    private Dialog mUpLoadingDialog;
     private int mType = 0;
 
     @Override
@@ -91,6 +89,8 @@ public class IndividualActivity extends BaseActivity<IndividualPresenter> implem
             mSave = savedInstanceState;
 
         }
+
+
     }
 
     @Override
@@ -110,6 +110,7 @@ public class IndividualActivity extends BaseActivity<IndividualPresenter> implem
     @Override
     protected void initView() {
         initToolBar();
+        mLoadingDialog = LoadingDialogUtil.createLoadingDialog(IndividualActivity.this,"正在加载数据...");
     }
 
     @Override
@@ -144,7 +145,14 @@ public class IndividualActivity extends BaseActivity<IndividualPresenter> implem
         mUnversityLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showEditDialog("学校", mUnversityTextView.getText().toString());
+                showEditDialog("学校", mUniversityTextView.getText().toString());
+            }
+        });
+        mCommitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mUpLoadingDialog = LoadingDialogUtil.createLoadingDialog(IndividualActivity.this,"正在上传...");
+                presenter.updateUser();
             }
         });
     }
@@ -182,8 +190,9 @@ public class IndividualActivity extends BaseActivity<IndividualPresenter> implem
     }
 
     public void showEditDialog(final String title, final String input) {
-        View view = getLayoutInflater().inflate(R.layout.dialo_edit, null);
+        View view = getLayoutInflater().inflate(R.layout.dialog_edit, null);
         final EditText editText = view.findViewById(R.id.et_input);
+        editText.setClickable(false);
         editText.setText(input);
         AlertDialog dialog = new AlertDialog.Builder(this)
                 .setTitle(title)//设置对话框的标题
@@ -208,7 +217,7 @@ public class IndividualActivity extends BaseActivity<IndividualPresenter> implem
                                     mIntroductionTextView.setText(input);
                                     break;
                                 case "学校":
-                                    mUnversityTextView.setText(input);
+                                    mUniversityTextView.setText(input);
                                     break;
                                 default:
                                     break;
@@ -283,9 +292,11 @@ public class IndividualActivity extends BaseActivity<IndividualPresenter> implem
 
     @Override
     public void setUserInfo(User userInfo) {
+        Glide.with(this).load(userInfo.getUserPhoto().getUrl()).into(mPhotoView);
         Glide.with(this).load(userInfo.getUserImg().getUrl()).into(mImageView);
         mNameTextView.setText(userInfo.getNickname());
         mIntroductionTextView.setText(userInfo.getIntroduction());
+        LoadingDialogUtil.closeDialog(mLoadingDialog);
     }
 
     @Override
@@ -362,7 +373,13 @@ public class IndividualActivity extends BaseActivity<IndividualPresenter> implem
 
     @Override
     public String getUniversity() {
-        return mUnversityTextView.getText().toString();
+        return mUniversityTextView.getText().toString();
+    }
+
+    @Override
+    public void back() {
+        LoadingDialogUtil.closeDialog(mUpLoadingDialog);
+        finish();
     }
 
     @Override

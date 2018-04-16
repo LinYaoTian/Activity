@@ -38,30 +38,144 @@ public class IndividualModel implements IIndividualContract.Model {
     private static final String TAG = "IndividualModel";
 
     @Override
-    public void updateUser(String imageUrl, String Photo, String name, String introduction, String university, IIndividualContract.Presenter presenter) {
+    public void updateUserWithAllFile(String imageUrl, String Photo, final String name, final String introduction, final String university, final IIndividualContract.Presenter presenter) {
         final User user = BmobUser.getCurrentUser(User.class);
         final User newUser = new User();
-        final BmobFile bmobFile = new BmobFile(new File(imageUrl));
-        bmobFile.upload(new UploadFileListener() {
+        final BmobFile imageBmobFile = new BmobFile(new File(imageUrl));
+        final BmobFile photoBmobFile = new BmobFile(new File(Photo));
+        imageBmobFile.upload(new UploadFileListener() {
             @Override
             public void done(BmobException e) {
-                newUser.setUserImg(bmobFile);
-                newUser.update(user.getObjectId(), new UpdateListener() {
-                    @Override
-                    public void done(BmobException e) {
-                        Log.e(TAG, "done: ");
-                    }
-                });
+                Log.e(TAG, "done: 1");
+                if (e == null) {
+
+                    photoBmobFile.upload(new UploadFileListener() {
+                        @Override
+                        public void done(BmobException e) {
+                            newUser.setUserImg(imageBmobFile);
+                            newUser.setUserPhoto(photoBmobFile);
+                            newUser.setNickname(name);
+                            newUser.setIntroduction(introduction);
+                            newUser.setUniversity(university);
+                            newUser.update(user.getObjectId(), new UpdateListener() {
+                                @Override
+                                public void done(BmobException e) {
+                                    Log.e(TAG, "done: 2");
+
+                                    if (e == null) {
+                                        user.setUserPhoto(photoBmobFile);
+                                        user.setUserImg(imageBmobFile);
+                                        user.setUniversity(university);
+                                        user.setNickname(name);
+                                        user.setIntroduction(introduction);
+                                        presenter.back();
+
+                                    }
+                                }
+                            });
+                        }
+                    });
+                }
             }
 
         });
     }
 
+    @Override
+    public void updateUserWithPhoto(String Photo, final String name, final String introduction, final String university, final IIndividualContract.Presenter presenter) {
+        final User user = BmobUser.getCurrentUser(User.class);
+        final User newUser = new User();
+        final BmobFile photoBmobFile = new BmobFile(new File(Photo));
+        photoBmobFile.upload(new UploadFileListener() {
+            @Override
+            public void done(BmobException e) {
+                newUser.setUserPhoto(photoBmobFile);
+                newUser.setNickname(name);
+                newUser.setIntroduction(introduction);
+                newUser.setUniversity(university);
+                newUser.update(user.getObjectId(), new UpdateListener() {
+                    @Override
+                    public void done(BmobException e) {
+                        Log.e(TAG, "done: 2");
+
+                        if (e == null) {
+                            user.setUserPhoto(photoBmobFile);
+                            user.setUniversity(university);
+                            user.setNickname(name);
+                            user.setIntroduction(introduction);
+                            presenter.back();
+
+                        }
+                    }
+                });
+            }
+        });
 
 
+    }
+
+    @Override
+    public void updateUserWithImage(String imageUrl, final String name, final String introduction, final String university, final IIndividualContract.Presenter presenter) {
+        final User user = BmobUser.getCurrentUser(User.class);
+        final User newUser = new User();
+        final BmobFile imageBmobFile = new BmobFile(new File(imageUrl));
+        imageBmobFile.upload(new UploadFileListener() {
+            @Override
+            public void done(BmobException e) {
+                Log.e(TAG, "done: 1");
+                if (e == null) {
+
+                    newUser.setUserImg(imageBmobFile);
+                    newUser.setNickname(name);
+                    newUser.setIntroduction(introduction);
+                    newUser.setUniversity(university);
+                    newUser.update(user.getObjectId(), new UpdateListener() {
+                        @Override
+                        public void done(BmobException e) {
+                            Log.e(TAG, "done: 2");
+
+                            if (e == null) {
+                                user.setUserImg(imageBmobFile);
+                                user.setUniversity(university);
+                                user.setNickname(name);
+                                user.setIntroduction(introduction);
+                                presenter.back();
+
+                            }
+                        }
+                    });
+                }
+            }
+        });
+
+    }
+
+    @Override
+    public void updateUserWithNoneFile(String imageUrl, final String name, final String introduction, final String university, final IIndividualContract.Presenter presenter) {
+        final User user = BmobUser.getCurrentUser(User.class);
+        final User newUser = new User();
 
 
+        newUser.setNickname(name);
+        newUser.setIntroduction(introduction);
+        newUser.setUniversity(university);
+        newUser.update(user.getObjectId(), new UpdateListener() {
+            @Override
+            public void done(BmobException e) {
+                Log.e(TAG, "done: 2");
 
+                if (e == null) {
+                    user.setUniversity(university);
+                    user.setNickname(name);
+                    user.setIntroduction(introduction);
+                    presenter.back();
+
+                }
+            }
+        });
+
+
+    }
 
     @Override
     public void getUserInfo(final IIndividualContract.Presenter presenter) {
@@ -71,9 +185,9 @@ public class IndividualModel implements IIndividualContract.Model {
 
             @Override
             public void done(User object, BmobException e) {
-                if(e==null){
+                if (e == null) {
                     presenter.setUserInfo(object);
-                }else{
+                } else {
                 }
             }
 
@@ -104,23 +218,23 @@ public class IndividualModel implements IIndividualContract.Model {
     }
 
     @TargetApi(19)
-    public String handleImageOnKitKat(Intent data){
+    public String handleImageOnKitKat(Intent data) {
         Uri uri = data.getData();
-        if (DocumentsContract.isDocumentUri(App.getmContext(),uri)){
+        if (DocumentsContract.isDocumentUri(App.getmContext(), uri)) {
             String docId = DocumentsContract.getDocumentId(uri);
-            if ("com.android.providers.media.documents".equals(uri.getAuthority())){
+            if ("com.android.providers.media.documents".equals(uri.getAuthority())) {
                 String id = docId.split(":")[1];
                 String selection = MediaStore.Images.Media._ID + "=" + id;
-                mImageFilePath = getmImageFilePath(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,selection);
+                mImageFilePath = getmImageFilePath(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, selection);
 
-            }else if ("com.android.providers.downloads.documents".equals(uri.getAuthority())){
-                Uri contentUri = ContentUris.withAppendedId(Uri.parse("content://downloads/public_downloads"),Long.valueOf(docId));
-                mImageFilePath = getmImageFilePath(contentUri,null);
+            } else if ("com.android.providers.downloads.documents".equals(uri.getAuthority())) {
+                Uri contentUri = ContentUris.withAppendedId(Uri.parse("content://downloads/public_downloads"), Long.valueOf(docId));
+                mImageFilePath = getmImageFilePath(contentUri, null);
             }
 
-        }else if ("content".equalsIgnoreCase(uri.getScheme())){
-            mImageFilePath = getmImageFilePath(uri,null);
-        }else if ("file".equalsIgnoreCase(uri.getScheme())){
+        } else if ("content".equalsIgnoreCase(uri.getScheme())) {
+            mImageFilePath = getmImageFilePath(uri, null);
+        } else if ("file".equalsIgnoreCase(uri.getScheme())) {
             mImageFilePath = uri.getPath();
         }
 
@@ -129,20 +243,19 @@ public class IndividualModel implements IIndividualContract.Model {
 
     }
 
-    public String getmImageFilePath(Uri uri,String selection){
+    public String getmImageFilePath(Uri uri, String selection) {
         String path = null;
-        Cursor cursor = App.getsContentResolver().query(uri,null,selection,null,null);
-        if(cursor != null){
-            if (cursor.moveToNext()){
+        Cursor cursor = App.getsContentResolver().query(uri, null, selection, null, null);
+        if (cursor != null) {
+            if (cursor.moveToNext()) {
                 path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
-            }cursor.close();
+            }
+            cursor.close();
         }
 
         return path;
 
     }
-
-
 
 
 }

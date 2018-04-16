@@ -11,6 +11,8 @@
         android:layout_height="@dimen/dimenItemContentHeight">
 
         <ImageView
+            android:scaleType="fitXY"
+
             android:id="@+id/imv_image"
             android:layout_width="@dimen/dimenImageSize"
             android:layout_height="@dimen/dimenImageSize"

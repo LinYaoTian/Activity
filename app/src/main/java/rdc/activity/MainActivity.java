@@ -21,6 +21,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -151,7 +152,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         mDrawerToggle.syncState();
         mDrawerLayout.addDrawerListener(mDrawerToggle);
 
-        initUserView();
+
     }
 
     @Override
@@ -167,8 +168,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                     case R.id.nav_organization:
                         ConcernedActivity.actionStart(MainActivity.this);
                         break;
-                    case R.id.nav_individual:
-                        IndividualActivity.actionStart(MainActivity.this);
+                    case R.id.nav_center:
+                        UserCenterActivity.actionStart(MainActivity.this);
                         break;
                     case R.id.nav_activity:
                         ManageActivity.actionStart(MainActivity.this);
@@ -214,10 +215,18 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         View view = mNavigationView.getHeaderView(0);
         TextView  name = view.findViewById(R.id.tv_name);
         TextView introduction = view.findViewById(R.id.tv_introduction);
-        ImageView image = view.findViewById(R.id.imv_photo);
+        ImageView image = view.findViewById(R.id.imv_image);
+        ImageView photo = view.findViewById(R.id.imv_photo);
         User user = BmobUser.getCurrentUser(User.class);
         name.setText(user.getNickname());
         introduction.setText(user.getIntroduction());
         Glide.with(this).load(user.getUserImg().getUrl()).into(image);
+        Glide.with(this).load(user.getUserPhoto().getUrl()).into(photo);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initUserView();
     }
 }

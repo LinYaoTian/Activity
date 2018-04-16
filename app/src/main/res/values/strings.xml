@@ -42,4 +42,5 @@
     <string name="editInfo">编辑资料</string>
     <string name="name">名称</string>
     <string name="backgroundPhoto">背景照片</string>
+    <string name="commit">提交</string>
 </resources>

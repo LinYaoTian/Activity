@@ -22,13 +22,18 @@ public interface IIndividualContract {
         String getName();
         String getIntroduction();
         String getUniversity();
+        void back();
+
 
     }
 
 
     interface Model{
         void getUserInfo(Presenter presenter);
-        void updateUser(String imageUrl,String Photo,String name,String introduction,String university,Presenter presenter);
+        void updateUserWithAllFile(String imageUrl,String Photo,String name,String introduction,String university,Presenter presenter);
+        void updateUserWithPhoto(String Photo,String name,String introduction,String university,Presenter presenter);
+        void updateUserWithImage(String imageUrl,String name,String introduction,String university,Presenter presenter);
+        void updateUserWithNoneFile(String imageUrl,String name,String introduction,String university,Presenter presenter);
 
     }
 
@@ -42,6 +47,7 @@ public interface IIndividualContract {
 
         void  setUserInfo(User userInfo);
         void getUserInfo();
+        void back();
 
 
     }

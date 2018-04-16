@@ -26,7 +26,7 @@
         <activity android:name="rdc.activity.MainActivity" />
         <activity
             android:name="rdc.activity.LoginActivity"
-            android:windowSoftInputMode="adjustPan"></activity>
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name="rdc.activity.TripActivity" />
         <activity android:name="rdc.activity.ConcernedActivity" />
         <activity android:name="rdc.activity.IndividualActivity" />
@@ -54,6 +54,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="rdc.activity.UserCenterActivity"></activity>
     </application>
 
 </manifest>

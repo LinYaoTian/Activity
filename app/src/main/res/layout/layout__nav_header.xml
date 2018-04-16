@@ -1,36 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-    android:background="@drawable/iv_header"
+    android:id="@+id/rl_background"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="@dimen/dimenHeaderHeight">
+
+    <ImageView
+        android:scaleType="center"
+        android:id="@+id/imv_photo"
+        android:background="@drawable/iv_header"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
     <de.hdodenhof.circleimageview.CircleImageView
         android:layout_width="@dimen/dimenCircleImageView"
         android:layout_height="@dimen/dimenCircleImageView"
         android:layout_centerVertical="true"
         android:layout_marginStart="@dimen/dimenMarginStart"
-        android:id="@+id/imv_photo"
+        android:id="@+id/imv_image"
         />
     <TextView
         android:text="安卓组"
         android:id="@+id/tv_name"
         android:layout_centerVertical="true"
         android:layout_marginLeft="@dimen/dimenMarginLeft"
-        android:layout_toRightOf="@+id/imv_photo"
+        android:layout_toRightOf="@+id/imv_image"
         android:textSize="@dimen/dimenTextSize"
         android:textColor="@color/colorTextColor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
     <TextView
-        android:layout_below="@+id/imv_photo"
+        android:layout_below="@+id/imv_image"
         android:text="安卓组"
-        android:layout_alignLeft="@+id/imv_photo"
+        android:layout_alignLeft="@+id/imv_image"
         android:id="@+id/tv_introduction"
         android:layout_marginLeft="@dimen/dimenMarginLeft"
         android:textSize="@dimen/dimenNavTextSize"
         android:textColor="@color/colorTextColor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+
+
 
 </RelativeLayout>

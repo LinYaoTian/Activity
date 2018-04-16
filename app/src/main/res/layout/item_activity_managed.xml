@@ -9,8 +9,9 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimenItemHeightContent"
         android:orientation="horizontal">
-
         <ImageView
+            android:scaleType="fitXY"
+
             android:id="@+id/imv_image"
             android:layout_width="@dimen/dimenWidth"
             android:layout_height="@dimen/dimenImageHeight"

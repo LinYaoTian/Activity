@@ -23,6 +23,16 @@ tools:context="rdc.activity.IndividualActivity">
         android:text="@string/editInfo"
         android:textColor="@color/white"
         android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/btn_commit"
+        android:background="@drawable/button_commit_selector"
+        android:layout_gravity="end"
+        android:layout_marginRight="20dp"
+        android:layout_width="40dp"
+        android:layout_height="30dp"
+        android:text="@string/commit"/>
+
 </android.support.v7.widget.Toolbar>
 
 <View
@@ -47,6 +57,7 @@ tools:context="rdc.activity.IndividualActivity">
         android:textSize="18sp" />
 
     <ImageView
+        android:scaleType="fitXY"
         android:layout_marginStart="120dp"
         android:layout_centerVertical="true"
         android:id="@+id/imv_photo"

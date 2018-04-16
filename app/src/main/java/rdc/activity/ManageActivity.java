@@ -1,6 +1,7 @@
 package rdc.activity;
 
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.ActionBar;
@@ -20,6 +21,7 @@ import rdc.base.BasePresenter;
 import rdc.bean.ManagedActivity;
 import rdc.contract.IManagedContract;
 import rdc.presenter.ManagedPresenter;
+import rdc.util.LoadingDialogUtil;
 
 public class ManageActivity extends BaseActivity<ManagedPresenter> implements IManagedContract.View {
     @BindView(R.id.rv_managed_activity)
@@ -28,7 +30,7 @@ public class ManageActivity extends BaseActivity<ManagedPresenter> implements IM
     Toolbar mToolbar;
     private List<ManagedActivity> mManagedActivityList;
     private ManagedAdapter mAdapter;
-
+    private Dialog mLoadingDialog;
 
     @Override
     protected int setLayoutResID() {
@@ -48,6 +50,7 @@ public class ManageActivity extends BaseActivity<ManagedPresenter> implements IM
         LinearLayoutManager manager = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
         mActivityRecyclerView.setLayoutManager(manager);
         mActivityRecyclerView.setAdapter(mAdapter);
+        mLoadingDialog = LoadingDialogUtil.createLoadingDialog(ManageActivity.this,"正在加载数据...");
 
     }
 
@@ -82,6 +85,7 @@ public class ManageActivity extends BaseActivity<ManagedPresenter> implements IM
         mManagedActivityList.clear();
         mManagedActivityList.addAll(list);
         mAdapter.notifyDataSetChanged();
+        LoadingDialogUtil.closeDialog(mLoadingDialog);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package rdc.activity;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.ActionBar;
@@ -23,6 +24,7 @@ import rdc.bean.Organization;
 import rdc.bean.User;
 import rdc.contract.IOrganizationContract;
 import rdc.presenter.OrganizationPresenter;
+import rdc.util.LoadingDialogUtil;
 
 public class ConcernedActivity extends BaseActivity<OrganizationPresenter> implements IOrganizationContract.View {
 
@@ -32,6 +34,7 @@ public class ConcernedActivity extends BaseActivity<OrganizationPresenter> imple
     Toolbar mToolbar;
     private List<Organization> mOrganizationList;
     private OrganizationListAdapter mAdapter;
+    private Dialog mDialog;
 
     @Override
     protected int setLayoutResID() {
@@ -44,14 +47,7 @@ public class ConcernedActivity extends BaseActivity<OrganizationPresenter> imple
         mAdapter = new OrganizationListAdapter(mOrganizationList,this);
         mConcernedRecyclerView.setAdapter(mAdapter);
         presenter.getConcernedOrganization();
-//        for (int i = 0; i < 10; i++) {
-//            Organization organization = new Organization();
-//            organization.setName("计算机研发中心");
-//            organization.setTime("今天下午");
-//            organization.setMessage("颜色的飞机啊电视机分厘卡是快递放假");
-//            Log.e("TAG", "initData: " );
-//            mOrganizationList.add(organization);
-//        }
+
     }
 
     @Override
@@ -59,7 +55,7 @@ public class ConcernedActivity extends BaseActivity<OrganizationPresenter> imple
         initToolBar();
         LinearLayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         mConcernedRecyclerView.setLayoutManager(manager);
-
+        mDialog = LoadingDialogUtil.createLoadingDialog(ConcernedActivity.this,"正在加载数据...");
 
     }
 
@@ -78,6 +74,7 @@ public class ConcernedActivity extends BaseActivity<OrganizationPresenter> imple
         mOrganizationList.clear();
         mOrganizationList.addAll(list);
         mAdapter.notifyDataSetChanged();
+        LoadingDialogUtil.closeDialog(mDialog);
     }
 
     @Override

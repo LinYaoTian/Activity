@@ -12,6 +12,7 @@ public class User extends BmobUser {
 
     private String nickname;
     private BmobFile userImg;
+    private BmobFile userPhoto;
     private String university;
     private String introduction;
     private BmobRelation conncerned;
@@ -75,5 +76,13 @@ public class User extends BmobUser {
 
     public void setConncerned(BmobRelation conncerned) {
         this.conncerned = conncerned;
+    }
+
+    public BmobFile getUserPhoto() {
+        return userPhoto;
+    }
+
+    public void setUserPhoto(BmobFile userPhoto) {
+        this.userPhoto = userPhoto;
     }
 }
