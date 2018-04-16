@@ -26,7 +26,7 @@
         <activity android:name="rdc.activity.MainActivity" />
         <activity
             android:name="rdc.activity.LoginActivity"
-            android:windowSoftInputMode="adjustPan"></activity>
+            android:windowSoftInputMode="adjustPan"/>
         <activity android:name="rdc.activity.TripActivity" />
         <activity android:name="rdc.activity.ConcernedActivity" />
         <activity android:name="rdc.activity.IndividualActivity" />
@@ -47,7 +47,7 @@
 
         <activity
             android:name="rdc.activity.LaunchActivity"
-            android:theme="@style/AppTheme.launch">
+            android:theme="@style/AppTheme.launchTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
