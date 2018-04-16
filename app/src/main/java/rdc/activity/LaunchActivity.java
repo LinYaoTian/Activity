@@ -50,6 +50,7 @@ public class LaunchActivity extends BaseActivity<LaunchPresenter> implements Lau
                         if (BmobUser.getCurrentUser(User.class) != null){
                             presenter.updateUser();
                         }else {
+                            finish();
                             startActivity(new Intent(LaunchActivity.this,LoginActivity.class));
                         }
                     }
