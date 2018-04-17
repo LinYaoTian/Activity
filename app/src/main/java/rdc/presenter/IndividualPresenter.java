@@ -10,6 +10,7 @@ import com.zxy.tiny.callback.FileCallback;
 
 import java.io.File;
 
+import rdc.activity.IndividualActivity;
 import rdc.base.BasePresenter;
 import rdc.bean.User;
 import rdc.contract.IIndividualContract;
@@ -22,7 +23,7 @@ import rdc.util.CompressImageUtil;
 
 public class IndividualPresenter extends BasePresenter<IIndividualContract.View> implements IIndividualContract.Presenter {
     private IndividualModel mModel;
-    private boolean isNext;
+
     private String imagefile;
     private static final String TAG = "IndividualPresenter";
 
@@ -54,17 +55,19 @@ public class IndividualPresenter extends BasePresenter<IIndividualContract.View>
 
     @Override
     public void updateUser() {
-        Log.e(TAG, "updateUser: ");
-        if (!TextUtils.isEmpty(getMvpView().getImageFilePath())) {
-            CompressImageUtil.compressImage(getMvpView().getImageFilePath(), new FileCallback() {
+        final String imageFilePath = getMvpView().getImageFilePath();
+        final String photoFilePath = getMvpView().getPhotoFilePath();
+
+        if (!TextUtils.isEmpty(imageFilePath) && !TextUtils.isEmpty(photoFilePath)) {
+            CompressImageUtil.compressImage(imageFilePath, new FileCallback() {
                 @Override
                 public void callback(boolean isSuccess, String outfile, Throwable t) {
                     imagefile = outfile;
-                    if (!TextUtils.isEmpty(getMvpView().getPhotoFilePath()) && isSuccess) {
-                        CompressImageUtil.compressImage(getMvpView().getPhotoFilePath(), new FileCallback() {
+                    if (isSuccess) {
+                        CompressImageUtil.compressImage(photoFilePath, new FileCallback() {
                             @Override
                             public void callback(boolean isSuccess, String outfile, Throwable t) {
-                                if (isNext && isSuccess) {
+                                if (isSuccess) {
                                     mModel.updateUserWithAllFile(imagefile, outfile, getMvpView().getName(), getMvpView().getIntroduction(), getMvpView().getUniversity(), IndividualPresenter.this);
                                 }
                             }
@@ -76,6 +79,27 @@ public class IndividualPresenter extends BasePresenter<IIndividualContract.View>
 
                 }
             });
+        } else if (!TextUtils.isEmpty(imageFilePath) && TextUtils.isEmpty(photoFilePath)) {
+            CompressImageUtil.compressImage(imageFilePath, new FileCallback() {
+                @Override
+                public void callback(boolean isSuccess, String outfile, Throwable t) {
+                    if (isSuccess) {
+                        mModel.updateUserWithImage(outfile, getMvpView().getName(), getMvpView().getIntroduction(), getMvpView().getUniversity(), IndividualPresenter.this);
+                    }
+                }
+            });
+        } else if (TextUtils.isEmpty(imageFilePath) && !TextUtils.isEmpty(photoFilePath)) {
+            CompressImageUtil.compressImage(photoFilePath, new FileCallback() {
+                @Override
+                public void callback(boolean isSuccess, String outfile, Throwable t) {
+                    if (isSuccess) {
+                        mModel.updateUserWithPhoto(outfile, getMvpView().getName(), getMvpView().getIntroduction(), getMvpView().getUniversity(), IndividualPresenter.this);
+
+                    }
+                }
+            });
+        } else {
+            mModel.updateUserWithNoneFile(getMvpView().getName(), getMvpView().getIntroduction(), getMvpView().getUniversity(), IndividualPresenter.this);
         }
 
 

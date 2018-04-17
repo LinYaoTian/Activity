@@ -29,7 +29,6 @@ public class OrganizationModel implements IOrganizationContract.Model {
             @Override
             public void done(List<User> list, BmobException e) {
                if (e==null){
-                   Log.e(TAG, "done: " +list.size());
                    presenter.setOrganization(list);
                }else {
 

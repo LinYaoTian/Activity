@@ -31,7 +31,7 @@ public class OrganizationPresenter extends BasePresenter<IOrganizationContract.V
             organization.setName(user.getNickname());
             organization.setImage(user.getUserImg());
             organization.setMessage(user.getIntroduction());
-            organization.setTime(user.getUpdatedAt());
+            organization.setTime(user.getNewSendTime());
             organization.setType(sORGANIZATION);
             organizations.add(organization);
 

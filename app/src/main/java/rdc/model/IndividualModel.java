@@ -35,18 +35,17 @@ public class IndividualModel implements IIndividualContract.Model {
 
     private Uri mImageUrl;
     private String mImageFilePath;
-    private static final String TAG = "IndividualModel";
 
     @Override
     public void updateUserWithAllFile(String imageUrl, String Photo, final String name, final String introduction, final String university, final IIndividualContract.Presenter presenter) {
         final User user = BmobUser.getCurrentUser(User.class);
+
         final User newUser = new User();
         final BmobFile imageBmobFile = new BmobFile(new File(imageUrl));
         final BmobFile photoBmobFile = new BmobFile(new File(Photo));
         imageBmobFile.upload(new UploadFileListener() {
             @Override
             public void done(BmobException e) {
-                Log.e(TAG, "done: 1");
                 if (e == null) {
 
                     photoBmobFile.upload(new UploadFileListener() {
@@ -60,7 +59,6 @@ public class IndividualModel implements IIndividualContract.Model {
                             newUser.update(user.getObjectId(), new UpdateListener() {
                                 @Override
                                 public void done(BmobException e) {
-                                    Log.e(TAG, "done: 2");
 
                                     if (e == null) {
                                         user.setUserPhoto(photoBmobFile);
@@ -96,7 +94,6 @@ public class IndividualModel implements IIndividualContract.Model {
                 newUser.update(user.getObjectId(), new UpdateListener() {
                     @Override
                     public void done(BmobException e) {
-                        Log.e(TAG, "done: 2");
 
                         if (e == null) {
                             user.setUserPhoto(photoBmobFile);
@@ -122,7 +119,6 @@ public class IndividualModel implements IIndividualContract.Model {
         imageBmobFile.upload(new UploadFileListener() {
             @Override
             public void done(BmobException e) {
-                Log.e(TAG, "done: 1");
                 if (e == null) {
 
                     newUser.setUserImg(imageBmobFile);
@@ -132,7 +128,6 @@ public class IndividualModel implements IIndividualContract.Model {
                     newUser.update(user.getObjectId(), new UpdateListener() {
                         @Override
                         public void done(BmobException e) {
-                            Log.e(TAG, "done: 2");
 
                             if (e == null) {
                                 user.setUserImg(imageBmobFile);
@@ -151,10 +146,9 @@ public class IndividualModel implements IIndividualContract.Model {
     }
 
     @Override
-    public void updateUserWithNoneFile(String imageUrl, final String name, final String introduction, final String university, final IIndividualContract.Presenter presenter) {
+    public void updateUserWithNoneFile(final String name, final String introduction, final String university, final IIndividualContract.Presenter presenter) {
         final User user = BmobUser.getCurrentUser(User.class);
         final User newUser = new User();
-
 
         newUser.setNickname(name);
         newUser.setIntroduction(introduction);
@@ -162,7 +156,6 @@ public class IndividualModel implements IIndividualContract.Model {
         newUser.update(user.getObjectId(), new UpdateListener() {
             @Override
             public void done(BmobException e) {
-                Log.e(TAG, "done: 2");
 
                 if (e == null) {
                     user.setUniversity(university);

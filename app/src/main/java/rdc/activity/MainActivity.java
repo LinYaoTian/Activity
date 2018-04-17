@@ -45,7 +45,7 @@ import rdc.presenter.MainPresenter;
 import rdc.util.DisplayUtil;
 
 
-public class MainActivity extends BaseActivity<MainPresenter> implements MainContract.View{
+public class MainActivity extends BaseActivity<MainPresenter> implements MainContract.View {
 
     @BindView(R.id.toolbar_act_main)
     Toolbar mToolbar;
@@ -59,7 +59,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     DrawerLayout mDrawerLayout;
     @BindView(R.id.nav_view)
     NavigationView mNavigationView;
-
 
 
     private static final String TAG = "MainActivity";
@@ -82,7 +81,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     private void initToolbar() {
         setSupportActionBar(mToolbar);
         ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null){
+        if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setDisplayShowTitleEnabled(false);
         }
@@ -91,13 +90,13 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main,menu);
+        getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.more_menu_act_main:
                 showToast("更多");
                 break;
@@ -196,13 +195,13 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     }
 
     /**
-     *  使用动画隐藏FAB按钮
+     * 使用动画隐藏FAB按钮
      */
     public void hideFabAnimation() {
         PropertyValuesHolder pvhX = PropertyValuesHolder.ofFloat("alpha", 0f);
         PropertyValuesHolder pvhY = PropertyValuesHolder.ofFloat("scaleX", 0f);
         PropertyValuesHolder pvhZ = PropertyValuesHolder.ofFloat("scaleY", 0f);
-        ObjectAnimator.ofPropertyValuesHolder(mFabSend, pvhX, pvhY,pvhZ).setDuration(400).start();
+        ObjectAnimator.ofPropertyValuesHolder(mFabSend, pvhX, pvhY, pvhZ).setDuration(400).start();
     }
 
     /**
@@ -212,21 +211,32 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         PropertyValuesHolder pvhX = PropertyValuesHolder.ofFloat("alpha", 1f);
         PropertyValuesHolder pvhY = PropertyValuesHolder.ofFloat("scaleX", 1f);
         PropertyValuesHolder pvhZ = PropertyValuesHolder.ofFloat("scaleY", 1f);
-        ObjectAnimator.ofPropertyValuesHolder(mFabSend, pvhX, pvhY,pvhZ).setDuration(400).start();
+        ObjectAnimator.ofPropertyValuesHolder(mFabSend, pvhX, pvhY, pvhZ).setDuration(400).start();
     }
 
 
-    public void initUserView(){
+    public void initUserView() {
         View view = mNavigationView.getHeaderView(0);
-        TextView  name = view.findViewById(R.id.tv_name);
+        TextView name = view.findViewById(R.id.tv_name);
         TextView introduction = view.findViewById(R.id.tv_introduction);
         ImageView image = view.findViewById(R.id.imv_image);
         ImageView photo = view.findViewById(R.id.imv_photo);
         User user = BmobUser.getCurrentUser(User.class);
         name.setText(user.getNickname());
         introduction.setText(user.getIntroduction());
-        Glide.with(this).load(user.getUserImg().getUrl()).into(image);
-        Glide.with(this).load(user.getUserPhoto().getUrl()).into(photo);
+        if (user.getUserImg() == null) {
+            Glide.with(this).load(R.drawable.photo).into(image);
+
+        } else {
+            Glide.with(this).load(user.getUserImg().getUrl()).into(image);
+        }
+
+        if (user.getUserPhoto() != null) {
+            Glide.with(this).load(user.getUserPhoto().getUrl()).into(photo);
+        } else {
+            Glide.with(this).load(user.getUserPhoto().getUrl()).into(photo);
+
+        }
     }
 
     @Override

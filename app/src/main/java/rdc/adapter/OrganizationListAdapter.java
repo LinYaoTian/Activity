@@ -3,6 +3,7 @@ package rdc.adapter;
 import android.content.Context;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 
 import java.net.URI;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 import butterknife.BindView;
@@ -21,6 +24,7 @@ import rdc.bean.Organization;
 
 import static rdc.configs.OrganizationItemType.sEMPTY;
 import static rdc.configs.OrganizationItemType.sORGANIZATION;
+import static rdc.util.DateUtil.parseDate;
 
 /**
  * Created by asus on 18-4-14.
@@ -59,7 +63,7 @@ public class OrganizationListAdapter extends RecyclerView.Adapter<RecyclerView.V
            Glide.with(mContext).load(organization.getImage().getUrl()).into( ((ViewHolder)holder).mImage);
            ((ViewHolder)holder).mName.setText(organization.getName());
            ((ViewHolder)holder).mMessage.setText(organization.getMessage());
-           ((ViewHolder)holder).mTime.setText(organization.getTime());
+           ((ViewHolder)holder).mTime.setText(parseDate(organization.getTime())+organization.getTime().substring(11,16));
            ((ViewHolder)holder).itemView.setOnClickListener(new View.OnClickListener() {
                @Override
                public void onClick(View view) {

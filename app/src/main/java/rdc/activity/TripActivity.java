@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Adapter;
@@ -21,7 +22,9 @@ import android.widget.Toast;
 import org.joda.time.DateTime;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import noman.weekcalendar.WeekCalendar;
@@ -36,9 +39,11 @@ import rdc.bean.Trip;
 import rdc.contract.ITripContract;
 import rdc.presenter.TripPresenter;
 import rdc.util.LoadingDialogUtil;
+import rdc.util.SeparateActivityUtil;
 
 import static rdc.configs.TripItemType.sACTIVITY;
 import static rdc.configs.TripItemType.sDIVIDER;
+import static rdc.util.DateUtil.getToday;
 
 
 public class TripActivity extends BaseActivity<TripPresenter> implements ITripContract.View {
@@ -56,6 +61,7 @@ public class TripActivity extends BaseActivity<TripPresenter> implements ITripCo
     private List<Trip> mTripList;
     private TripListRvAdapter mAdapter;
     private Dialog mLoadingDialog;
+
 
     @Override
     protected int setLayoutResID() {
@@ -79,6 +85,7 @@ public class TripActivity extends BaseActivity<TripPresenter> implements ITripCo
         mActivityRecyclerView.setLayoutManager(manager);
         mActivityRecyclerView.setAdapter(mAdapter);
         mLoadingDialog = LoadingDialogUtil.createLoadingDialog(TripActivity.this,"正在加载数据...");
+
     }
 
     @Override
@@ -86,8 +93,9 @@ public class TripActivity extends BaseActivity<TripPresenter> implements ITripCo
         mWeekCalendar.setOnDateClickListener(new OnDateClickListener() {
             @Override
             public void onDateClick(DateTime dateTime) {
-                Toast.makeText(TripActivity.this, "You Selected " + dateTime.toString(), Toast
-                        .LENGTH_SHORT).show();
+                mTripList.clear();
+                mTripList.addAll(((SeparateActivityUtil.getInstance().getListByDate(dateTime.toString().substring(5,10)))));
+                mAdapter.notifyDataSetChanged();
             }
 
         });
@@ -130,16 +138,10 @@ public class TripActivity extends BaseActivity<TripPresenter> implements ITripCo
 
     @Override
     public void setTripActivity(List<Activity> list) {
-        for (int i=0;i<list.size();i++){
-            Activity activity = list.get(i);
-            Trip trip = new Trip();
-            trip.setTitle(activity.getTitle());
-            trip.setTime(activity.getTime());
-            trip.setSawNum(activity.getSawnum());
-            trip.setLocation(activity.getPlace());
-            trip.setType(sACTIVITY);
-            mTripList.add(trip);
-        }
+        SeparateActivityUtil.getInstance().separate(list);
+
+        mTripList.clear();
+        mTripList.addAll(SeparateActivityUtil.getInstance().getListByDate(getToday()));
         mAdapter.notifyDataSetChanged();
         LoadingDialogUtil.closeDialog(mLoadingDialog);
 

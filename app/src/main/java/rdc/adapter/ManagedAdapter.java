@@ -58,7 +58,7 @@ public class ManagedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
        if (holder instanceof ViewHolder){
            ManagedActivity activity = mManagedActivityList.get(position);
            Glide.with(mContext).load(activity.getImageUrl()).into(((ViewHolder)holder).mImage);
-           ((ViewHolder)holder).mSendTime.setText(activity.getSendTime());
+           ((ViewHolder)holder).mSendTime.setText("发布时间:"+activity.getSendTime());
            ((ViewHolder)holder).mTitle.setText(activity.getTitle());
            ((ViewHolder)holder).itemView.setOnClickListener(new View.OnClickListener() {
                @Override
