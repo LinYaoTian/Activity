@@ -33,7 +33,7 @@ public interface IIndividualContract {
         void updateUserWithAllFile(String imageUrl,String Photo,String name,String introduction,String university,Presenter presenter);
         void updateUserWithPhoto(String Photo,String name,String introduction,String university,Presenter presenter);
         void updateUserWithImage(String imageUrl,String name,String introduction,String university,Presenter presenter);
-        void updateUserWithNoneFile(String imageUrl,String name,String introduction,String university,Presenter presenter);
+        void updateUserWithNoneFile(String name,String introduction,String university,Presenter presenter);
 
     }
 

@@ -9,7 +9,7 @@ import cn.bmob.v3.datatype.BmobFile;
 public class Organization {
     private BmobFile mImage;
     private String mName;
-    private String mTime;
+    private String mNewSendTime;
     private String mMessage;
     private int mType  ;
 
@@ -38,11 +38,11 @@ public class Organization {
     }
 
     public String getTime() {
-        return mTime == null ? "" : mTime;
+        return mNewSendTime == null ? "" : mNewSendTime;
     }
 
     public void setTime(String time) {
-        mTime = time;
+        mNewSendTime = time;
     }
 
     public String getMessage() {

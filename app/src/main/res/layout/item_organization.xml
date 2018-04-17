@@ -32,7 +32,6 @@
             android:ellipsize="end"
             android:gravity="center_vertical"
             android:maxLines="@integer/dimenMaxLines"
-            android:text="名字是发士大夫撒打发手动阀手动阀撒旦飞洒"
             android:textColor="@color/colorTextColor"
             android:textSize="@dimen/dimenLargeTextSize" />
 
@@ -48,7 +47,6 @@
             android:ellipsize="end"
             android:gravity="center_vertical"
             android:maxLines="@integer/dimenMaxLines"
-            android:text="名字"
             android:textColor="@color/colorTextColor"
             android:textSize="@dimen/dimenSmallTextSize" />
 
@@ -63,7 +61,7 @@
             android:layout_marginRight="@dimen/dimenMarginTen"
             android:ellipsize="end"
             android:maxLines="@integer/dimenMaxLines"
-            android:text="下午几点" />
+             />
 
     </RelativeLayout>
 

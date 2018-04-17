@@ -100,7 +100,6 @@ public class IndividualActivity extends BaseActivity<IndividualPresenter> implem
 
     @Override
     protected void initData() {
-        presenter.getUserInfo();
         mCommonPath = "";
         mPhotoPath = "";
         mImagePath = "";
@@ -110,7 +109,8 @@ public class IndividualActivity extends BaseActivity<IndividualPresenter> implem
     @Override
     protected void initView() {
         initToolBar();
-        mLoadingDialog = LoadingDialogUtil.createLoadingDialog(IndividualActivity.this,"正在加载数据...");
+//        mLoadingDialog = LoadingDialogUtil.createLoadingDialog(IndividualActivity.this,"正在加载数据...");
+        initUserInfo();
     }
 
     @Override
@@ -299,6 +299,26 @@ public class IndividualActivity extends BaseActivity<IndividualPresenter> implem
         LoadingDialogUtil.closeDialog(mLoadingDialog);
     }
 
+
+    private void initUserInfo(){
+        User user = User.getCurrentUser(User.class);
+        mNameTextView.setText(user.getNickname());
+        mIntroductionTextView.setText(user.getIntroduction());
+        mUniversityTextView.setText(user.getUniversity());
+        if (user.getUserImg() == null) {
+            Glide.with(this).load(R.drawable.photo).into(mImageView);
+
+        } else {
+            Glide.with(this).load(user.getUserImg().getUrl()).into(mImageView);
+        }
+
+        if (user.getUserPhoto() != null) {
+            Glide.with(this).load(user.getUserPhoto().getUrl()).into(mPhotoView);
+        } else {
+            Glide.with(this).load(user.getUserPhoto().getUrl()).into(mPhotoView);
+
+        }
+    }
     @Override
     public void takePhoto(Uri uri) {
         Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");

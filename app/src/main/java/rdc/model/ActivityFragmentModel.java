@@ -40,6 +40,7 @@ public class ActivityFragmentModel implements ActivityFragmentContract.Model {
         isRefreshing = false;
         isLoadingMore = false;
         hasMoreData = true;
+
     }
 
     @Override

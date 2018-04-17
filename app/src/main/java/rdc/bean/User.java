@@ -15,6 +15,7 @@ public class User extends BmobUser {
     private BmobFile userPhoto;
     private String university;
     private String introduction;
+    private String newSendTime;
     private BmobRelation conncerned;
     private BmobRelation trip;
 
@@ -72,5 +73,13 @@ public class User extends BmobUser {
 
     public void setUserPhoto(BmobFile userPhoto) {
         this.userPhoto = userPhoto;
+    }
+
+    public String getNewSendTime() {
+        return newSendTime == null ? "" : newSendTime;
+    }
+
+    public void setNewSendTime(String newSendTime) {
+        this.newSendTime = newSendTime;
     }
 }

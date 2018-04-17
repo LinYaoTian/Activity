@@ -25,7 +25,7 @@
         android:layout_marginLeft="@dimen/dimenMarginLeft"
         android:layout_toRightOf="@+id/imv_image"
         android:textSize="@dimen/dimenTextSize"
-        android:textColor="@color/colorTextColor"
+        android:textColor="@color/white"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
@@ -36,7 +36,7 @@
         android:id="@+id/tv_introduction"
         android:layout_marginLeft="@dimen/dimenMarginLeft"
         android:textSize="@dimen/dimenNavTextSize"
-        android:textColor="@color/colorTextColor"
+        android:textColor="@color/white"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 

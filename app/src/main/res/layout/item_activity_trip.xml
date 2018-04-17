@@ -29,6 +29,8 @@
             android:orientation="vertical">
 
             <TextView
+                android:maxLines="2"
+                android:ellipsize="end"
                 android:id="@+id/tv_trip_title"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dimenWidth"
@@ -37,6 +39,8 @@
                 android:textSize="@dimen/dimenBigTextSize" />
 
             <TextView
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:id="@+id/tv_trip_time"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dimenWidth"
@@ -44,6 +48,8 @@
                 android:textSize="@dimen/dimenSmallTextSize" />
 
             <TextView
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:id="@+id/tv_trip_place"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dimenWidth"
