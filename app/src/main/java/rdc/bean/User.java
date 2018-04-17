@@ -18,18 +18,6 @@ public class User extends BmobUser {
     private BmobRelation conncerned;
     private BmobRelation trip;
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "nickname='" + nickname + '\'' +
-                ", userImg=" + userImg +
-                ", university='" + university + '\'' +
-                ", introduction='" + introduction + '\'' +
-                ", conncerned=" + conncerned +
-                ", trip=" + trip +
-                '}';
-    }
-
     public BmobRelation getTrip() {
         return trip;
     }
@@ -79,7 +67,7 @@ public class User extends BmobUser {
     }
 
     public BmobFile getUserPhoto() {
-        return userPhoto;
+        return userPhoto == null ? new BmobFile():userPhoto;
     }
 
     public void setUserPhoto(BmobFile userPhoto) {

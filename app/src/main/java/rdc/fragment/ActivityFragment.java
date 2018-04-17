@@ -47,10 +47,7 @@ public class ActivityFragment extends BaseLazyLoadFragment<ActivityFragmentPrese
     private boolean mFabIsVisible;//Fab按钮是否可见
     private boolean isPrepare;//View 是否初始化好
     private boolean isLazyLoadFinished;//是否懒加载完数据
-//    private boolean isRefreshing;//是否正在刷新
-//    private boolean isLoadingMore;//是否正在加载更多
     private boolean hasMoreData;//没有更多数据
-//    private boolean isLoadMoreError;//由于网络原因等等，加载更多是否出错
     private String mTag;//所在标签页
 
     @Nullable
@@ -84,10 +81,6 @@ public class ActivityFragment extends BaseLazyLoadFragment<ActivityFragmentPrese
         isPrepare = false;
         isLazyLoadFinished = false;
         hasMoreData = true;
-//        isRefreshing = false;
-//        isLoadingMore = false;
-//        isNoMoreData = false;
-//        isLoadMoreError = false;
     }
 
     @Override
@@ -120,7 +113,6 @@ public class ActivityFragment extends BaseLazyLoadFragment<ActivityFragmentPrese
         mSrlRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-//                isRefreshing = true;
                 presenter.refresh(mTag);
             }
         });
