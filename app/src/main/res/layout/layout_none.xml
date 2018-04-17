@@ -9,6 +9,7 @@
         android:layout_height="wrap_content"
         android:textColor="@color/black"
         android:textSize="@dimen/inputTextSize"
-        android:text="@string/none"/>
+        android:text="@string/none"
+        android:id="@+id/tv_no_data_layout_none"/>
 
 </LinearLayout>

@@ -26,9 +26,6 @@ public class RegisterUtils {
      * @return true or false
      */
     public static boolean checkPassword(String password){
-        if (password.length() < Constant.PASSWORD_NUM){
-            return false;
-        }
-        return true;
+        return password.length() >= Constant.PASSWORD_NUM;
     }
 }

@@ -41,6 +41,7 @@ public class ActivityFragment extends BaseLazyLoadFragment<ActivityFragmentPrese
 
     private ProgressBar mPbLoading;
     private TextView mTvLoadTip;
+    private TextView mTvNoData;
     private ActivitiesRvAdapter mActivityListAdapter;
     private LinearLayoutManager mActivityRvLayoutManager;
     private int mDistance;
@@ -103,6 +104,7 @@ public class ActivityFragment extends BaseLazyLoadFragment<ActivityFragmentPrese
         mPbLoading = mViewLoadMore.findViewById(R.id.pb_loading_layout);
         mTvLoadTip = mViewLoadMore.findViewById(R.id.tv_load_tip_layout);
         View noDataView = LayoutInflater.from(mBaseActivity).inflate(R.layout.layout_none, mRvActivities,false);
+        mTvNoData = noDataView.findViewById(R.id.tv_no_data_layout_none);
         mActivityListAdapter.setNoneView(noDataView);
 
         mSrlRefresh.setColorSchemeResources(R.color.colorPrimary);
@@ -113,6 +115,9 @@ public class ActivityFragment extends BaseLazyLoadFragment<ActivityFragmentPrese
         mSrlRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                mTvNoData.setVisibility(View.GONE);
+                mPbLoading.setVisibility(View.VISIBLE);
+                mTvLoadTip.setVisibility(View.GONE);
                 presenter.refresh(mTag);
             }
         });
@@ -182,6 +187,7 @@ public class ActivityFragment extends BaseLazyLoadFragment<ActivityFragmentPrese
             return;
         }
         if (!isLazyLoadFinished){
+            mTvNoData.setVisibility(View.GONE);
             mSrlRefresh.setRefreshing(true);
             presenter.refresh(mTag);
         }
@@ -209,6 +215,7 @@ public class ActivityFragment extends BaseLazyLoadFragment<ActivityFragmentPrese
 
     @Override
     public void refreshError(String message) {
+        mTvNoData.setVisibility(View.VISIBLE);
         mSrlRefresh.setRefreshing(false);
         showToast(message);
     }
@@ -218,13 +225,16 @@ public class ActivityFragment extends BaseLazyLoadFragment<ActivityFragmentPrese
         mPbLoading.setVisibility(View.GONE);
         mTvLoadTip.setVisibility(View.VISIBLE);
         mTvLoadTip.setText(getResources().getString(R.string.load_error));
+        showToast(message);
     }
 
     @Override
     public void noMoreData() {
+        mTvNoData.setVisibility(View.VISIBLE);
         hasMoreData = false;
         mPbLoading.setVisibility(View.GONE);
         mTvLoadTip.setVisibility(View.VISIBLE);
         mTvLoadTip.setText(getResources().getString(R.string.no_more_data));
+        Log.d(TAG, "noMoreData: ");
     }
 }
