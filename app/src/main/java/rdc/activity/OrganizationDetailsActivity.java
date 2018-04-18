@@ -1,12 +1,15 @@
 package rdc.activity;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.WindowManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +25,7 @@ import rdc.bean.OrganizationActivity;
 import rdc.contract.IOrganizationDetailsContract;
 import rdc.presenter.OrganizationDetailsPresenter;
 import rdc.util.ACacheUtil;
+import rdc.util.LoadingDialogUtil;
 import rdc.util.ObjectCastUtil;
 
 import static rdc.configs.OrganizationItemType.sORGANIZATION;
@@ -35,6 +39,7 @@ public class OrganizationDetailsActivity extends BaseActivity<OrganizationDetail
     private OrganizationActivityListAdapter mAdapter;
     private String mId;
     private  Organization organization;
+    private Dialog mLoadingDialog;
 
 
 
@@ -51,6 +56,8 @@ public class OrganizationDetailsActivity extends BaseActivity<OrganizationDetail
 //            mAdapter.notifyDataSetChanged();
 //        }else {
             presenter.getManagedActivity(organization);
+        mLoadingDialog = LoadingDialogUtil.createLoadingDialog(OrganizationDetailsActivity.this, "正在加载数据...");
+
 //        }
     }
 
@@ -70,8 +77,10 @@ public class OrganizationDetailsActivity extends BaseActivity<OrganizationDetail
     @Override
     public void setManagedActivity(List<OrganizationActivity> list) {
         mACacheUtil.put(mId,(ArrayList)list);
+
         mActivities.addAll(list);
         mAdapter.notifyDataSetChanged();
+        LoadingDialogUtil.closeDialog(mLoadingDialog);
     }
 
     @Override
@@ -93,6 +102,11 @@ public class OrganizationDetailsActivity extends BaseActivity<OrganizationDetail
 
     @Override
     protected int setLayoutResID() {
+        requestWindowFeature(1);
+        if (Build.VERSION.SDK_INT >= 19) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+        }
         return R.layout.activity_organization_details;
     }
 

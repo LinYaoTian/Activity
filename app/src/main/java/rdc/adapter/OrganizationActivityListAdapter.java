@@ -52,22 +52,26 @@ public class OrganizationActivityListAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        OrganizationActivity activity = mActivities.get(position);
-        if (holder instanceof ItemViewHolder) {
-            Glide.with(mContext).load(activity.getCoverImageUrl()).into(((ItemViewHolder) holder).mImageView);
-            ((ItemViewHolder)holder).mTitle.setText(activity.getTitle());
-            ((ItemViewHolder)holder).mPlace.setText(activity.getLocation());
-            ((ItemViewHolder)holder).mTime.setText(activity.getType());
-            ((ItemViewHolder)holder).mSawNum.setText(activity.getSawNum());
+        try {
+            OrganizationActivity activity = mActivities.get(position);
+            if (holder instanceof ItemViewHolder) {
+                Glide.with(mContext).load(activity.getCoverImageUrl()).into(((ItemViewHolder) holder).mImageView);
+                ((ItemViewHolder)holder).mTitle.setText(activity.getTitle());
+                ((ItemViewHolder)holder).mPlace.setText(activity.getLocation());
+                ((ItemViewHolder)holder).mTime.setText(activity.getTime());
+                ((ItemViewHolder)holder).mSawNum.setText(activity.getSawNum()+"");
 
-        }else if (holder instanceof  HeaderViewHolder){
+            }else if (holder instanceof  HeaderViewHolder){
 
-            Glide.with(mContext).load(activity.getPhoto()).into(((HeaderViewHolder)holder).mPhoto);
-            Glide.with(mContext).load(activity.getImage()).into(((HeaderViewHolder)holder).mImage);
-            ((HeaderViewHolder)holder).mName.setText(activity.getName());
-            ((HeaderViewHolder)holder).mIntroduction.setText(activity.getIntroduction());
+                Glide.with(mContext).load(activity.getPhoto()).into(((HeaderViewHolder)holder).mPhoto);
+                Glide.with(mContext).load(activity.getImage()).into(((HeaderViewHolder)holder).mImage);
+                ((HeaderViewHolder)holder).mName.setText(activity.getName());
+                ((HeaderViewHolder)holder).mIntroduction.setText(activity.getIntroduction());
 
 
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 
