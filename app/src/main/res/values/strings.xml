@@ -58,4 +58,8 @@
     <string name="current_date">当前日期</string>
     <string name="select_time">选择时间</string>
     <string name="current_time">当前时间</string>
+
+    <!--帐号管理-->
+    <string name="changePassword">修改密码</string>
+    <string name="logout">退出登录</string>
 </resources>

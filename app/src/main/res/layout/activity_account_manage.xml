@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorDivider"
-    android:orientation="vertical"
-    tools:context="rdc.activity.IndividualActivity">
+    tools:context="rdc.activity.AccountManageActivity">
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
+        android:id="@+id/toolbar_act_account_manage"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/colorPrimary"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
         <TextView
@@ -25,65 +27,53 @@
             android:textSize="20sp" />
     </android.support.v7.widget.Toolbar>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:background="@color/colorDivider" />
-
-    <RelativeLayout
-        android:id="@+id/rl_certificate"
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:id="@+id/layout_change_password"
+        android:layout_width="0dp"
         android:layout_height="50dp"
+        android:orientation="horizontal"
         android:background="@drawable/item_background_selector"
-        android:clickable="true"
-        android:orientation="horizontal">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_act_account_manage">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
             android:gravity="center_vertical"
-            android:text="个人/组织认证"
+            android:text="@string/changePassword"
             android:textSize="18sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="10dp"
-            android:ellipsize="end"
-            android:gravity="center_vertical"
-            android:maxLines="1"
-            android:text="学生"
-            android:textSize="15sp" />
-    </RelativeLayout>
+    </LinearLayout>
 
     <View
+        android:id="@+id/view"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:background="@color/colorDivider" />
+        android:background="@color/colorDivider"
+        tools:layout_editor_absoluteX="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layout_change_password"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/rl_account"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@drawable/item_background_selector"
+        android:background="?attr/selectableItemBackground"
         android:clickable="true"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/view"
+        android:focusable="true">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
             android:gravity="center_vertical"
-            android:text="账号管理"
+            android:text="@string/logout"
             android:textSize="18sp" />
 
+    </LinearLayout>
 
-    </RelativeLayout>
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>
