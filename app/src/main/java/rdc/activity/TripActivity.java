@@ -17,17 +17,20 @@ import android.view.View;
 import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.joda.time.DateTime;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
 import noman.weekcalendar.WeekCalendar;
+import noman.weekcalendar.eventbus.Event;
 import noman.weekcalendar.listener.OnDateClickListener;
 import rdc.adapter.TripListRvAdapter;
 import rdc.avtivity.R;
@@ -38,7 +41,10 @@ import rdc.bean.ItemActivity;
 import rdc.bean.Trip;
 import rdc.contract.ITripContract;
 import rdc.presenter.TripPresenter;
+import rdc.util.ACacheUtil;
+import rdc.util.DateUtil;
 import rdc.util.LoadingDialogUtil;
+import rdc.util.ObjectCastUtil;
 import rdc.util.SeparateActivityUtil;
 
 import static rdc.configs.TripItemType.sACTIVITY;
@@ -57,10 +63,21 @@ public class TripActivity extends BaseActivity<TripPresenter> implements ITripCo
     RecyclerView mActivityRecyclerView;
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
+    @BindView(R.id.tv_title)
+    TextView mThisWeek;
+    @BindView(R.id.tv_month)
+    TextView mMonth;
 
     private List<Trip> mTripList;
     private TripListRvAdapter mAdapter;
     private Dialog mLoadingDialog;
+
+    private DateTime mDateTime;
+    private ACacheUtil mACacheUtil;
+
+
+
+    private static final String TAG = "TripActivity";
 
 
     @Override
@@ -72,7 +89,24 @@ public class TripActivity extends BaseActivity<TripPresenter> implements ITripCo
     protected void initData() {
         mTripList = new ArrayList<>();
         mAdapter = new TripListRvAdapter(mTripList);
-        presenter.getMyTripActivity();
+        mDateTime = new DateTime();
+        mACacheUtil = ACacheUtil.get(getApplicationContext());
+
+        if (ObjectCastUtil.cast(mACacheUtil.getAsObject("trip"))!=null
+                ||ObjectCastUtil.cast(mACacheUtil.getAsObject("RecommendTrip"))!=null){
+            SeparateActivityUtil.getInstance().separate((ArrayList)ObjectCastUtil.cast(mACacheUtil.getAsObject("trip")));
+            mTripList.addAll(SeparateActivityUtil.getInstance().getListByDate(getToday()));
+            SeparateActivityUtil.getInstance().separateAll((ArrayList)ObjectCastUtil.cast(mACacheUtil.getAsObject("RecommendTrip")));
+            mTripList.addAll(SeparateActivityUtil.getInstance().getRecommendListByDate(getToday()));
+            mAdapter.notifyDataSetChanged();
+        }else {
+            presenter.getMyTripActivity();
+            mLoadingDialog = LoadingDialogUtil.createLoadingDialog(TripActivity.this, "正在加载数据...");
+
+        }
+
+
+
 
 
 
@@ -84,7 +118,7 @@ public class TripActivity extends BaseActivity<TripPresenter> implements ITripCo
         LinearLayoutManager manager = new LinearLayoutManager(TripActivity.this, LinearLayoutManager.VERTICAL, false);
         mActivityRecyclerView.setLayoutManager(manager);
         mActivityRecyclerView.setAdapter(mAdapter);
-        mLoadingDialog = LoadingDialogUtil.createLoadingDialog(TripActivity.this,"正在加载数据...");
+        mMonth.setText(DateUtil.getMonth(mDateTime));
 
     }
 
@@ -93,9 +127,17 @@ public class TripActivity extends BaseActivity<TripPresenter> implements ITripCo
         mWeekCalendar.setOnDateClickListener(new OnDateClickListener() {
             @Override
             public void onDateClick(DateTime dateTime) {
-                mTripList.clear();
-                mTripList.addAll(((SeparateActivityUtil.getInstance().getListByDate(dateTime.toString().substring(5,10)))));
-                mAdapter.notifyDataSetChanged();
+                try {
+                    mTripList.clear();
+                    mTripList.addAll(((SeparateActivityUtil.getInstance().getListByDate(dateTime.toString().substring(5, 10)))));
+                    mTripList.addAll(((SeparateActivityUtil.getInstance().getRecommendListByDate(dateTime.toString().substring(5, 10)))));
+                    mAdapter.notifyDataSetChanged();
+                    mDateTime = dateTime;
+                    mMonth.setText(DateUtil.getMonth(mDateTime));
+
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
             }
 
         });
@@ -104,14 +146,14 @@ public class TripActivity extends BaseActivity<TripPresenter> implements ITripCo
         mPreWeekButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mWeekCalendar.moveToPrevious();
-                mWeekCalendar.moveToPrevious();
-                mWeekCalendar.moveToPrevious();
-                mWeekCalendar.moveToPrevious();
-                mWeekCalendar.moveToPrevious();
-                mWeekCalendar.moveToPrevious();
-                mWeekCalendar.moveToPrevious();
+                mTripList.clear();
+                mDateTime = mDateTime.plusDays(-7);
+                mWeekCalendar.setSelectedDate(mDateTime);
+                mMonth.setText(DateUtil.getMonth(mDateTime));
 
+                mTripList.addAll(((SeparateActivityUtil.getInstance().getListByDate(mDateTime.toString().substring(5, 10)))));
+                mTripList.addAll(((SeparateActivityUtil.getInstance().getRecommendListByDate(mDateTime.toString().substring(5, 10)))));
+                mAdapter.notifyDataSetChanged();
 
             }
         });
@@ -120,15 +162,35 @@ public class TripActivity extends BaseActivity<TripPresenter> implements ITripCo
         mNextWeekButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mWeekCalendar.moveToNext();
-                mWeekCalendar.moveToNext();
-                mWeekCalendar.moveToNext();
-                mWeekCalendar.moveToNext();
-                mWeekCalendar.moveToNext();
-                mWeekCalendar.moveToNext();
-                mWeekCalendar.moveToNext();
+                mTripList.clear();
+                mDateTime = mDateTime.plusDays(7);
+                mWeekCalendar.setSelectedDate(mDateTime);
+                mMonth.setText(DateUtil.getMonth(mDateTime));
+
+                mTripList.addAll(((SeparateActivityUtil.getInstance().getListByDate(mDateTime.toString().substring(5, 10)))));
+                mTripList.addAll(((SeparateActivityUtil.getInstance().getRecommendListByDate(mDateTime.toString().substring(5, 10)))));
+                mAdapter.notifyDataSetChanged();
+
+
             }
         });
+
+        mThisWeek.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mWeekCalendar.reset();
+                mTripList.clear();
+                mTripList.addAll(SeparateActivityUtil.getInstance().getListByDate(getToday()));
+                mTripList.addAll(SeparateActivityUtil.getInstance().getRecommendListByDate(getToday()));
+                mAdapter.notifyDataSetChanged();
+                DateTime time = new DateTime();
+                mMonth.setText(DateUtil.getMonth(time));
+
+
+
+            }
+        });
+
     }
 
     public static void actionStart(Context context) {
@@ -137,28 +199,40 @@ public class TripActivity extends BaseActivity<TripPresenter> implements ITripCo
     }
 
     @Override
-    public void setTripActivity(List<Activity> list) {
+    public void setTripActivity(List<Trip> list) {
+        mACacheUtil.put("trip",(ArrayList)list,60*5);
         SeparateActivityUtil.getInstance().separate(list);
-
-        mTripList.clear();
         mTripList.addAll(SeparateActivityUtil.getInstance().getListByDate(getToday()));
-        mAdapter.notifyDataSetChanged();
-        LoadingDialogUtil.closeDialog(mLoadingDialog);
+        presenter.getRecommenedTripActivity();
+
 
     }
+
+
+    @Override
+    public void setRecommenedTripActivity(List<Trip> list) {
+        mACacheUtil.put("RecommendTrip",(ArrayList)list,60*5);
+
+        SeparateActivityUtil.getInstance().separateAll(list);
+        mTripList.addAll(SeparateActivityUtil.getInstance().getRecommendListByDate(getToday()));
+        mAdapter.notifyDataSetChanged();
+        LoadingDialogUtil.closeDialog(mLoadingDialog);
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
                 break;
         }
         return true;
     }
-    private void  initToolBar(){
+
+    private void initToolBar() {
         setSupportActionBar(mToolbar);
         ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null){
+        if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setDisplayShowTitleEnabled(false);
         }
@@ -167,5 +241,16 @@ public class TripActivity extends BaseActivity<TripPresenter> implements ITripCo
     @Override
     public TripPresenter getInstance() {
         return new TripPresenter();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mTripList != null) {
+            mTripList.clear();
+            mTripList = null;
+        }
+        SeparateActivityUtil.getInstance().release();
+
     }
 }

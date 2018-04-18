@@ -24,7 +24,9 @@ import rdc.bean.Organization;
 import rdc.bean.User;
 import rdc.contract.IOrganizationContract;
 import rdc.presenter.OrganizationPresenter;
+import rdc.util.ACacheUtil;
 import rdc.util.LoadingDialogUtil;
+import rdc.util.ObjectCastUtil;
 
 public class ConcernedActivity extends BaseActivity<OrganizationPresenter> implements IOrganizationContract.View {
 
@@ -35,6 +37,7 @@ public class ConcernedActivity extends BaseActivity<OrganizationPresenter> imple
     private List<Organization> mOrganizationList;
     private OrganizationListAdapter mAdapter;
     private Dialog mDialog;
+    private ACacheUtil mACacheUtil;
 
     @Override
     protected int setLayoutResID() {
@@ -46,7 +49,16 @@ public class ConcernedActivity extends BaseActivity<OrganizationPresenter> imple
         mOrganizationList = new ArrayList<>();
         mAdapter = new OrganizationListAdapter(mOrganizationList,this);
         mConcernedRecyclerView.setAdapter(mAdapter);
-        presenter.getConcernedOrganization();
+        mACacheUtil = ACacheUtil.get(getApplicationContext());
+        if (ObjectCastUtil.cast(mACacheUtil.getAsObject("concerned"))!=null){
+            mOrganizationList.addAll((ArrayList)ObjectCastUtil.cast(mACacheUtil.getAsObject("concerned")));
+            mAdapter.notifyDataSetChanged();
+        }else {
+            presenter.getConcernedOrganization();
+            mDialog = LoadingDialogUtil.createLoadingDialog(ConcernedActivity.this,"正在加载数据...");
+
+        }
+
 
     }
 
@@ -55,7 +67,6 @@ public class ConcernedActivity extends BaseActivity<OrganizationPresenter> imple
         initToolBar();
         LinearLayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         mConcernedRecyclerView.setLayoutManager(manager);
-        mDialog = LoadingDialogUtil.createLoadingDialog(ConcernedActivity.this,"正在加载数据...");
 
     }
 
@@ -71,6 +82,7 @@ public class ConcernedActivity extends BaseActivity<OrganizationPresenter> imple
 
     @Override
     public void setOrganization(List<Organization> list) {
+        mACacheUtil.put("concerned",(ArrayList)list,5*60);
         mOrganizationList.clear();
         mOrganizationList.addAll(list);
         mAdapter.notifyDataSetChanged();

@@ -1,58 +1,76 @@
 package rdc.bean;
 
+import android.util.Log;
+
+import java.io.Serializable;
+
 /**
  * Created by asus on 18-4-14.
  */
 
-public class Trip {
-        private String coverImageUrl;
-        private String title;
-        private String location;
-        private String time;
-        private int sawNum;
+public class Trip implements Serializable {
+    private String objectId;
+    private String coverImageUrl;
+    private String title;
+    private String location;
+    private String time;
+    private int sawNum;
 
 
-        private int type;
+    private int type;
 
-        public String getCoverImageUrl() {
-            return coverImageUrl;
-        }
+    @Override
+    public boolean equals(Object obj) {
+        return this.equals(((Trip)obj).getObjectId());
+    }
 
-        public void setCoverImageUrl(String coverImageUrl) {
-            this.coverImageUrl = coverImageUrl;
-        }
+    public String getObjectId() {
+        return objectId == null ? "" : objectId;
+    }
 
-        public String getTitle() {
-            return title;
-        }
+    public void setObjectId(String obiectId) {
+        this.objectId = obiectId;
+    }
 
-        public void setTitle(String title) {
-            this.title = title;
-        }
+    public String getCoverImageUrl() {
+        return coverImageUrl;
+    }
 
-        public String getLocation() {
-            return location;
-        }
+    public void setCoverImageUrl(String coverImageUrl) {
+        this.coverImageUrl = coverImageUrl;
+    }
 
-        public void setLocation(String location) {
-            this.location = location;
-        }
+    public String getTitle() {
+        return title;
+    }
 
-        public String getTime() {
-            return time;
-        }
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-        public void setTime(String time) {
-            this.time = time;
-        }
+    public String getLocation() {
+        return location;
+    }
 
-        public int getSawNum() {
-            return sawNum;
-        }
+    public void setLocation(String location) {
+        this.location = location;
+    }
 
-        public void setSawNum(int sawNum) {
-            this.sawNum = sawNum;
-        }
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public int getSawNum() {
+        return sawNum;
+    }
+
+    public void setSawNum(int sawNum) {
+        this.sawNum = sawNum;
+    }
 
     public int getType() {
         return type;

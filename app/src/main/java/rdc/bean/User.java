@@ -16,6 +16,7 @@ public class User extends BmobUser {
     private String university;
     private String introduction;
     private String newSendTime;
+    private String newActivityTitle;
     private BmobRelation conncerned;
     private BmobRelation trip;
 
@@ -81,5 +82,13 @@ public class User extends BmobUser {
 
     public void setNewSendTime(String newSendTime) {
         this.newSendTime = newSendTime;
+    }
+
+    public String getNewsActivityTitle() {
+        return newActivityTitle == null ? "" : newActivityTitle;
+    }
+
+    public void setNewsActivityTitle(String newsActivityTitle) {
+        this.newActivityTitle = newsActivityTitle;
     }
 }

@@ -21,7 +21,9 @@ import rdc.base.BasePresenter;
 import rdc.bean.ManagedActivity;
 import rdc.contract.IManagedContract;
 import rdc.presenter.ManagedPresenter;
+import rdc.util.ACacheUtil;
 import rdc.util.LoadingDialogUtil;
+import rdc.util.ObjectCastUtil;
 
 public class ManageActivity extends BaseActivity<ManagedPresenter> implements IManagedContract.View {
     @BindView(R.id.rv_managed_activity)
@@ -31,6 +33,7 @@ public class ManageActivity extends BaseActivity<ManagedPresenter> implements IM
     private List<ManagedActivity> mManagedActivityList;
     private ManagedAdapter mAdapter;
     private Dialog mLoadingDialog;
+    private ACacheUtil mACacheUtil;
 
     @Override
     protected int setLayoutResID() {
@@ -39,18 +42,24 @@ public class ManageActivity extends BaseActivity<ManagedPresenter> implements IM
 
     @Override
     protected void initData() {
-         mManagedActivityList = new ArrayList<>();
-         mAdapter = new ManagedAdapter(mManagedActivityList,this);
-         presenter.getManagedActivity();
+        mManagedActivityList = new ArrayList<>();
+        mAdapter = new ManagedAdapter(mManagedActivityList, this);
+        mACacheUtil = ACacheUtil.get(getApplicationContext());
+        if (ObjectCastUtil.cast(mACacheUtil.getAsObject("manage")) != null) {
+            mManagedActivityList.addAll((ArrayList) ObjectCastUtil.cast(mACacheUtil.getAsObject("manage")));
+        } else {
+            presenter.getManagedActivity();
+            mLoadingDialog = LoadingDialogUtil.createLoadingDialog(ManageActivity.this, "正在加载数据...");
+
+        }
     }
 
     @Override
     protected void initView() {
         initToolBar();
-        LinearLayoutManager manager = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
+        LinearLayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         mActivityRecyclerView.setLayoutManager(manager);
         mActivityRecyclerView.setAdapter(mAdapter);
-        mLoadingDialog = LoadingDialogUtil.createLoadingDialog(ManageActivity.this,"正在加载数据...");
 
     }
 
@@ -59,29 +68,33 @@ public class ManageActivity extends BaseActivity<ManagedPresenter> implements IM
 
     }
 
-    public static void actionStart(Context context){
-        Intent intent = new Intent(context,ManageActivity.class);
+    public static void actionStart(Context context) {
+        Intent intent = new Intent(context, ManageActivity.class);
         context.startActivity(intent);
     }
-    private void  initToolBar(){
+
+    private void initToolBar() {
         setSupportActionBar(mToolbar);
         ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null){
+        if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setDisplayShowTitleEnabled(false);
         }
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
                 break;
         }
         return true;
     }
+
     @Override
     public void setManagedActivity(List<ManagedActivity> list) {
+        mACacheUtil.put("manage",(ArrayList)list);
         mManagedActivityList.clear();
         mManagedActivityList.addAll(list);
         mAdapter.notifyDataSetChanged();

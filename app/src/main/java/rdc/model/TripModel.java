@@ -32,10 +32,24 @@ public class TripModel implements ITripContract.Model {
                 if (e==null){
                     presenter.setTripActivity(list);
                 }else {
-
                 }
             }
         });
 
+    }
+
+
+    @Override
+    public void getRecommenedTripActivity(final ITripContract.Presenter presenter) {
+        BmobQuery<Activity> query = new BmobQuery<Activity>();
+        query.findObjects(new FindListener<Activity>() {
+            @Override
+            public void done(List<Activity> list, BmobException e) {
+                if (e==null){
+                    presenter.setRecommenedTripActivity(list);
+                }else {
+                }
+            }
+        });
     }
 }

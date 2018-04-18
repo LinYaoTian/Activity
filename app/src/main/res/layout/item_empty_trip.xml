@@ -13,4 +13,5 @@
         android:text="@string/emptyTrip"
         android:textSize="@dimen/dimenTextSize" />
 
+
 </RelativeLayout>

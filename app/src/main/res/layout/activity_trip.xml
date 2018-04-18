@@ -37,6 +37,16 @@
             android:id="@+id/btn_next_week"
             android:layout_width="@dimen/dimenButtonSize"
             android:layout_height="@dimen/dimenButtonSize" />
+
+        <TextView
+            android:text="@string/app_name"
+            android:layout_marginRight="@dimen/dimenButtonMargin"
+            android:id="@+id/tv_month"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:textColor="@color/white"
+            android:textSize="@dimen/dimenTextSize" />
     </android.support.v7.widget.Toolbar>
     <noman.weekcalendar.WeekCalendar
         android:id="@+id/weekCalendar"

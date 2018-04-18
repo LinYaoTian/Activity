@@ -1,10 +1,12 @@
 package rdc.bean;
 
+import java.io.Serializable;
+
 /**
  * Created by asus on 18-4-14.
  */
 
-public class ManagedActivity {
+public class ManagedActivity implements Serializable{
      private String mImageUrl;
      private String mTitle;
      private String mSendTime;

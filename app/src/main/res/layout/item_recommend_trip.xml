@@ -4,7 +4,17 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="50dp">
-
+    <View
+        android:layout_alignParentTop="true"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        />
+<View
+    android:layout_toRightOf="@+id/tv_empty_trip"
+    android:background="@color/colorTextColor"
+    android:layout_centerVertical="true"
+    android:layout_width="80dp"
+    android:layout_height="1dp"/>
     <TextView
         android:id="@+id/tv_empty_trip"
         android:layout_width="wrap_content"
@@ -12,5 +22,10 @@
         android:layout_centerInParent="true"
         android:text="@string/recommendTrip"
         android:textSize="@dimen/dimenTextSize" />
-
+    <View
+        android:layout_toLeftOf="@+id/tv_empty_trip"
+        android:background="@color/colorTextColor"
+        android:layout_centerVertical="true"
+        android:layout_width="80dp"
+        android:layout_height="1dp"/>
 </RelativeLayout>
