@@ -3,6 +3,7 @@ package rdc.bean;
 import android.util.Log;
 
 import cn.bmob.v3.BmobObject;
+import cn.bmob.v3.datatype.BmobDate;
 import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.datatype.BmobRelation;
 
@@ -22,11 +23,15 @@ public class Activity extends BmobObject {
     private BmobRelation attcipator;
     private String university;
     private String tag;
+    private BmobDate expirationDate;
 
-    @Override
-    public String toString() {
-        return "Activity{" +"createdAt:"+getCreatedAt()+
-                '}';
+    public BmobDate getExpirationDate() {
+        return expirationDate;
+    }
+
+    public Activity setExpirationDate(BmobDate expirationDate) {
+        this.expirationDate = expirationDate;
+        return this;
     }
 
     @Override

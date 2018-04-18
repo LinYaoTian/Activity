@@ -24,4 +24,7 @@ public class Constant {
      * 每日的必应背景图
      */
     public static final String BI_YING_BG_PIC = "http://guolin.tech/api/bing_pic";
+
+    public static final String RELEASE_IMAGE_FILE_LOCATION = "file:///sdcard/bbbb.jpg";            //Environment.getExternalStorageDirectory().getPath();
+
 }

@@ -2,6 +2,7 @@ package rdc.activity;
 
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.support.annotation.NonNull;
@@ -35,6 +36,7 @@ import java.util.List;
 
 
 import butterknife.BindView;
+import butterknife.OnClick;
 import cn.bmob.v3.BmobUser;
 import rdc.avtivity.R;
 import rdc.base.BaseActivity;
@@ -243,5 +245,10 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     protected void onResume() {
         super.onResume();
         initUserView();
+    }
+
+    @OnClick(R.id.fab_send_act_main)
+    public void goToRelease() {
+        startActivity(new Intent(MainActivity.this, ReleaseActivity.class));
     }
 }

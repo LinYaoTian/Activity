@@ -15,7 +15,7 @@ import rdc.base.BasePresenter;
 import rdc.bean.User;
 import rdc.contract.IIndividualContract;
 import rdc.model.IndividualModel;
-import rdc.util.CompressImageUtil;
+import rdc.util.ImageUtil;
 
 /**
  * Created by asus on 18-4-15.
@@ -59,12 +59,12 @@ public class IndividualPresenter extends BasePresenter<IIndividualContract.View>
         final String photoFilePath = getMvpView().getPhotoFilePath();
 
         if (!TextUtils.isEmpty(imageFilePath) && !TextUtils.isEmpty(photoFilePath)) {
-            CompressImageUtil.compressImage(imageFilePath, new FileCallback() {
+            ImageUtil.compressImage(imageFilePath, new FileCallback() {
                 @Override
                 public void callback(boolean isSuccess, String outfile, Throwable t) {
                     imagefile = outfile;
                     if (isSuccess) {
-                        CompressImageUtil.compressImage(photoFilePath, new FileCallback() {
+                        ImageUtil.compressImage(photoFilePath, new FileCallback() {
                             @Override
                             public void callback(boolean isSuccess, String outfile, Throwable t) {
                                 if (isSuccess) {
@@ -80,7 +80,7 @@ public class IndividualPresenter extends BasePresenter<IIndividualContract.View>
                 }
             });
         } else if (!TextUtils.isEmpty(imageFilePath) && TextUtils.isEmpty(photoFilePath)) {
-            CompressImageUtil.compressImage(imageFilePath, new FileCallback() {
+            ImageUtil.compressImage(imageFilePath, new FileCallback() {
                 @Override
                 public void callback(boolean isSuccess, String outfile, Throwable t) {
                     if (isSuccess) {
@@ -89,7 +89,7 @@ public class IndividualPresenter extends BasePresenter<IIndividualContract.View>
                 }
             });
         } else if (TextUtils.isEmpty(imageFilePath) && !TextUtils.isEmpty(photoFilePath)) {
-            CompressImageUtil.compressImage(photoFilePath, new FileCallback() {
+            ImageUtil.compressImage(photoFilePath, new FileCallback() {
                 @Override
                 public void callback(boolean isSuccess, String outfile, Throwable t) {
                     if (isSuccess) {

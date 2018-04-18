@@ -56,6 +56,9 @@
             </intent-filter>
         </activity>
         <activity android:name="rdc.activity.UserCenterActivity"/>
+        <activity android:name="rdc.activity.ReleaseActivity"/>
+        <activity android:name="rdc.activity.DetailActivity"/>
+        <activity android:name="rdc.activity.ReleaseTagActivity"/>
     </application>
 
 </manifest>
