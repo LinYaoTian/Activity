@@ -1,5 +1,7 @@
 package rdc.bean;
 
+import android.util.Log;
+
 import cn.bmob.v3.BmobObject;
 import cn.bmob.v3.datatype.BmobDate;
 import cn.bmob.v3.datatype.BmobFile;
@@ -30,6 +32,11 @@ public class Activity extends BmobObject {
     public Activity setExpirationDate(BmobDate expirationDate) {
         this.expirationDate = expirationDate;
         return this;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return this.equals(((Activity)obj).getObjectId());
     }
 
     public String getUniversity() {

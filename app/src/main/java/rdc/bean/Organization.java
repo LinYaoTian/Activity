@@ -1,12 +1,14 @@
 package rdc.bean;
 
+import java.io.Serializable;
+
 import cn.bmob.v3.datatype.BmobFile;
 
 /**
  * Created by asus on 18-4-14.
  */
 
-public class Organization {
+public class Organization implements Serializable{
     private BmobFile mImage;
     private String mName;
     private String mNewSendTime;

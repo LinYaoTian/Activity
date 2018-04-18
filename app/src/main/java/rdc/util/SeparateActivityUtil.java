@@ -4,6 +4,7 @@ import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -11,6 +12,8 @@ import rdc.bean.Activity;
 import rdc.bean.Trip;
 
 import static rdc.configs.TripItemType.sACTIVITY;
+import static rdc.configs.TripItemType.sDIVIDER;
+import static rdc.configs.TripItemType.sEMPTY;
 
 /**
  * Created by asus on 18-4-17.
@@ -19,7 +22,10 @@ import static rdc.configs.TripItemType.sACTIVITY;
 public class SeparateActivityUtil {
     private static SeparateActivityUtil separateActivityUtil;
     private static final String TAG = "SeparateActivityUtil";
-    private  Map<String,List<Trip>> mMap = new HashMap<>();
+    private  Map<String,List<Trip>> mTripMap = new HashMap<>();
+    private Map<String,List<Trip>> mAllActivityMap = new HashMap<>();
+    private List<Trip> mTripList = new ArrayList<>();
+    private List<Trip> mAllTripList = new ArrayList<>();
 
     public static SeparateActivityUtil getInstance() {
         if (separateActivityUtil == null) {
@@ -32,34 +38,81 @@ public class SeparateActivityUtil {
         return separateActivityUtil;
     }
 
-    public  Map separate(List<Activity> unSeparatedList){
+    public  Map separate(List<Trip> unSeparatedList){
+        mTripList.addAll(unSeparatedList);
           for (int i=0;i<unSeparatedList.size();i++){
-              Activity activity = unSeparatedList.get(i);
-              String time = activity.getTime().substring(5,10);
-              Log.e(TAG, "separate: "+time );
-              Trip trip = new Trip();
-              trip.setTitle(activity.getTitle());
-              trip.setTime(activity.getTime());
-              trip.setSawNum(activity.getSawnum());
-              trip.setLocation(activity.getPlace());
-              trip.setType(sACTIVITY);
-              Log.e(TAG, "separate: "+mMap.containsKey(time) );
-
-              if (!mMap.containsKey(time)){
+              Trip trip = unSeparatedList.get(i);
+              String time = unSeparatedList.get(i).getTime();
+              if (!mTripMap.containsKey(time)){
                   List<Trip> newList = new ArrayList<>();
                   newList.add(trip);
-                  mMap.put(time,newList);
+                  mTripMap.put(time,newList);
               }else {
-                  mMap.get(time).add(trip);
+                  mTripMap.get(time).add(trip);
               }
 
           }
-          return mMap;
+          return mTripMap;
+    }
+
+    public  Map separateAll(List<Trip> unSeparatedList){
+        mAllTripList.addAll(unSeparatedList);
+        for (int i=0;i<mAllTripList.size();i++){
+            Trip trip = mAllTripList.get(i);
+            String time = trip.getTime();
+            trip.setType(sACTIVITY);
+            if (!mAllActivityMap.containsKey(time)){
+                List<Trip> newList = new ArrayList<>();
+                Trip divider = new Trip();
+                divider.setType(sDIVIDER);
+                newList.add(divider);
+                newList.add(trip);
+                mAllActivityMap.put(time,newList);
+            }else {
+                mAllActivityMap.get(time).add(trip);
+            }
+
+        }
+        return mAllActivityMap;
     }
 
     public  List<Trip> getListByDate(String date){
+             if (mTripMap.containsKey(date)){
+                 return mTripMap.get(date);
+             }else {
+                 Trip trip = new Trip();
+                 trip.setType(sEMPTY);
+                 ArrayList arrayList = new ArrayList();
+                 arrayList.add(trip);
+                 return arrayList;
+             }
 
-       return mMap.containsKey(date)==true?mMap.get(date):new ArrayList<Trip>();
     }
+
+    public  List<Trip> getRecommendListByDate(String date){
+        if (mAllActivityMap.containsKey(date)){
+            return mAllActivityMap.get(date);
+        }else {
+            ArrayList arrayList = new ArrayList();
+            return arrayList;
+        }
+
+    }
+
+    public void release(){
+        if (mTripMap!=null){
+            mTripMap.clear();
+        }
+        if (mTripList!=null){
+            mTripList.clear();
+        }
+        if (mAllTripList!=null){
+            mAllTripList.clear();
+        }
+        if (mAllActivityMap!=null){
+            mAllActivityMap.clear();
+        }
+    }
+
 
 }

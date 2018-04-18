@@ -16,6 +16,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -32,6 +33,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 
 import butterknife.BindView;
+import cn.bmob.v3.BmobUser;
 import rdc.avtivity.R;
 import rdc.base.BaseActivity;
 import rdc.bean.User;
@@ -72,7 +74,7 @@ public class IndividualActivity extends BaseActivity<IndividualPresenter> implem
     @BindView(R.id.btn_commit)
     Button mCommitButton;
 
-    private Dialog mLoadingDialog;
+
     private String mCommonPath;
     private String mImagePath;
     private String mPhotoPath;
@@ -109,8 +111,9 @@ public class IndividualActivity extends BaseActivity<IndividualPresenter> implem
     @Override
     protected void initView() {
         initToolBar();
-//        mLoadingDialog = LoadingDialogUtil.createLoadingDialog(IndividualActivity.this,"正在加载数据...");
         initUserInfo();
+        mCommitButton.setEnabled(false);
+
     }
 
     @Override
@@ -133,6 +136,7 @@ public class IndividualActivity extends BaseActivity<IndividualPresenter> implem
             @Override
             public void onClick(View view) {
                 showEditDialog("名称", mNameTextView.getText().toString());
+
             }
         });
 
@@ -151,8 +155,10 @@ public class IndividualActivity extends BaseActivity<IndividualPresenter> implem
         mCommitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mUpLoadingDialog = LoadingDialogUtil.createLoadingDialog(IndividualActivity.this,"正在上传...");
-                presenter.updateUser();
+
+                    mUpLoadingDialog = LoadingDialogUtil.createLoadingDialog(IndividualActivity.this,"正在上传...");
+                    presenter.updateUser();
+
             }
         });
     }
@@ -215,6 +221,7 @@ public class IndividualActivity extends BaseActivity<IndividualPresenter> implem
                                     break;
                                 case "简介":
                                     mIntroductionTextView.setText(input);
+
                                     break;
                                 case "学校":
                                     mUniversityTextView.setText(input);
@@ -222,8 +229,18 @@ public class IndividualActivity extends BaseActivity<IndividualPresenter> implem
                                 default:
                                     break;
                             }
+                            User user = BmobUser.getCurrentUser(User.class);
+                            if (!mNameTextView.getText().toString().equals(user.getNickname())||
+                                    !mIntroductionTextView.getText().toString().equals(user.getIntroduction())||
+                                    !mUniversityTextView.getText().toString().equals(user.getUniversity())){
+                                mCommitButton.setEnabled(true);
+                            }else {
+                                mCommitButton.setEnabled(false);
+
+                            }
                             dialog.dismiss();
                         }
+
 
                     }
                 }).create();
@@ -296,7 +313,6 @@ public class IndividualActivity extends BaseActivity<IndividualPresenter> implem
         Glide.with(this).load(userInfo.getUserImg().getUrl()).into(mImageView);
         mNameTextView.setText(userInfo.getNickname());
         mIntroductionTextView.setText(userInfo.getIntroduction());
-        LoadingDialogUtil.closeDialog(mLoadingDialog);
     }
 
 
@@ -348,6 +364,7 @@ public class IndividualActivity extends BaseActivity<IndividualPresenter> implem
             mPhotoPath = mCommonPath;
             Glide.with(this).load(mPhotoPath).into(mPhotoView);
         }
+            mCommitButton.setEnabled(true);
 
     }
 
@@ -362,6 +379,7 @@ public class IndividualActivity extends BaseActivity<IndividualPresenter> implem
             mPhotoPath = mCommonPath;
             Glide.with(this).load(mPhotoPath).into(mPhotoView);
         }
+        mCommitButton.setEnabled(true);
     }
 
     @Override
