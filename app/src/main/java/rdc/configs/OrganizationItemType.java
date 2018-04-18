@@ -7,4 +7,5 @@ package rdc.configs;
 public class OrganizationItemType {
     public static final int sORGANIZATION = 0;
     public static final int sEMPTY = 1;
+    public static final int sACTIVITY =3;
 }

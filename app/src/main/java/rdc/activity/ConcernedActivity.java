@@ -4,38 +4,33 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import rdc.adapter.OrganizationListAdapter;
+import rdc.adapter.ConcernedListAdapter;
 import rdc.avtivity.R;
 import rdc.base.BaseActivity;
-import rdc.base.BasePresenter;
 import rdc.bean.Organization;
-import rdc.bean.User;
-import rdc.contract.IOrganizationContract;
-import rdc.presenter.OrganizationPresenter;
+import rdc.contract.IConcernedContract;
+import rdc.presenter.ConcernedPresenter;
 import rdc.util.ACacheUtil;
 import rdc.util.LoadingDialogUtil;
 import rdc.util.ObjectCastUtil;
 
-public class ConcernedActivity extends BaseActivity<OrganizationPresenter> implements IOrganizationContract.View {
+public class ConcernedActivity extends BaseActivity<ConcernedPresenter> implements IConcernedContract.View {
 
     @BindView(R.id.rv_concerned_organization)
     RecyclerView mConcernedRecyclerView;
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
     private List<Organization> mOrganizationList;
-    private OrganizationListAdapter mAdapter;
+    private ConcernedListAdapter mAdapter;
     private Dialog mDialog;
     private ACacheUtil mACacheUtil;
 
@@ -47,7 +42,7 @@ public class ConcernedActivity extends BaseActivity<OrganizationPresenter> imple
     @Override
     protected void initData() {
         mOrganizationList = new ArrayList<>();
-        mAdapter = new OrganizationListAdapter(mOrganizationList,this);
+        mAdapter = new ConcernedListAdapter(mOrganizationList,this);
         mConcernedRecyclerView.setAdapter(mAdapter);
         mACacheUtil = ACacheUtil.get(getApplicationContext());
         if (ObjectCastUtil.cast(mACacheUtil.getAsObject("concerned"))!=null){
@@ -72,7 +67,12 @@ public class ConcernedActivity extends BaseActivity<OrganizationPresenter> imple
 
     @Override
     protected void initListener() {
-
+        mAdapter.setClickListener(new ConcernedListAdapter.OnClickListener() {
+            @Override
+            public void click(Organization organization) {
+                OrganizationDetailsActivity.actionStart(ConcernedActivity.this,organization);
+            }
+        });
     }
 
     public static void actionStart(Context context) {
@@ -108,8 +108,8 @@ public class ConcernedActivity extends BaseActivity<OrganizationPresenter> imple
     }
 
     @Override
-    public OrganizationPresenter getInstance() {
-        return new OrganizationPresenter();
+    public ConcernedPresenter getInstance() {
+        return new ConcernedPresenter();
 
     }
 }

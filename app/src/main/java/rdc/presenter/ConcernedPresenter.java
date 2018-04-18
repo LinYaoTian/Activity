@@ -6,8 +6,8 @@ import java.util.List;
 import rdc.base.BasePresenter;
 import rdc.bean.Organization;
 import rdc.bean.User;
-import rdc.contract.IOrganizationContract;
-import rdc.model.OrganizationModel;
+import rdc.contract.IConcernedContract;
+import rdc.model.ConcernedModel;
 
 import static rdc.configs.OrganizationItemType.sEMPTY;
 import static rdc.configs.OrganizationItemType.sORGANIZATION;
@@ -16,10 +16,10 @@ import static rdc.configs.OrganizationItemType.sORGANIZATION;
  * Created by asus on 18-4-14.
  */
 
-public class OrganizationPresenter extends BasePresenter<IOrganizationContract.View> implements IOrganizationContract.Presenter {
-    private OrganizationModel mModel;
-    public OrganizationPresenter() {
-        mModel = new OrganizationModel();
+public class ConcernedPresenter extends BasePresenter<IConcernedContract.View> implements IConcernedContract.Presenter {
+    private ConcernedModel mModel;
+    public ConcernedPresenter() {
+        mModel = new ConcernedModel();
     }
 
     @Override
@@ -30,10 +30,14 @@ public class OrganizationPresenter extends BasePresenter<IOrganizationContract.V
             User user = users.get(i);
             organization.setName(user.getNickname());
             organization.setImage(user.getUserImg());
+            organization.setPhoto(user.getUserPhoto());
             organization.setTime(user.getNewSendTime());
             organization.setMessage(user.getNewsActivityTitle());
             organization.setType(sORGANIZATION);
+            organization.setId(user.getObjectId());
+            organization.setIntroduction(user.getIntroduction());
             organizations.add(organization);
+
 
         }
         if (organizations.size()==0){

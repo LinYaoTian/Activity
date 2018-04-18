@@ -10,10 +10,37 @@ import cn.bmob.v3.datatype.BmobFile;
 
 public class Organization implements Serializable{
     private BmobFile mImage;
+    private BmobFile mPhoto;
     private String mName;
     private String mNewSendTime;
     private String mMessage;
+    private String mIntroduction;
     private int mType  ;
+    private String mId;
+
+    public String getIntroduction() {
+        return mIntroduction == null ? "" : mIntroduction;
+    }
+
+    public void setIntroduction(String introduction) {
+        mIntroduction = introduction;
+    }
+
+    public BmobFile getPhoto() {
+        return mPhoto;
+    }
+
+    public void setPhoto(BmobFile photo) {
+        mPhoto = photo;
+    }
+
+    public String getId() {
+        return mId == null ? "" : mId;
+    }
+
+    public void setId(String id) {
+        mId = id;
+    }
 
     public int getType() {
         return mType;
