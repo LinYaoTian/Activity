@@ -1,5 +1,8 @@
 package rdc.contract;
 
+import java.util.Date;
+
+import cn.bmob.v3.datatype.BmobDate;
 import cn.bmob.v3.datatype.BmobRelation;
 import rdc.bean.User;
 
@@ -20,11 +23,15 @@ public interface ReleaseContract {
         String getPlace();
         String getTag();
         String getContent();
+        String getSendTime();
+        BmobDate getExpirationDate();
+        void showProgressDialog();
+        void dismissProgressDialog();
     }
 
     interface IModel {
         void release(User manager, String university, String imagePath, String place, Integer sawnum, String sendtime, String tag, String time, String title,
-                     String content, BmobRelation attcipator);
+                     String content, BmobRelation attcipator, BmobDate expirationDate);
     }
 
     interface IPresenter {

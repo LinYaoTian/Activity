@@ -12,6 +12,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -31,18 +32,21 @@ import android.widget.Toast;
 import com.zxy.tiny.callback.FileCallback;
 
 import java.io.FileNotFoundException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
 import butterknife.BindView;
+import cn.bmob.v3.datatype.BmobDate;
 import rdc.avtivity.R;
 import rdc.base.BaseActivity;
 import rdc.contract.ReleaseContract;
 import rdc.presenter.ReleasePresenter;
 import rdc.util.CustomDatePicker;
 import rdc.util.ImageUtil;
+import rdc.util.LoadingDialogUtil;
 import rdc.util.UniversityUtils;
 import rdc.util.UserUtil;
 
@@ -78,7 +82,8 @@ public class ReleaseActivity extends BaseActivity<ReleasePresenter> implements R
     public static final int RELEASE_TAG_RESULT_CODE = 4;
 
     private CustomDatePicker timePicker;
-    private String time;
+    private String currentTime;
+    private Dialog mUpLoadingDialog;
 
     @Override
     protected int setLayoutResID() {
@@ -121,6 +126,7 @@ public class ReleaseActivity extends BaseActivity<ReleasePresenter> implements R
         }else {
             presenter.release();
         }
+        showProgressDialog();
     }
 
     private void showTime(final TextView v) {
@@ -129,10 +135,10 @@ public class ReleaseActivity extends BaseActivity<ReleasePresenter> implements R
             public void handle(String time) {
                 v.setText(time);
             }
-        }, time, "2027-12-31 23:59");
+        }, currentTime, "2027-12-31 23:59");
         timePicker.showSpecificTime(true);
         timePicker.setIsLoop(true);
-        timePicker.show(time);
+        timePicker.show(currentTime);
     }
 
     private void chooseUniversity() {
@@ -143,18 +149,16 @@ public class ReleaseActivity extends BaseActivity<ReleasePresenter> implements R
         TextView tvTitle = view1.findViewById(R.id.tv_title_dialog_act_register);
         ListView lvList = view1.findViewById(R.id.lv_university_dialog_act_register);
         lvList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            boolean selectingProvince = true;//是否正在选择学校所在省份
+            boolean selectingProvince = true;
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 if (selectingProvince){
-                    //正在选择学校所在省份
                     String province = provinces.get(i);
                     listAdapter.clear();
                     listAdapter.addAll(UniversityUtils.getUniversities(province));
                     listAdapter.notifyDataSetChanged();
                     selectingProvince = !selectingProvince;
                 }else {
-                    //正在选择学校
                     activity_release_university_textView2.setText(listAdapter.getItem(i));
                     dialog.dismiss();
                 }
@@ -172,8 +176,10 @@ public class ReleaseActivity extends BaseActivity<ReleasePresenter> implements R
     @Override
     protected void initView() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.CHINA);
-        time = sdf.format(new Date());
+        currentTime = sdf.format(new Date());
         initToolBar();
+
+//        BmobDate
     }
 
     @Override
@@ -302,7 +308,7 @@ public class ReleaseActivity extends BaseActivity<ReleasePresenter> implements R
 
     @Override
     public String getStartTime() {
-        return activity_release_time_start_textView.getText().toString();
+        return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
     }
 
     @Override
@@ -328,6 +334,34 @@ public class ReleaseActivity extends BaseActivity<ReleasePresenter> implements R
     @Override
     public String getContent() {
         return activity_release_content_editText.getText().toString();
+    }
+
+    @Override
+    public String getSendTime() {
+        return new Date().toString();
+    }
+
+    @Override
+    public BmobDate getExpirationDate() {
+        String expirationDate = activity_release_time_end_textView.getText().toString();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        try {
+            return new BmobDate(sdf.parse(expirationDate));
+        } catch (ParseException e) {
+            e.printStackTrace();
+            Log.d(TAG, "转换出错！");
+        }
+        return new BmobDate(new Date());
+    }
+
+    @Override
+    public void showProgressDialog() {
+        mUpLoadingDialog = LoadingDialogUtil.createLoadingDialog(ReleaseActivity.this,"正在上传...");
+    }
+
+    @Override
+    public void dismissProgressDialog() {
+        LoadingDialogUtil.closeDialog(mUpLoadingDialog);
     }
 
     @Override

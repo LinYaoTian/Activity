@@ -1,6 +1,7 @@
 package rdc.contract;
 
-import cn.bmob.v3.datatype.BmobRelation;
+import java.util.List;
+
 import rdc.bean.Activity;
 import rdc.bean.User;
 
@@ -12,22 +13,26 @@ public interface DetailContract {
 
     interface IView {
         void setDetail(Activity activity);
+        void setDetailAttcipator(List<User> userList);
         void onSuccess();
+        void onSingOrUnSingUpSuccess();
         void onError(String errMeg);
         String getobjectId();
-        BmobRelation getNewBmobRelation();
     }
 
     interface IModel{
         void getDetail(IPresenter iPresenter, String objectId);
-//        void onSignUp(IPresenter iPresenter, String objectId, BmobRelation bmobRelation);
-        void onSignUp(IPresenter iPresenter, String objectId);
+        void onSignUp(IPresenter iPresenter, String objectId, boolean hasSignUp);
+        void addSawNum(IPresenter iPresenter, int currentNum, String objectId);
     }
 
     interface IPresenter{
         void setDetail(Activity activity);
+        void setDetailAttcipator(List<User> userList);
         void getDetail(String objectId);
         void releaseResult(Boolean state,String message);
-        void onSignUp();
+        void onSignUp(boolean hasSignUp);
+        void onSingOrUnSingUpSuccess();
+        void addSawNum(int currentNum);
     }
 }

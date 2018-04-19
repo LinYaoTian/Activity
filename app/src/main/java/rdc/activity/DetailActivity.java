@@ -1,6 +1,7 @@
 package rdc.activity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -8,20 +9,25 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
+import java.util.List;
 import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.datatype.BmobRelation;
 import rdc.avtivity.R;
 import rdc.base.BaseActivity;
 import rdc.base.BasePresenter;
 import rdc.bean.Activity;
+import rdc.bean.User;
 import rdc.contract.DetailContract;
 import rdc.presenter.DetailPresenter;
+import rdc.util.ShareUtil;
 import rdc.util.UserUtil;
 
 /**
@@ -31,7 +37,6 @@ import rdc.util.UserUtil;
 public class DetailActivity extends BaseActivity<DetailPresenter> implements DetailContract.IView {
 
     private String TAG = "DetailActivity";
-
     @BindView(R.id.activity_detail_forward_imageView) ImageView activity_detail_forward_imageView;
     @BindView(R.id.activity_detail_poster_imageView) ImageView activity_detail_poster_imageView;
     @BindView(R.id.activity_detail_title_textView) TextView activity_detail_title_textView;
@@ -52,6 +57,7 @@ public class DetailActivity extends BaseActivity<DetailPresenter> implements Det
     @BindView(R.id.toolbar) Toolbar mToolbar;
     private Activity activity;
     private String objectId;
+    private boolean hasSignUp = false;
 
     @Override
     protected int setLayoutResID() {
@@ -78,17 +84,24 @@ public class DetailActivity extends BaseActivity<DetailPresenter> implements Det
 
     @OnClick(R.id.activity_detail_forward_imageView)
     public void onForward() {
-
+        ShareUtil.share(getSupportFragmentManager(), activity.getTitle() + "\n" + "时间 ： " + activity_detail_time_textView.getText().toString() +
+                "\n" + "地点 ： " + activity.getUniversity() + activity.getPlace());
     }
 
     @OnClick(R.id.activity_detail_consult_textView)
     public void onConsult() {
-
+        if (activity.getManager().getMobilePhoneNumber() == null || activity.getManager().getMobilePhoneNumber().equals("")) {
+            Toast.makeText(this, "该发布者还未设置联系电话！", Toast.LENGTH_SHORT).show();
+        }else {
+            Intent dialIntent = new Intent(Intent.ACTION_DIAL);
+            dialIntent.setData(Uri.parse("tel:" + activity.getManager().getMobilePhoneNumber()));
+            startActivity(dialIntent);
+        }
     }
 
     @OnClick(R.id.activity_detail_signUp_textView)
     public void onSignUp() {
-        presenter.onSignUp();
+        presenter.onSignUp(hasSignUp);
     }
 
     @OnClick(R.id.activity_detail_manager_relativeLayout)
@@ -103,7 +116,7 @@ public class DetailActivity extends BaseActivity<DetailPresenter> implements Det
         Glide.with(this).load(activity.getImage().getFileUrl()).into(activity_detail_poster_imageView);
         activity_detail_title_textView.setText(activity.getTitle() + "");
         activity_detail_seeNum_textView.setText(activity.getSawnum() + "");
-        activity_detail_attendNum_textView.setText(activity.getAttcipator().getObjects().size() + "");
+//        activity_detail_attendNum_textView.setText(activity.getAttcipator().getObjects().size() + "");
         activity_detail_time_textView.setText(timeArray[0] + " 至 " + timeArray[1]);
         activity_detail_school_textView.setText(activity.getUniversity());
         activity_detail_place_textView.setText(activity.getPlace());
@@ -120,6 +133,26 @@ public class DetailActivity extends BaseActivity<DetailPresenter> implements Det
             activity_detail_manager_introduction_textView.setText(activity.getManager().getIntroduction());
         }
         activity_detail_content_textView.setText(activity.getContent());
+
+        int currentSawNum = activity.getSawnum();
+        presenter.addSawNum(currentSawNum);
+    }
+
+    @Override
+    public void setDetailAttcipator(List<User> userList) {
+        if (userList == null || userList.size() == 0) {
+            activity_detail_attendNum_textView.setText(0 + "");
+        }else {
+            activity_detail_attendNum_textView.setText(userList.size() + "");
+            for (int i = 0; i < userList.size(); i++) {
+                if (Objects.equals(userList.get(i).getObjectId(), BmobUser.getCurrentUser().getObjectId())) {
+                    hasSignUp = true;
+                    activity_detail_signUp_textView.setText("取消报名");
+                    activity_detail_signUp_textView.setBackgroundColor(getResources().getColor(R.color.darkgray));
+                    return;
+                }
+            }
+        }
     }
 
     @Override
@@ -128,20 +161,34 @@ public class DetailActivity extends BaseActivity<DetailPresenter> implements Det
     }
 
     @Override
+    public void onSingOrUnSingUpSuccess() {
+        int attendNum = Integer.parseInt(activity_detail_attendNum_textView.getText().toString());
+        if (hasSignUp) {
+            activity_detail_signUp_textView.setText("我要报名");
+            activity_detail_signUp_textView.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+            hasSignUp = false;
+            attendNum--;
+            activity_detail_attendNum_textView.setText(attendNum + "");
+            Toast.makeText(this, "取消报名成功!" , Toast.LENGTH_SHORT).show();
+        }else {
+            activity_detail_signUp_textView.setText("取消报名");
+            activity_detail_signUp_textView.setBackgroundColor(getResources().getColor(R.color.darkgray));
+            hasSignUp = true;
+            attendNum++;
+            activity_detail_attendNum_textView.setText(attendNum + "");
+            Toast.makeText(this, "报名成功!" , Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
     public void onError(String errMeg) {
         Log.d(TAG, "获取活动详情错误， " + errMeg);
+        Toast.makeText(this, "抱歉，遇到了一个预料之外的错误！" , Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public String getobjectId() {
         return objectId;
-    }
-
-    @Override
-    public BmobRelation getNewBmobRelation() {
-        BmobRelation bmobRelation = activity.getAttcipator();
-        bmobRelation.add(UserUtil.getUser());
-        return bmobRelation;
     }
 
     @Override
