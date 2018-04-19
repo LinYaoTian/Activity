@@ -189,6 +189,7 @@ public class ReleaseActivity extends BaseActivity<ReleasePresenter> implements R
     @Override
     public void onSuccess() {
         Toast.makeText(this, "发布成功！" , Toast.LENGTH_SHORT).show();
+        finish();
     }
 
     @Override
