@@ -28,10 +28,12 @@
     </android.support.v7.widget.Toolbar>
 
     <LinearLayout
-        android:id="@+id/layout_change_password"
+        android:id="@+id/ll_change_password_act_account_manage"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:orientation="horizontal"
+        android:clickable="true"
+        android:focusable="true"
         android:background="@drawable/item_background_selector"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -53,25 +55,27 @@
         android:background="@color/colorDivider"
         tools:layout_editor_absoluteX="10dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/layout_change_password"
+        app:layout_constraintTop_toBottomOf="@id/ll_change_password_act_account_manage"
         app:layout_constraintEnd_toEndOf="parent"/>
 
     <LinearLayout
-        android:id="@+id/rl_account"
+        android:id="@+id/ll_change_account_act_account_manage"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="?attr/selectableItemBackground"
+        android:background="@drawable/item_background_selector"
         android:clickable="true"
+        android:focusable="true"
         android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@+id/view"
-        android:focusable="true">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginStart="10dp"
             android:gravity="center_vertical"
-            android:text="@string/logout"
+            android:text="@string/changeAccount"
             android:textSize="18sp" />
 
     </LinearLayout>

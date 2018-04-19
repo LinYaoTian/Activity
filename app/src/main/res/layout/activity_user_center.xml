@@ -69,7 +69,7 @@
         android:background="@color/colorDivider" />
 
     <RelativeLayout
-        android:id="@+id/rl_account"
+        android:id="@+id/rl_change_account_act_account_manage"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@drawable/item_background_selector"

@@ -30,6 +30,7 @@ public class LoginModel implements LoginContract.Model {
             public void done(User user, BmobException e) {
                 if (e == null){
                     UserUtil.saveUser(userName, password);
+                    UserUtil.saveSessionToken(user.getSessionToken());
                     mPresenter.loginResult(true,null);
                 }else if (e.getMessage().startsWith("username or password incorrect.")){
                     mPresenter.loginResult(false,"用户名或密码错误！");

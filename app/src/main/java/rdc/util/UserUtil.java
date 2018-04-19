@@ -25,6 +25,25 @@ public class UserUtil {
     }
 
     /**
+     * 保存登录时的SessionTaken
+     * @param sessionToken
+     */
+    public static void saveSessionToken(String sessionToken){
+        SharedPreferences.Editor editor = App.getmContext().getSharedPreferences("login", Context.MODE_PRIVATE).edit();
+        editor.putString("token",sessionToken);
+        editor.apply();
+    }
+
+    /**
+     * 获取登录时的SessionTaken
+     * @return
+     */
+    public static String getSessionToken(){
+        SharedPreferences sp = App.getmContext().getSharedPreferences("login",Context.MODE_PRIVATE);
+        return sp.getString("token","");
+    }
+
+    /**
      * 获取用户的帐号和密码
      * @return
      */

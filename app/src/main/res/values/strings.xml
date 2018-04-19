@@ -61,5 +61,5 @@
 
     <!--帐号管理-->
     <string name="changePassword">修改密码</string>
-    <string name="logout">退出登录</string>
+    <string name="changeAccount">更换帐号</string>
 </resources>
