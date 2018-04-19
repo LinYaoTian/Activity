@@ -6,9 +6,7 @@ import java.util.List;
 import rdc.base.BasePresenter;
 import rdc.bean.Activity;
 import rdc.bean.ManagedActivity;
-import rdc.bean.User;
 import rdc.contract.IManagedContract;
-import rdc.contract.IOrganizationContract;
 import rdc.model.ManagedModel;
 
 import static rdc.configs.ManagedItemType.sEMPTY;

@@ -9,7 +9,7 @@ import rdc.bean.User;
  * Created by asus on 18-4-14.
  */
 
-public interface IOrganizationContract {
+public interface IConcernedContract {
     interface View {
         void setOrganization(List<Organization> list);
     }

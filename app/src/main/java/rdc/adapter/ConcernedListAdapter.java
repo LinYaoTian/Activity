@@ -1,9 +1,7 @@
 package rdc.adapter;
 
 import android.content.Context;
-import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,9 +10,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
-import java.net.URI;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.List;
 
 import butterknife.BindView;
@@ -30,15 +25,15 @@ import static rdc.util.DateUtil.parseDate;
  * Created by asus on 18-4-14.
  */
 
-public class OrganizationListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class ConcernedListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<Organization> mOrganizationList;
     private OnClickListener mClickListener;
     private Context mContext;
     public interface OnClickListener {
-        void click();
+        void click(Organization organization);
     }
 
-    public OrganizationListAdapter(List<Organization> organizationList, Context context) {
+    public ConcernedListAdapter(List<Organization> organizationList, Context context) {
         mOrganizationList = organizationList;
         mContext = context;
     }
@@ -47,7 +42,7 @@ public class OrganizationListAdapter extends RecyclerView.Adapter<RecyclerView.V
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = null;
         if (viewType==sORGANIZATION){
-            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_organization,parent,false);
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_concerned,parent,false);
             return new ViewHolder(view);
         }else if (viewType==sEMPTY){
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_empty_organization,parent,false);
@@ -59,7 +54,7 @@ public class OrganizationListAdapter extends RecyclerView.Adapter<RecyclerView.V
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
        if (holder instanceof ViewHolder){
-           Organization organization = mOrganizationList.get(position);
+           final Organization organization = mOrganizationList.get(position);
            Glide.with(mContext).load(organization.getImage().getUrl()).into( ((ViewHolder)holder).mImage);
            ((ViewHolder)holder).mName.setText(organization.getName());
            ((ViewHolder)holder).mMessage.setText(organization.getMessage());
@@ -68,7 +63,7 @@ public class OrganizationListAdapter extends RecyclerView.Adapter<RecyclerView.V
                @Override
                public void onClick(View view) {
                    if (mClickListener!=null){
-                       mClickListener.click();
+                       mClickListener.click(organization);
                    }
                }
            });

@@ -90,6 +90,9 @@ public class ReleaseActivity extends BaseActivity<ReleasePresenter> implements R
         switch (v.getId()) {
             case R.id.activity_release_release_textView:
                 release();
+//                Intent detailIntent = new Intent(ReleaseActivity.this, DetailActivity.class);
+//                detailIntent.putExtra("objectId", "qPSLiiiC");
+//                startActivity(detailIntent);
                 break;
             case R.id.activity_release_poster_imageView:
                 showDialog();

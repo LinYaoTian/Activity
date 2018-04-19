@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <ImageView
+        android:id="@+id/imv_photo"
+        android:scaleType="fitXY"
+        android:layout_width="match_parent"
+        android:layout_height="200dp" />
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imv_image"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="165dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp" />
+    <TextView
+        android:text="安卓组"
+        android:id="@+id/tv_name"
+        android:layout_marginTop="3dp"
+        android:layout_marginBottom="3dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/imv_image"
+        android:textSize="@dimen/dimenTextSize"
+        android:textColor="@color/colorTextColor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:text="安卓组"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+
+        android:layout_below="@id/tv_name"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/tv_introduction"
+        android:textSize="@dimen/dimenNavTextSize"
+        android:textColor="@color/colorTextColor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <View
+        android:layout_below="@+id/tv_introduction"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/colorDivider" />
+</RelativeLayout>

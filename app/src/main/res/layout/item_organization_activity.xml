@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginStart="10dp"
+    android:layout_marginEnd="10dp"
+    android:layout_marginTop="6dp"
+    android:layout_marginBottom="6dp"
+    app:cardCornerRadius="@dimen/cornerRadius">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?attr/selectableItemBackground">
+
+        <ImageView
+            android:id="@+id/imv_image"
+            android:layout_width="0dp"
+            android:layout_height="150dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/iv_test_cover"
+            android:scaleType="centerCrop"/>
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textColor="@color/black"
+            android:textSize="17sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imv_image"
+            tools:text="油纸伞彩绘DIY|最美的雨季,我们不见不'伞'" />
+
+
+        <ImageView
+            android:id="@+id/imv_place"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_margin="10dp"
+            android:src="@drawable/iv_location"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title" />
+
+        <TextView
+            android:id="@+id/tv_place"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:gravity="center_vertical"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="@+id/imv_place"
+            app:layout_constraintEnd_toEndOf="@+id/tv_title"
+            app:layout_constraintStart_toEndOf="@+id/imv_place"
+            app:layout_constraintTop_toTopOf="@+id/imv_place"
+            tools:text="广州市南沙区东涌镇大鱼公路360号" />
+
+        <ImageView
+            android:id="@+id/imv_time"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/iv_time"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/imv_place"
+            app:layout_constraintStart_toStartOf="@+id/imv_place"
+            app:layout_constraintTop_toBottomOf="@+id/imv_place" />
+
+
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:gravity="center_vertical"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="@+id/imv_time"
+            app:layout_constraintEnd_toStartOf="@+id/tv_saw_num"
+            app:layout_constraintStart_toEndOf="@+id/imv_time"
+            app:layout_constraintTop_toTopOf="@+id/imv_time"
+            tools:text="2017年04月21日 09:30至11:00" />
+
+
+        <TextView
+            android:id="@+id/tv_saw_num"
+            android:layout_width="25dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:textColor="@color/colorPrimary"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/imv_time"
+            app:layout_constraintEnd_toEndOf="@+id/imv_image"
+            app:layout_constraintTop_toTopOf="@+id/imv_time"
+            android:singleLine="true"
+            android:gravity="center"
+            tools:text="999"
+            android:maxLength="4"/>
+
+
+        <ImageView
+            android:id="@+id/imv_saw_num"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:src="@drawable/iv_eye_blue"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_saw_num"
+            app:layout_constraintEnd_toStartOf="@+id/tv_saw_num"
+            app:layout_constraintTop_toTopOf="@+id/tv_saw_num" />
+
+
+
+    </android.support.constraint.ConstraintLayout>
+
+
+</android.support.v7.widget.CardView>
