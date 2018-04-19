@@ -37,7 +37,7 @@ public class ManagedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     }
 
     public interface OnClickListener {
-        void click();
+        void click(ManagedActivity activity);
     }
 
     @Override
@@ -56,7 +56,7 @@ public class ManagedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
        if (holder instanceof ViewHolder){
-           ManagedActivity activity = mManagedActivityList.get(position);
+           final ManagedActivity activity = mManagedActivityList.get(position);
            Glide.with(mContext).load(activity.getImageUrl()).into(((ViewHolder)holder).mImage);
            ((ViewHolder)holder).mSendTime.setText("发布时间:"+activity.getSendTime());
            ((ViewHolder)holder).mTitle.setText(activity.getTitle());
@@ -64,7 +64,7 @@ public class ManagedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                @Override
                public void onClick(View view) {
                    if (mOnClickListener != null) {
-                       mOnClickListener.click();
+                       mOnClickListener.click(activity);
                    }
                }
            });

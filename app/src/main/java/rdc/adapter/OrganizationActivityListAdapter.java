@@ -31,7 +31,10 @@ public class OrganizationActivityListAdapter extends RecyclerView.Adapter {
 
     private List<OrganizationActivity> mActivities;
     private Context mContext;
-
+    private OnClickListener mClickListener;
+    public interface OnClickListener{
+        void click(OrganizationActivity activity);
+    }
     public OrganizationActivityListAdapter(List<OrganizationActivity> activities, Context context) {
         mActivities = activities;
         mContext = context;
@@ -52,14 +55,22 @@ public class OrganizationActivityListAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        try {
-            OrganizationActivity activity = mActivities.get(position);
+
+            final OrganizationActivity activity = mActivities.get(position);
             if (holder instanceof ItemViewHolder) {
                 Glide.with(mContext).load(activity.getCoverImageUrl()).into(((ItemViewHolder) holder).mImageView);
                 ((ItemViewHolder)holder).mTitle.setText(activity.getTitle());
                 ((ItemViewHolder)holder).mPlace.setText(activity.getLocation());
                 ((ItemViewHolder)holder).mTime.setText(activity.getTime());
                 ((ItemViewHolder)holder).mSawNum.setText(activity.getSawNum()+"");
+                ((ItemViewHolder)holder).itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (mClickListener!=null){
+                            mClickListener.click(activity);
+                        }
+                    }
+                });
 
             }else if (holder instanceof  HeaderViewHolder){
 
@@ -70,9 +81,7 @@ public class OrganizationActivityListAdapter extends RecyclerView.Adapter {
 
 
             }
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+
     }
 
     @Override
@@ -83,6 +92,14 @@ public class OrganizationActivityListAdapter extends RecyclerView.Adapter {
     @Override
     public int getItemViewType(int position) {
         return mActivities.get(position).getType();
+    }
+
+    public OnClickListener getClickListener() {
+        return mClickListener;
+    }
+
+    public void setClickListener(OnClickListener clickListener) {
+        mClickListener = clickListener;
     }
 
     class ItemViewHolder extends RecyclerView.ViewHolder {

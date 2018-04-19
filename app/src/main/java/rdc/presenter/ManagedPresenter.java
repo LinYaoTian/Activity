@@ -32,6 +32,7 @@ public class ManagedPresenter extends BasePresenter<IManagedContract.View> imple
             activity.setTitle(activity1.getTitle());
             activity.setSendTime(activity1.getSendtime());
             activity.setType(sMANAGED);
+            activity.setId(activity1.getObjectId());
             managedActivities.add(activity);
 
         }

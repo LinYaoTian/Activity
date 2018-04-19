@@ -4,12 +4,19 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
+import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.DecelerateInterpolator;
+import android.widget.FrameLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +30,7 @@ import rdc.bean.Activity;
 import rdc.bean.Organization;
 import rdc.bean.OrganizationActivity;
 import rdc.contract.IOrganizationDetailsContract;
+import rdc.listener.HidingScrollListener;
 import rdc.presenter.OrganizationDetailsPresenter;
 import rdc.util.ACacheUtil;
 import rdc.util.LoadingDialogUtil;
@@ -34,6 +42,8 @@ public class OrganizationDetailsActivity extends BaseActivity<OrganizationDetail
 
     @BindView(R.id.rv_organization)
     RecyclerView mActivityRecyclerView;
+    @BindView(R.id.toolbar)
+    Toolbar mToolbar;
     private List<OrganizationActivity> mActivities;
     private ACacheUtil mACacheUtil;
     private OrganizationActivityListAdapter mAdapter;
@@ -51,14 +61,16 @@ public class OrganizationDetailsActivity extends BaseActivity<OrganizationDetail
         mActivities = new ArrayList<>();
         mActivities.add(initHeaderOrganization(organization));
         mAdapter = new OrganizationActivityListAdapter(mActivities,this);
-//        if (ObjectCastUtil.cast(mACacheUtil.getAsObject(mId))!=null){
-//            mActivities.addAll((ArrayList)ObjectCastUtil.cast(mACacheUtil.getAsObject("id")));
-//            mAdapter.notifyDataSetChanged();
-//        }else {
-            presenter.getManagedActivity(organization);
-        mLoadingDialog = LoadingDialogUtil.createLoadingDialog(OrganizationDetailsActivity.this, "正在加载数据...");
 
-//        }
+          if (ObjectCastUtil.cast(mACacheUtil.getAsObject(mId))!=null){
+              mActivities.addAll((ArrayList)ObjectCastUtil.cast(mACacheUtil.getAsObject(mId)));
+              mAdapter.notifyDataSetChanged();
+          }else {
+              presenter.getManagedActivity(organization);
+              mLoadingDialog = LoadingDialogUtil.createLoadingDialog(OrganizationDetailsActivity.this, "正在加载数据...");
+
+          }
+
     }
 
     @Override
@@ -66,14 +78,67 @@ public class OrganizationDetailsActivity extends BaseActivity<OrganizationDetail
         LinearLayoutManager manager = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
         mActivityRecyclerView.setLayoutManager(manager);
         mActivityRecyclerView.setAdapter(mAdapter);
+        initToolBar();
+        mToolbar.animate().alpha(0);
     }
 
     @Override
     protected void initListener() {
 
+
+        mAdapter.setClickListener(new OrganizationActivityListAdapter.OnClickListener() {
+            @Override
+            public void click(OrganizationActivity activity) {
+                DetailActivity.actionStart(OrganizationDetailsActivity.this,activity.getId());
+            }
+        });
+
+           mActivityRecyclerView.setOnScrollListener(new HidingScrollListener() {
+               @Override
+               public void onHide() {
+
+                   hideViews();
+               }
+
+               @Override
+               public void onShow() {
+                   showViews();
+               }
+           });
+
+
+
     }
 
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                break;
+        }
+        return true;
+    }
+
+    private void initToolBar() {
+        setSupportActionBar(mToolbar);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setDisplayShowTitleEnabled(false);
+        }
+    }
+
+    private void hideViews() {
+
+        mToolbar.animate().alpha(0).setInterpolator(new AccelerateInterpolator(3));
+
+    }
+
+    private void showViews() {
+        mToolbar.animate().alpha(255).setInterpolator(new DecelerateInterpolator(3));
+    }
     @Override
     public void setManagedActivity(List<OrganizationActivity> list) {
         mACacheUtil.put(mId,(ArrayList)list);

@@ -34,6 +34,7 @@ public class OrganizationDetailsPresenter extends BasePresenter<IOrganizationDet
         for (int i=0;i<list.size();i++){
             OrganizationActivity organizationActivity = new OrganizationActivity();
             Activity activity = list.get(i);
+            organizationActivity.setId(activity.getObjectId());
             organizationActivity.setCoverImageUrl(activity.getImage().getUrl());
             organizationActivity.setTitle(activity.getTitle());
             organizationActivity.setTime(activity.getTime());

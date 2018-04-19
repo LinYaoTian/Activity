@@ -13,10 +13,19 @@ public class OrganizationActivity implements Serializable {
     private String time;
     private int sawNum;
     private int type;
+    private String id;
     private String image;
     private String photo;
     private String name;
     private String introduction;
+
+    public String getId() {
+        return id == null ? "" : id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getCoverImageUrl() {
         return coverImageUrl == null ? "" : coverImageUrl;

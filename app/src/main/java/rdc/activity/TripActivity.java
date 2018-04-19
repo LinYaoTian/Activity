@@ -191,6 +191,13 @@ public class TripActivity extends BaseActivity<TripPresenter> implements ITripCo
             }
         });
 
+        mAdapter.setOnClickListener(new TripListRvAdapter.OnClickListener() {
+            @Override
+            public void click(Trip trip) {
+                DetailActivity.actionStart(TripActivity.this,trip.getObjectId());
+            }
+        });
+
     }
 
     public static void actionStart(Context context) {
