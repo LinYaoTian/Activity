@@ -4,7 +4,9 @@ import android.os.Environment;
 import android.util.Log;
 
 import java.io.File;
+import java.util.Date;
 
+import cn.bmob.v3.datatype.BmobDate;
 import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.datatype.BmobRelation;
 import cn.bmob.v3.exception.BmobException;
@@ -30,7 +32,7 @@ public class ReleaseModel implements ReleaseContract.IModel{
 
     @Override
     public void release(final User manager, final String university, final String imagePath, final String place, final Integer sawnum, final String sendtime, final String tag, final String time, final String title,
-                        final String content, final BmobRelation attcipator) {
+                        final String content, final BmobRelation attcipator, final BmobDate expirationDate) {
         Log.d(TAG, "RELEASE");
 
 //        final BmobFile photoBmobFile = new BmobFile(new File(imagePath));
@@ -53,6 +55,7 @@ public class ReleaseModel implements ReleaseContract.IModel{
                 activity.setTag(tag);
                 activity.setTime(time);
                 activity.setTitle(title);
+                activity.setExpirationDate(expirationDate);
                 activity.setContent(content);
                 activity.save(new SaveListener<String>() {
                     @Override

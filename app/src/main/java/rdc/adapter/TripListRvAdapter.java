@@ -29,7 +29,7 @@ public class TripListRvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
 
     public interface OnClickListener{
-        void click();
+        void click(Trip trip);
     }
     public TripListRvAdapter(List<Trip> tripList) {
         mTripList = tripList;
@@ -56,7 +56,7 @@ public class TripListRvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof ActivityViewHolder){
-            Trip trip = mTripList.get(position);
+            final Trip trip = mTripList.get(position);
             ((ActivityViewHolder)holder).mTvPlace.setText(trip.getLocation());
             ((ActivityViewHolder)holder).mTvTime.setText(trip.getTime());
             ((ActivityViewHolder)holder).mTvTitle.setText(trip.getTitle());
@@ -64,7 +64,7 @@ public class TripListRvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 @Override
                 public void onClick(View view) {
                     if (mOnClickListener!=null){
-                        mOnClickListener.click();
+                        mOnClickListener.click(trip);
                     }
                 }
             });

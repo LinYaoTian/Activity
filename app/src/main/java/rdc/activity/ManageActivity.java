@@ -65,7 +65,12 @@ public class ManageActivity extends BaseActivity<ManagedPresenter> implements IM
 
     @Override
     protected void initListener() {
-
+          mAdapter.setOnClickListener(new ManagedAdapter.OnClickListener() {
+              @Override
+              public void click(ManagedActivity activity) {
+                    DetailActivity.actionStart(ManageActivity.this,activity.getId());
+              }
+          });
     }
 
     public static void actionStart(Context context) {

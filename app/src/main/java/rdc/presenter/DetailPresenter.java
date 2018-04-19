@@ -1,7 +1,10 @@
 package rdc.presenter;
 
+import java.util.List;
+
 import rdc.base.BasePresenter;
 import rdc.bean.Activity;
+import rdc.bean.User;
 import rdc.contract.DetailContract;
 import rdc.model.DetailModel;
 
@@ -23,14 +26,28 @@ public class DetailPresenter extends BasePresenter<DetailContract.IView> impleme
     }
 
     @Override
+    public void setDetailAttcipator(List<User> userList) {
+        getMvpView().setDetailAttcipator(userList);
+    }
+
+    @Override
     public void getDetail(String objectId) {
         mModel.getDetail(this, objectId);
     }
 
     @Override
-    public void onSignUp() {
-//        mModel.onSignUp(this, getMvpView().getobjectId(), getMvpView().getNewBmobRelation());
-        mModel.onSignUp(this, getMvpView().getobjectId());
+    public void onSignUp(boolean hasSignUp) {
+        mModel.onSignUp(this, getMvpView().getobjectId(), hasSignUp);
+    }
+
+    @Override
+    public void onSingOrUnSingUpSuccess() {
+        getMvpView().onSingOrUnSingUpSuccess();
+    }
+
+    @Override
+    public void addSawNum(int currentNum) {
+        mModel.addSawNum(this, currentNum, getMvpView().getobjectId());
     }
 
     @Override

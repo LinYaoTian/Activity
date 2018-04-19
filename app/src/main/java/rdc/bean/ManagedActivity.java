@@ -11,6 +11,15 @@ public class ManagedActivity implements Serializable{
      private String mTitle;
      private String mSendTime;
      private int mType ;
+     private String mId;
+
+    public String getId() {
+        return mId == null ? "" : mId;
+    }
+
+    public void setId(String id) {
+        mId = id;
+    }
 
     public int getType() {
         return mType;

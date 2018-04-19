@@ -2,6 +2,8 @@ package rdc.presenter;
 
 import android.util.Log;
 
+import java.util.Date;
+
 import cn.bmob.v3.BmobUser;
 import rdc.base.BasePresenter;
 import rdc.bean.User;
@@ -38,8 +40,8 @@ public class ReleasePresenter extends BasePresenter<ReleaseContract.IView> imple
         Log.d(TAG, "RELEASE");
 
         mModel.release(BmobUser.getCurrentUser(User.class), getMvpView().getUniversity(), getMvpView().getImagePath(), getMvpView().getPlace(), 0,
-                "4月17号", getMvpView().getTag(), getMvpView().getStartTime() + "~" + getMvpView().getEndTime(),
-                getMvpView().getActivityTheme(), getMvpView().getContent(),  null);
+                getMvpView().getSendTime(), getMvpView().getTag(), getMvpView().getStartTime() + "~" + getMvpView().getEndTime(),
+                getMvpView().getActivityTheme(), getMvpView().getContent(),  null, getMvpView().getExpirationDate());
     }
 
     @Override
@@ -52,6 +54,7 @@ public class ReleasePresenter extends BasePresenter<ReleaseContract.IView> imple
                 Log.d(TAG, "STATE FALSE");
                 getMvpView().onError(message);
             }
+            getMvpView().dismissProgressDialog();
         }
     }
 }
