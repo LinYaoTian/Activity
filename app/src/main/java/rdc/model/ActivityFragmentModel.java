@@ -51,10 +51,10 @@ public class ActivityFragmentModel implements ActivityFragmentContract.Model {
             hasMoreData = true;
             User user = BmobUser.getCurrentUser(User.class);
             BmobQuery<Activity> query = new BmobQuery<>();
-            query.addQueryKeys("title,time,tag,sawnum,place,image,createdAt");
+            query.addQueryKeys("title,time,ItemTag,sawnum,place,image,createdAt");
             if (!tag.equals(App.getmContext().getResources().getString(R.string.hot))
                     && !tag.equals(App.getmContext().getResources().getString(R.string.homePage))){
-                query.addWhereEqualTo("tag",tag);
+                query.addWhereEqualTo("ItemTag",tag);
             }
             if (tag.equals(App.getmContext().getResources().getString(R.string.hot))){
                 query.order("-sawnum");
@@ -89,15 +89,15 @@ public class ActivityFragmentModel implements ActivityFragmentContract.Model {
         }
     }
 
-//    private List<Activity> queryfromCache(String tag){
+//    private List<Activity> queryfromCache(String ItemTag){
 //        User user = BmobUser.getCurrentUser(User.class);
 //        BmobQuery<Activity> query = new BmobQuery<>();
-//        query.addQueryKeys("title,time,tag,sawnum,place,image,createdAt");
-//        if (!tag.equals(App.getmContext().getResources().getString(R.string.hot))
-//                && !tag.equals(App.getmContext().getResources().getString(R.string.homePage))){
-//            query.addWhereEqualTo("tag",tag);
+//        query.addQueryKeys("title,time,ItemTag,sawnum,place,image,createdAt");
+//        if (!ItemTag.equals(App.getmContext().getResources().getString(R.string.hot))
+//                && !ItemTag.equals(App.getmContext().getResources().getString(R.string.homePage))){
+//            query.addWhereEqualTo("ItemTag",ItemTag);
 //        }
-//        if (tag.equals(App.getmContext().getResources().getString(R.string.hot))){
+//        if (ItemTag.equals(App.getmContext().getResources().getString(R.string.hot))){
 //            query.order("-sawnum");
 //        }else {
 //            query.order("-createdAt");
@@ -146,11 +146,11 @@ public class ActivityFragmentModel implements ActivityFragmentContract.Model {
             }
             User user = BmobUser.getCurrentUser(User.class);
             BmobQuery<Activity> query = new BmobQuery<>();
-            query.addQueryKeys("title,time,tag,sawnum,place,image,createdAt");
+            query.addQueryKeys("title,time,ItemTag,sawnum,place,image,createdAt");
             if (!tag.equals(App.getmContext().getResources().getString(R.string.hot))
                     && !tag.equals(App.getmContext().getResources().getString(R.string.homePage))){
                 //除了热门和首页，其他都只获取对应类型的活动
-                query.addWhereEqualTo("tag",tag);
+                query.addWhereEqualTo("ItemTag",tag);
             }
             if (tag.equals(App.getmContext().getResources().getString(R.string.hot))){
                 ///热门活动按查看数排序

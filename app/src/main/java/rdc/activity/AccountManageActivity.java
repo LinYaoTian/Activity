@@ -25,6 +25,7 @@ import rdc.contract.AccountManageContract;
 import rdc.presenter.AccountManagePresenter;
 import rdc.util.ActivityCollectorUtil;
 import rdc.util.RegisterUtils;
+import rdc.util.UserUtil;
 
 public class AccountManageActivity extends BaseActivity<AccountManagePresenter> implements AccountManageContract.View {
 
@@ -39,8 +40,6 @@ public class AccountManageActivity extends BaseActivity<AccountManagePresenter> 
     private EditText mEtOldPassword;
     private EditText mEtNewPassword;
     private ImageView mIvSeePassword;
-//    private TextView mTvCancel;
-//    private TextView mTvConfirm;
     private AlertDialog mDialogChangePassword;
 
     private boolean isSeePassword;//新密码是否显示明文
@@ -147,6 +146,7 @@ public class AccountManageActivity extends BaseActivity<AccountManagePresenter> 
             @Override
             public void onClick(View view) {
                 ActivityCollectorUtil.finishAll();
+                UserUtil.clearUser();
                 startActivity(new Intent(AccountManageActivity.this,LoginActivity.class));
             }
         });

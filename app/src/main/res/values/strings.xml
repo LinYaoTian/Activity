@@ -18,6 +18,9 @@
     <string name="none">这里空空的，什么也没有！</string>
     <string name="no_more_data">没有更多数据了！</string>
 
+    <!--TagsActivity-->
+    <string name="my_tags">我的标签</string>
+
     <!--登录-->
     <string name="login">登录</string>
     <string name="account_number">手机/邮箱</string>

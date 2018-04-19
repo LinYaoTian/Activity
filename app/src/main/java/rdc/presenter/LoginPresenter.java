@@ -23,13 +23,17 @@ public class LoginPresenter extends BasePresenter<LoginContract.View> implements
     }
 
     @Override
-    public void loginResult(Boolean state, String message) {
+    public void loginSuccess(String tagsOrder) {
         if (isAttachView()){
-            if (state){
-                getMvpView().loginSuccess();
-            }else {
-                getMvpView().loginError(message);
-            }
+            getMvpView().loginSuccess(tagsOrder);
         }
     }
+
+    @Override
+    public void loginError(String error) {
+        if (isAttachView()){
+            getMvpView().loginError(error);
+        }
+    }
+
 }

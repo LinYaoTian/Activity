@@ -7,4 +7,13 @@ import rdc.contract.MainContract;
  */
 
 public class MainModel implements MainContract.Model {
+
+    private MainContract.Presenter mPresenter;
+
+    public MainModel(MainContract.Presenter presenter){
+        mPresenter = presenter;
+    }
+
+
+
 }

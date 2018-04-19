@@ -62,7 +62,7 @@ public class ActivityFragment extends BaseLazyLoadFragment<ActivityFragmentPrese
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putString("tag", mTag);
+        outState.putString("ItemTag", mTag);
     }
 
     @Override
@@ -88,7 +88,7 @@ public class ActivityFragment extends BaseLazyLoadFragment<ActivityFragmentPrese
     public void onActivityCreated(@Nullable Bundle bundle) {
         super.onActivityCreated(bundle);
         if (bundle != null){
-            mTag = bundle.getString("tag");
+            mTag = bundle.getString("ItemTag");
         }
         lazyLoad();
     }

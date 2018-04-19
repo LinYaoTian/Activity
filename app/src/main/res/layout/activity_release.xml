@@ -63,7 +63,7 @@
                 android:id="@+id/activity_release_poster_imageView"
                 android:layout_width="match_parent"
                 android:layout_height="230dp"
-                android:src="@drawable/ic_keyboard_arrow_left_black_24dp" />
+                android:src="@drawable/ic_add_a_photo_gery_230dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -104,7 +104,7 @@
                         android:layout_marginStart="10dp"
                         android:layout_toRightOf="@id/activity_release_theme_textView"
                         android:background="@color/white"
-                        android:hint=""
+                        android:hint="添加主题"
                         android:inputType="text"
                         android:singleLine="true"
                         android:textColorHint="@color/darkgray"
@@ -140,13 +140,15 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="4"
+                        android:layout_marginStart="6dp"
                         android:textColor="@color/black"
-                        android:textSize="15sp" />
+                        android:textSize="15sp"
+                        android:textColorHint="@color/darkgray"
+                        android:hint="开始时间"/>
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
                         android:layout_weight="0.7"
                         android:text="至"
                         android:textColor="@color/gray"
@@ -159,7 +161,9 @@
                         android:layout_marginEnd="20dp"
                         android:layout_weight="4"
                         android:textColor="@color/black"
-                        android:textSize="15sp" />
+                        android:textSize="15sp"
+                        android:textColorHint="@color/darkgray"
+                        android:hint="结束时间"/>
 
                 </LinearLayout>
 
@@ -198,7 +202,9 @@
                         android:background="@color/white"
                         android:singleLine="true"
                         android:textColor="@color/black"
-                        android:textSize="15sp" />
+                        android:textSize="15sp"
+                        android:textColorHint="@color/darkgray"
+                        android:hint="选择大学（仅限广州大学城）"/>
 
                 </RelativeLayout>
 
@@ -235,7 +241,7 @@
                         android:layout_marginStart="10dp"
                         android:layout_toRightOf="@id/activity_release_place_textView"
                         android:background="@color/white"
-                        android:hint=""
+                        android:hint="活动地点"
                         android:inputType="text"
                         android:singleLine="true"
                         android:textColorHint="@color/darkgray"
@@ -300,18 +306,19 @@
                 <EditText
                     android:id="@+id/activity_release_content_editText"
                     android:layout_width="match_parent"
-                    android:layout_height="300dp"
+                    android:layout_height="wrap_content"
                     android:background="@color/white"
                     android:paddingBottom="10dp"
                     android:paddingTop="10dp"
                     android:hint="详情描述"
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
-                    android:layout_marginBottom="30dp"
+                    android:layout_marginBottom="60dp"
                     android:textColorHint="@color/darkgray"
                     android:textSize="15sp"
                     android:gravity="start|top"
-                    android:inputType="textMultiLine"/>
+                    android:inputType="textMultiLine"
+                    android:scrollbars="vertical"/>
 
             </LinearLayout>
 

@@ -105,10 +105,12 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     }
 
     @Override
-    public void loginSuccess() {
+    public void loginSuccess(String tagsOrder) {
         showToast("登录成功！");
+        Intent intent = new Intent(this,MainActivity.class);
+        intent.putExtra("tagsOrder",tagsOrder);
+        startActivity(intent);
         finish();
-        startActivity(new Intent(this,MainActivity.class));
     }
 
     @Override

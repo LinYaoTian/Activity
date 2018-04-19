@@ -19,6 +19,25 @@ public class User extends BmobUser {
     private String newActivityTitle;
     private BmobRelation conncerned;
     private BmobRelation trip;
+    private String tagsOrder;
+
+    public String getNewActivityTitle() {
+        return newActivityTitle;
+    }
+
+    public User setNewActivityTitle(String newActivityTitle) {
+        this.newActivityTitle = newActivityTitle;
+        return this;
+    }
+
+    public String getTagsOrder() {
+        return tagsOrder;
+    }
+
+    public User setTagsOrder(String tagsOrder) {
+        this.tagsOrder = tagsOrder;
+        return this;
+    }
 
     public BmobRelation getTrip() {
         return trip;

@@ -26,6 +26,9 @@
     <color name="colorBlue">#29ace4</color>
     <color name="colorDivider">#f1f1f1</color>
 
+    <!---->
+    <color name="bg_act_tags">#F2F8FC</color>
+
 
     <!--item 的点击背景-->
     <drawable name="drawableItemPressed">#d8d8d8</drawable>

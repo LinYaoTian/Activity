@@ -65,9 +65,11 @@ public class LaunchActivity extends BaseActivity<LaunchPresenter> implements Lau
     }
 
     @Override
-    public void updateUserSuccess() {
+    public void updateUserSuccess(String tagsOrder) {
+        Intent intent = new Intent(LaunchActivity.this,MainActivity.class);
+        intent.putExtra("tagsOrder",tagsOrder);
+        startActivity(intent);
         finish();
-        startActivity(new Intent(LaunchActivity.this,MainActivity.class));
     }
 
     @Override

@@ -1,10 +1,16 @@
 package rdc.model;
 
+import java.util.Arrays;
+import java.util.List;
+
+import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.LogInListener;
 import cn.bmob.v3.listener.SaveListener;
 import rdc.bean.User;
+import rdc.constant.Constant;
 import rdc.contract.LoginContract;
 import rdc.util.UserUtil;
 
@@ -30,14 +36,19 @@ public class LoginModel implements LoginContract.Model {
             public void done(User user, BmobException e) {
                 if (e == null){
                     UserUtil.saveUser(userName, password);
-                    UserUtil.saveSessionToken(user.getSessionToken());
-                    mPresenter.loginResult(true,null);
+                    String tagsOrder = user.getTagsOrder();
+                    if (tagsOrder == null){
+                        tagsOrder = Constant.DEFAULT_TAGS_ORDER;
+                    }else {
+                        tagsOrder = "首页，热门，"+ tagsOrder;
+                    }
+                    mPresenter.loginSuccess(tagsOrder);
                 }else if (e.getMessage().startsWith("username or password incorrect.")){
-                    mPresenter.loginResult(false,"用户名或密码错误！");
+                    mPresenter.loginError("用户名或密码错误！");
                 }else if (e.getMessage().startsWith("The network is not available")){
-                    mPresenter.loginResult(false,"无网络！");
+                    mPresenter.loginError("无网络！");
                 }else {
-                    mPresenter.loginResult(false,e.getMessage());
+                    mPresenter.loginError(e.getMessage());
                 }
             }
         });

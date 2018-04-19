@@ -245,9 +245,7 @@ public class IndividualModel implements IIndividualContract.Model {
             }
             cursor.close();
         }
-
         return path;
-
     }
 
 

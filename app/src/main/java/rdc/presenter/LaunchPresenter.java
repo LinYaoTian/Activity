@@ -24,9 +24,9 @@ public class LaunchPresenter extends BasePresenter<LaunchContract.View> implemen
     }
 
     @Override
-    public void updateSuccess() {
+    public void updateSuccess(String tagsOrder) {
         if (isAttachView()){
-            getMvpView().updateUserSuccess();
+            getMvpView().updateUserSuccess(tagsOrder);
         }
     }
 

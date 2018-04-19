@@ -21,10 +21,8 @@ public class Constant {
     public static final Integer PASSWORD_NUM = 6;
 
     /**
-     * 每日的必应背景图
+     * 默认的标签顺序
      */
-    public static final String BI_YING_BG_PIC = "http://guolin.tech/api/bing_pic";
-
-    public static final String RELEASE_IMAGE_FILE_LOCATION = "file:///sdcard/bbbb.jpg";            //Environment.getExternalStorageDirectory().getPath();
+    public static final String DEFAULT_TAGS_ORDER = "首页，热门，比赛，公益，运动，娱乐，交友，讲座，其他";
 
 }

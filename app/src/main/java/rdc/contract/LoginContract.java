@@ -8,7 +8,7 @@ import rdc.bean.User;
 
 public interface LoginContract {
     interface View{
-        void loginSuccess();
+        void loginSuccess(String tagsOrder);
         void loginError(String message);
     }
 
@@ -18,6 +18,7 @@ public interface LoginContract {
 
     interface Presenter{
         void login(String userName,String password);
-        void loginResult(Boolean state,String message);
+        void loginSuccess(String tagsOrder);
+        void loginError(String error);
     }
 }

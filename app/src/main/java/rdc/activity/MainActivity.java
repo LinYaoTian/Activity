@@ -32,6 +32,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -67,12 +68,20 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
     private List<String> mTabNameList;//顶部Tab名字列表
     private List<ActivityFragment> mActivityFragmentList;
+    private FragmentPagerAdapter mFragmentPagerAdapter;
+    private String mTagsOrder;
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        mTagsOrder = getIntent().getStringExtra("tagsOrder");
         super.onCreate(savedInstanceState);
-        initToolbar();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initUserView();
     }
 
     @Override
@@ -117,26 +126,20 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     @Override
     protected void initData() {
         mTabNameList = new ArrayList<>();
-        mTabNameList.add(getResources().getString(R.string.homePage));
-        mTabNameList.add(getResources().getString(R.string.hot));
-        mTabNameList.add(getResources().getString(R.string.competition));
-        mTabNameList.add(getResources().getString(R.string.public_welfare));
-        mTabNameList.add(getResources().getString(R.string.lecture));
-        mTabNameList.add(getResources().getString(R.string.outdoor_activities));
-
+        mTabNameList.addAll(Arrays.asList(mTagsOrder.split("，")));
         mActivityFragmentList = new ArrayList<>();
         for (int i = 0; i < mTabNameList.size(); i++) {
             ActivityFragment activityFragment = new ActivityFragment();
             activityFragment.setTagName(mTabNameList.get(i));
             mActivityFragmentList.add(activityFragment);
         }
-
     }
 
     @Override
     protected void initView() {
+        initToolbar();
         mVpActivities.setOffscreenPageLimit(mActivityFragmentList.size());
-        mVpActivities.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
+        mFragmentPagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
                 return mActivityFragmentList.get(position);
@@ -151,7 +154,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
             public CharSequence getPageTitle(int position) {
                 return mTabNameList.get(position);
             }
-        });
+        };
+        mVpActivities.setAdapter(mFragmentPagerAdapter);
         mTlCategory.setupWithViewPager(mVpActivities);
         ActionBarDrawerToggle mDrawerToggle =
                 new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.open, R.string.close);
@@ -194,6 +198,12 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 IndividualActivity.actionStart(MainActivity.this);
             }
         });
+        mFabSend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, ReleaseActivity.class));
+            }
+        });
     }
 
     /**
@@ -216,7 +226,9 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         ObjectAnimator.ofPropertyValuesHolder(mFabSend, pvhX, pvhY, pvhZ).setDuration(400).start();
     }
 
-
+    /**
+     * 初始化个人信息
+     */
     public void initUserView() {
         View view = mNavigationView.getHeaderView(0);
         TextView name = view.findViewById(R.id.tv_name);
@@ -241,14 +253,4 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         }
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        initUserView();
-    }
-
-    @OnClick(R.id.fab_send_act_main)
-    public void goToRelease() {
-        startActivity(new Intent(MainActivity.this, ReleaseActivity.class));
-    }
 }
