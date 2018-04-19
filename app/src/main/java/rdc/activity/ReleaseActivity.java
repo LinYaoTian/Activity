@@ -80,6 +80,7 @@ public class ReleaseActivity extends BaseActivity<ReleasePresenter> implements R
     public static final int SHOW_PICTURE = 2;
     public static final int SELECT_TAG = 3;
     public static final int RELEASE_TAG_RESULT_CODE = 4;
+    private boolean hasPicture = false;
 
     private CustomDatePicker timePicker;
     private String currentTime;
@@ -118,15 +119,20 @@ public class ReleaseActivity extends BaseActivity<ReleasePresenter> implements R
     }
 
     private void release() {
-        if (TextUtils.isEmpty(activity_release_theme_editText.getText()) || TextUtils.isEmpty(activity_release_time_start_textView.getText()) ||
-                TextUtils.isEmpty(activity_release_time_end_textView.getText()) || TextUtils.isEmpty(activity_release_university_textView2.getText()) ||
-                TextUtils.isEmpty(activity_release_place_editText.getText()) || TextUtils.isEmpty(activity_release_tag_textView2.getText()) ||
-                TextUtils.isEmpty(activity_release_content_editText.getText())) {
-            Toast.makeText(this, "请填写完整的内容 ！ " , Toast.LENGTH_SHORT).show();
+        if (hasPicture) {
+            if (TextUtils.isEmpty(activity_release_theme_editText.getText()) || TextUtils.isEmpty(activity_release_time_start_textView.getText()) ||
+                    TextUtils.isEmpty(activity_release_time_end_textView.getText()) || TextUtils.isEmpty(activity_release_university_textView2.getText()) ||
+                    TextUtils.isEmpty(activity_release_place_editText.getText()) || TextUtils.isEmpty(activity_release_tag_textView2.getText()) ||
+                    TextUtils.isEmpty(activity_release_content_editText.getText())) {
+                Toast.makeText(this, "请填写完整的内容 ！ " , Toast.LENGTH_SHORT).show();
+            }else {
+                presenter.release();
+            }
+            showProgressDialog();
         }else {
-            presenter.release();
+            Toast.makeText(this, "请添加活动海报！" , Toast.LENGTH_SHORT).show();
         }
-        showProgressDialog();
+
     }
 
     private void showTime(final TextView v) {
@@ -178,8 +184,6 @@ public class ReleaseActivity extends BaseActivity<ReleasePresenter> implements R
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.CHINA);
         currentTime = sdf.format(new Date());
         initToolBar();
-
-//        BmobDate
     }
 
     @Override
@@ -247,6 +251,7 @@ public class ReleaseActivity extends BaseActivity<ReleasePresenter> implements R
                     try {
                         Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(imageUri));
                         activity_release_poster_imageView.setImageBitmap(bitmap);
+                        hasPicture = true;
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     }
@@ -308,7 +313,7 @@ public class ReleaseActivity extends BaseActivity<ReleasePresenter> implements R
 
     @Override
     public String getStartTime() {
-        return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+        return activity_release_time_start_textView.getText().toString();
     }
 
     @Override
@@ -338,12 +343,12 @@ public class ReleaseActivity extends BaseActivity<ReleasePresenter> implements R
 
     @Override
     public String getSendTime() {
-        return new Date().toString();
+        return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
     }
 
     @Override
     public BmobDate getExpirationDate() {
-        String expirationDate = activity_release_time_end_textView.getText().toString();
+        String expirationDate = activity_release_time_end_textView.getText().toString() + ":00";
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
             return new BmobDate(sdf.parse(expirationDate));

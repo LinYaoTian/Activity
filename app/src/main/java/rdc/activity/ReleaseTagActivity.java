@@ -30,11 +30,8 @@ public class ReleaseTagActivity extends BaseActivity {
     @BindView(R.id.activity_release_tag_confirm_imageView) ImageView activity_release_tag_confirm_imageView;
     @BindView(R.id.activity_release_tag_lecture_linearLayout) LinearLayout activity_release_tag_lecture_linearLayout;
     @BindView(R.id.activity_release_tag_contest_linearLayout) LinearLayout activity_release_tag_contest_linearLayout;
-    @BindView(R.id.activity_release_tag_class_linearLayout) LinearLayout activity_release_tag_class_linearLayout;
-    @BindView(R.id.activity_release_tag_club_linearLayout) LinearLayout activity_release_tag_club_linearLayout;
-    @BindView(R.id.activity_release_tag_entertainment_linearLayout) LinearLayout activity_release_tag_entertainment_linearLayout;
-    @BindView(R.id.activity_release_tag_job_linearLayout) LinearLayout activity_release_tag_job_linearLayout;
-    @BindView(R.id.activity_release_tag_sport_linearLayout) LinearLayout activity_release_tag_sport_linearLayout;
+    @BindView(R.id.activity_release_tag_welfare_linearLayout) LinearLayout activity_release_tag_welfare_linearLayout;
+    @BindView(R.id.activity_release_tag_outdoor_linearLayout) LinearLayout activity_release_tag_outdoor_linearLayout;
     @BindView(R.id.activity_release_tag_friend_linearLayout) LinearLayout activity_release_tag_friend_linearLayout;
     @BindView(R.id.activity_release_tag_others_linearLayout) LinearLayout activity_release_tag_others_linearLayout;
 
@@ -70,18 +67,14 @@ public class ReleaseTagActivity extends BaseActivity {
         linearLayoutList = new ArrayList<>();
         linearLayoutList.add(activity_release_tag_lecture_linearLayout);
         linearLayoutList.add(activity_release_tag_contest_linearLayout);
-        linearLayoutList.add(activity_release_tag_class_linearLayout);
-        linearLayoutList.add(activity_release_tag_club_linearLayout);
-        linearLayoutList.add(activity_release_tag_entertainment_linearLayout);
-        linearLayoutList.add(activity_release_tag_job_linearLayout);
-        linearLayoutList.add(activity_release_tag_sport_linearLayout);
+        linearLayoutList.add(activity_release_tag_welfare_linearLayout);
+        linearLayoutList.add(activity_release_tag_outdoor_linearLayout);
         linearLayoutList.add(activity_release_tag_friend_linearLayout);
         linearLayoutList.add(activity_release_tag_others_linearLayout);
     }
 
-    @OnClick({R.id.activity_release_tag_job_linearLayout, R.id.activity_release_tag_lecture_linearLayout, R.id.activity_release_tag_contest_linearLayout,
-            R.id.activity_release_tag_class_linearLayout, R.id.activity_release_tag_club_linearLayout, R.id.activity_release_tag_entertainment_linearLayout,
-            R.id.activity_release_tag_sport_linearLayout, R.id.activity_release_tag_friend_linearLayout, R.id.activity_release_tag_others_linearLayout})
+    @OnClick({R.id.activity_release_tag_lecture_linearLayout, R.id.activity_release_tag_contest_linearLayout, R.id.activity_release_tag_welfare_linearLayout,
+            R.id.activity_release_tag_outdoor_linearLayout, R.id.activity_release_tag_friend_linearLayout, R.id.activity_release_tag_others_linearLayout})
     public void onClickLinearLayout(View view) {
         for (int i = 0; i < linearLayoutList.size(); i++) {
             linearLayoutList.get(i).setBackground(null);
@@ -107,24 +100,15 @@ public class ReleaseTagActivity extends BaseActivity {
                     type = "比赛";
                     break;
                 case 2:
-                    type = "课堂";
+                    type = "公益";
                     break;
                 case 3:
-                    type = "社团";
+                    type = "户外活动";
                     break;
                 case 4:
-                    type = "娱乐";
-                    break;
-                case 5:
-                    type = "招聘";
-                    break;
-                case 6:
-                    type = "运动";
-                    break;
-                case 7:
                     type = "交友";
                     break;
-                case 8:
+                case 5:
                     type = "其他";
                     break;
                 default:

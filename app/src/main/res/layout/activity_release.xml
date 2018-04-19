@@ -63,7 +63,7 @@
                 android:id="@+id/activity_release_poster_imageView"
                 android:layout_width="match_parent"
                 android:layout_height="230dp"
-                android:src="@drawable/ic_add_a_photo_gery_30dp" />
+                android:src="@drawable/ic_add_a_photo_gery_230dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -204,7 +204,7 @@
                         android:textColor="@color/black"
                         android:textSize="15sp"
                         android:textColorHint="@color/darkgray"
-                        android:hint="选择大学（仅限中国大陆）"/>
+                        android:hint="选择大学（仅限广州大学城）"/>
 
                 </RelativeLayout>
 
@@ -306,18 +306,19 @@
                 <EditText
                     android:id="@+id/activity_release_content_editText"
                     android:layout_width="match_parent"
-                    android:layout_height="250dp"
+                    android:layout_height="wrap_content"
                     android:background="@color/white"
                     android:paddingBottom="10dp"
                     android:paddingTop="10dp"
                     android:hint="详情描述"
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
-                    android:layout_marginBottom="30dp"
+                    android:layout_marginBottom="60dp"
                     android:textColorHint="@color/darkgray"
                     android:textSize="15sp"
                     android:gravity="start|top"
-                    android:inputType="textMultiLine"/>
+                    android:inputType="textMultiLine"
+                    android:scrollbars="vertical"/>
 
             </LinearLayout>
 

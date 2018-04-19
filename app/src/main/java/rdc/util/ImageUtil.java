@@ -54,8 +54,8 @@ public class ImageUtil {
     public static void cropImageUri(AppCompatActivity activity, Uri uri, Uri imageUri, int outputX, int outputY, int requestCode){
         Intent intent = new Intent("com.android.camera.action.CROP");
         intent.setDataAndType(uri, "image/*");
-        intent.putExtra("aspectX", 10);
-        intent.putExtra("aspectY", 6);
+        intent.putExtra("aspectX", 20);
+        intent.putExtra("aspectY", 13);
         intent.putExtra("scale", true);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
         activity.startActivityForResult(intent, requestCode);

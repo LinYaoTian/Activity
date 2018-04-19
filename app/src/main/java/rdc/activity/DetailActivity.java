@@ -1,7 +1,9 @@
 package rdc.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -24,6 +26,7 @@ import rdc.avtivity.R;
 import rdc.base.BaseActivity;
 import rdc.base.BasePresenter;
 import rdc.bean.Activity;
+import rdc.bean.Organization;
 import rdc.bean.User;
 import rdc.contract.DetailContract;
 import rdc.presenter.DetailPresenter;
@@ -106,7 +109,13 @@ public class DetailActivity extends BaseActivity<DetailPresenter> implements Det
 
     @OnClick(R.id.activity_detail_manager_relativeLayout)
     public void goToUserDetail() {
-
+        Organization organization = new Organization();
+        organization.setId(activity.getManager().getObjectId());
+        organization.setImage(activity.getManager().getUserImg());
+        organization.setPhoto(activity.getManager().getUserPhoto());
+        organization.setName(activity.getManager().getNickname());
+        organization.setIntroduction(activity.getManager().getIntroduction());
+        OrganizationDetailsActivity.actionStart(this, organization);
     }
 
     @Override
@@ -199,6 +208,12 @@ public class DetailActivity extends BaseActivity<DetailPresenter> implements Det
                 break;
         }
         return true;
+    }
+
+    public static void actionStart(Context context, String objectId) {
+        Intent intent = new Intent(context, DetailActivity.class);
+        intent.putExtra("objectId", objectId);
+        context.startActivity(intent);
     }
 
     private void initToolBar() {
