@@ -95,10 +95,10 @@ public class ReleaseActivity extends BaseActivity<ReleasePresenter> implements R
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.activity_release_release_textView:
-//                release();
-                Intent detailIntent = new Intent(ReleaseActivity.this, DetailActivity.class);
-                detailIntent.putExtra("objectId", "f345f2ecdf");
-                startActivity(detailIntent);
+                release();
+//                Intent detailIntent = new Intent(ReleaseActivity.this, DetailActivity.class);
+//                detailIntent.putExtra("objectId", "f345f2ecdf");
+//                startActivity(detailIntent);
                 break;
             case R.id.activity_release_poster_imageView:
                 showDialog();
