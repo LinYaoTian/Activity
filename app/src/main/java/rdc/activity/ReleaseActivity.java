@@ -32,6 +32,7 @@ import android.widget.Toast;
 import java.io.FileNotFoundException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -144,32 +145,31 @@ public class ReleaseActivity extends BaseActivity<ReleasePresenter> implements R
     }
 
     private void chooseUniversity() {
+        final String [] schoolArray = {
+                "广东工业大学","华南理工大学",
+                "中山大学","广州大学",
+                "广东外语外贸大学","广州中医药大学",
+                "广东药科大学","华南师范大学",
+                "广州美术学院","星海音乐学院"};
         final AlertDialog dialog = new AlertDialog.Builder(ReleaseActivity.this).create();
-        final List<String> provinces = UniversityUtils.getProvinces();
-        final ArrayAdapter<String> listAdapter = new ArrayAdapter<>(ReleaseActivity.this, android.R.layout.simple_list_item_1, provinces);
-        View view1 = LayoutInflater.from(ReleaseActivity.this).inflate(R.layout.dialog_universities_act_register,null);
+        final List<String> schoolList = Arrays.asList(schoolArray);
+        final ArrayAdapter<String> listAdapter = new ArrayAdapter<>(ReleaseActivity.this, android.R.layout.simple_list_item_1, schoolList);
+        View view1 = LayoutInflater.from(ReleaseActivity.this)
+                .inflate(R.layout.dialog_universities_act_register,null);
         TextView tvTitle = view1.findViewById(R.id.tv_title_dialog_act_register);
         ListView lvList = view1.findViewById(R.id.lv_university_dialog_act_register);
         lvList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            boolean selectingProvince = true;
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                if (selectingProvince){
-                    String province = provinces.get(i);
-                    listAdapter.clear();
-                    listAdapter.addAll(UniversityUtils.getUniversities(province));
-                    listAdapter.notifyDataSetChanged();
-                    selectingProvince = !selectingProvince;
-                }else {
-                    activity_release_university_textView2.setText(listAdapter.getItem(i));
-                    dialog.dismiss();
-                }
+                activity_release_university_textView2.setText(listAdapter.getItem(i));
+                dialog.dismiss();
             }
         });
         tvTitle.setText("请选择所在的学校");
         lvList.setAdapter(listAdapter);
         dialog.show();
-        dialog.getWindow().setContentView(view1);}
+        dialog.getWindow().setContentView(view1);
+    }
 
     @Override
     protected void initData() {
