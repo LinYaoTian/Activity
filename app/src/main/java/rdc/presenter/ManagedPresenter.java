@@ -1,5 +1,7 @@
 package rdc.presenter;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +31,7 @@ public class ManagedPresenter extends BasePresenter<IManagedContract.View> imple
         for (int i=0;i<list.size();i++){
             ManagedActivity activity = new ManagedActivity();
             Activity activity1 = list.get(i);
+            activity.setImageUrl(activity1.getImage().getUrl());
             activity.setTitle(activity1.getTitle());
             activity.setSendTime(activity1.getSendtime());
             activity.setType(sMANAGED);

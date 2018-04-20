@@ -19,7 +19,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="@dimen/dimenMargin"
             android:layout_weight="@integer/integerSmallWeight"
-            android:background="@drawable/iv_test_folwer" />
+            />
 
         <LinearLayout
             android:layout_width="@dimen/dimenWidth"
@@ -37,11 +37,12 @@
                 android:textSize="@dimen/dimenBigTextSize" />
 
             <TextView
+                android:gravity="center_vertical"
                 android:id="@+id/tv_send_time"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dimenWidth"
                 android:layout_weight="@integer/integerMediumWeight"
-                android:textSize="@dimen/dimenBigTextSize" />
+                android:textSize="@dimen/dimenSmallTextSize" />
 
 
         </LinearLayout>

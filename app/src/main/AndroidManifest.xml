@@ -64,7 +64,8 @@
         <activity android:name="rdc.activity.ReleaseTagActivity" />
         <activity android:name="rdc.activity.OrganizationDetailsActivity" />
         <activity android:name="rdc.activity.AccountManageActivity" />
-        <activity android:name="rdc.activity.TagsActivity"></activity>
+        <activity android:name="rdc.activity.TagsActivity" />
+        <activity android:name="rdc.activity.CheckManagedActivity"></activity>
     </application>
 
 </manifest>

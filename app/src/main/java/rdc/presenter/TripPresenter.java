@@ -31,6 +31,7 @@ public class TripPresenter extends BasePresenter<ITripContract.View> implements 
         for (int i=0;i<list.size();i++){
             Activity activity = list.get(i);
             Trip trip = new Trip();
+            trip.setCoverImageUrl(activity.getImage().getUrl());
             trip.setTitle(activity.getTitle());
             trip.setTime(activity.getTime().substring(5,10));
             trip.setSawNum(activity.getSawnum());
@@ -52,6 +53,7 @@ public class TripPresenter extends BasePresenter<ITripContract.View> implements 
             Trip trip = new Trip();
             trip.setTitle(activity.getTitle());
             trip.setTime(activity.getTime().substring(5,10));
+            trip.setCoverImageUrl(activity.getImage().getUrl());
             trip.setSawNum(activity.getSawnum());
             trip.setLocation(activity.getPlace());
             trip.setObjectId(activity.getObjectId());

@@ -46,6 +46,25 @@
     <color name="color_bg">#F0F0F0</color>
     <color name="color_gold">#007EFE</color>
 
+
+
+
+    <!--白色-->
+    <color name="color_white">#FFFFFF</color>
+    <!--白色-->
+    <color name="color_light_gray">#DDDDDD</color>
+    <!--黑色半透明-->
+    <color name="color_dark_transparent">#88333333</color>
+    <!--全透明-->
+    <color name="color_transparent">#00000000</color>
+    <!--橙色-->
+    <color name="color_orange">#f59405</color>
+    <!--橘红色-->
+    <color name="color_red">#f44022</color>
+
+
+
+
     <color name="ivory">#FFFFF0</color><!--象牙色 -->
     <color name="lightyellow">#FFFFE0</color><!--亮黄色-->
     <color name="yellow">#FFFF00</color><!--黄色 -->

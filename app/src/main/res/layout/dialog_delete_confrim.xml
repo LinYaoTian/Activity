@@ -1,24 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:focusable="true"
-    android:focusableInTouchMode="true"
     android:background="@color/white"
-
+    android:focusableInTouchMode="true"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <EditText
+    <TextView
 
-        android:layout_marginLeft="10dp"
         android:id="@+id/et_input"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minLines="3"
-        android:minHeight="60dp"
-        android:gravity="center_vertical"
-        android:inputType="text"
-        android:paddingEnd="@dimen/editTextPadding"
-        android:paddingStart="@dimen/editTextPadding"
+        android:layout_height="50dp"
+        android:text="删除后不可恢复！"
+        android:gravity="center"
         android:textColor="@color/black"
         android:textSize="@dimen/titleTextSize" />
 </LinearLayout>

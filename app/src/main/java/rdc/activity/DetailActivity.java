@@ -1,10 +1,12 @@
 package rdc.activity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
@@ -32,6 +34,7 @@ import rdc.bean.Organization;
 import rdc.bean.User;
 import rdc.contract.DetailContract;
 import rdc.presenter.DetailPresenter;
+import rdc.util.ACacheUtil;
 import rdc.util.ShareUtil;
 import rdc.util.UserUtil;
 
@@ -42,29 +45,49 @@ import rdc.util.UserUtil;
 public class DetailActivity extends BaseActivity<DetailPresenter> implements DetailContract.IView {
 
     private String TAG = "DetailActivity";
-    @BindView(R.id.activity_detail_forward_imageView) ImageView activity_detail_forward_imageView;
-    @BindView(R.id.activity_detail_poster_imageView) ImageView activity_detail_poster_imageView;
-    @BindView(R.id.activity_detail_title_textView) TextView activity_detail_title_textView;
-    @BindView(R.id.activity_detail_seeNum_textView) TextView activity_detail_seeNum_textView;
-    @BindView(R.id.activity_detail_attendNum_textView) TextView activity_detail_attendNum_textView;
-    @BindView(R.id.activity_detail_time_textView) TextView activity_detail_time_textView;
-    @BindView(R.id.activity_detail_school_textView) TextView activity_detail_school_textView;
-    @BindView(R.id.activity_detail_place_textView) TextView activity_detail_place_textView;
-    @BindView(R.id.activity_detail_tag_textView) TextView activity_detail_tag_textView;
-    @BindView(R.id.activity_detail_manager_relativeLayout) RelativeLayout activity_detail_manager_relativeLayout;
-    @BindView(R.id.activity_detail_manager_imageView) ImageView activity_detail_manager_imageView;
-    @BindView(R.id.activity_detail_manager_name_textView) TextView activity_detail_manager_name_textView;
-    @BindView(R.id.activity_detail_manager_introduction_textView) TextView activity_detail_manager_introduction_textView;
-    @BindView(R.id.activity_detail_add_textView) TextView activity_detail_add_textView;
-    @BindView(R.id.activity_detail_content_textView) TextView activity_detail_content_textView;
-    @BindView(R.id.activity_detail_consult_textView) TextView activity_detail_consult_textView;
-    @BindView(R.id.activity_detail_signUp_textView) TextView activity_detail_signUp_textView;
-    @BindView(R.id.toolbar) Toolbar mToolbar;
+    @BindView(R.id.activity_detail_forward_imageView)
+    ImageView activity_detail_forward_imageView;
+    @BindView(R.id.activity_detail_poster_imageView)
+    ImageView activity_detail_poster_imageView;
+    @BindView(R.id.activity_detail_title_textView)
+    TextView activity_detail_title_textView;
+    @BindView(R.id.activity_detail_seeNum_textView)
+    TextView activity_detail_seeNum_textView;
+    @BindView(R.id.activity_detail_attendNum_textView)
+    TextView activity_detail_attendNum_textView;
+    @BindView(R.id.activity_detail_time_textView)
+    TextView activity_detail_time_textView;
+    @BindView(R.id.activity_detail_school_textView)
+    TextView activity_detail_school_textView;
+    @BindView(R.id.activity_detail_place_textView)
+    TextView activity_detail_place_textView;
+    @BindView(R.id.activity_detail_tag_textView)
+    TextView activity_detail_tag_textView;
+    @BindView(R.id.activity_detail_manager_relativeLayout)
+    RelativeLayout activity_detail_manager_relativeLayout;
+    @BindView(R.id.activity_detail_manager_imageView)
+    ImageView activity_detail_manager_imageView;
+    @BindView(R.id.activity_detail_manager_name_textView)
+    TextView activity_detail_manager_name_textView;
+    @BindView(R.id.activity_detail_manager_introduction_textView)
+    TextView activity_detail_manager_introduction_textView;
+    @BindView(R.id.activity_detail_add_textView)
+    TextView activity_detail_add_textView;
+    @BindView(R.id.activity_detail_content_textView)
+    TextView activity_detail_content_textView;
+    @BindView(R.id.activity_detail_consult_textView)
+    TextView activity_detail_consult_textView;
+    @BindView(R.id.activity_detail_signUp_textView)
+    TextView activity_detail_signUp_textView;
+    @BindView(R.id.toolbar)
+    Toolbar mToolbar;
     private Activity activity;
     private String objectId;
     private boolean hasSignUp = false;
     private boolean hasFocus = false;
-//    private List<User> focusUserList;
+    //    private List<User> focusUserList;
+    private ACacheUtil mACacheUtil;
+
 
     @Override
     protected int setLayoutResID() {
@@ -77,6 +100,8 @@ public class DetailActivity extends BaseActivity<DetailPresenter> implements Det
         Intent intent = getIntent();
         objectId = intent.getStringExtra("objectId");
         presenter.getDetail(objectId);
+        mACacheUtil = ACacheUtil.get(getApplicationContext());
+
     }
 
     @Override
@@ -99,7 +124,7 @@ public class DetailActivity extends BaseActivity<DetailPresenter> implements Det
     public void onConsult() {
         if (activity.getManager().getMobilePhoneNumber() == null || activity.getManager().getMobilePhoneNumber().equals("")) {
             Toast.makeText(this, "该发布者还未设置联系电话！", Toast.LENGTH_SHORT).show();
-        }else {
+        } else {
             Intent dialIntent = new Intent(Intent.ACTION_DIAL);
             dialIntent.setData(Uri.parse("tel:" + activity.getManager().getMobilePhoneNumber()));
             startActivity(dialIntent);
@@ -141,17 +166,17 @@ public class DetailActivity extends BaseActivity<DetailPresenter> implements Det
 
         if (activity.getManager().getUserImg().getUrl() == null) {
             activity_detail_manager_imageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_person_gery_40dp));
-        }else {
+        } else {
             Glide.with(this).load(activity.getManager().getUserImg().getFileUrl()).into(activity_detail_manager_imageView);
         }
         if (activity.getManager().getNickname() == null || Objects.equals(activity.getManager().getNickname(), "")) {
             activity_detail_manager_name_textView.setText("暂无名称");
-        }else {
+        } else {
             activity_detail_manager_name_textView.setText(activity.getManager().getNickname() + "");
         }
         if (activity.getManager().getIntroduction() == null || Objects.equals(activity.getManager().getIntroduction(), "")) {
             activity_detail_manager_introduction_textView.setText("暂无简介");
-        }else {
+        } else {
             activity_detail_manager_introduction_textView.setText(activity.getManager().getIntroduction());
         }
         activity_detail_content_textView.setText(activity.getContent());
@@ -169,7 +194,7 @@ public class DetailActivity extends BaseActivity<DetailPresenter> implements Det
     public void setDetailAttcipator(List<User> userList) {
         if (userList == null || userList.size() == 0) {
             activity_detail_attendNum_textView.setText(0 + "");
-        }else {
+        } else {
             activity_detail_attendNum_textView.setText(userList.size() + "");
             for (int i = 0; i < userList.size(); i++) {
                 if (Objects.equals(userList.get(i).getObjectId(), BmobUser.getCurrentUser().getObjectId())) {
@@ -196,21 +221,23 @@ public class DetailActivity extends BaseActivity<DetailPresenter> implements Det
             hasSignUp = false;
             attendNum--;
             activity_detail_attendNum_textView.setText(attendNum + "");
-            Toast.makeText(this, "取消报名成功!" , Toast.LENGTH_SHORT).show();
-        }else {
+            Toast.makeText(this, "取消报名成功!", Toast.LENGTH_SHORT).show();
+        } else {
             activity_detail_signUp_textView.setText("取消报名");
             activity_detail_signUp_textView.setBackgroundColor(getResources().getColor(R.color.darkgray));
             hasSignUp = true;
             attendNum++;
             activity_detail_attendNum_textView.setText(attendNum + "");
-            Toast.makeText(this, "报名成功!" , Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "报名成功!", Toast.LENGTH_SHORT).show();
+            mACacheUtil.clear();
         }
     }
 
     @Override
     public void onError(String errMeg) {
         Log.d(TAG, "获取活动详情错误， " + errMeg);
-        Toast.makeText(this, "抱歉，遇到了一个预料之外的错误！" , Toast.LENGTH_SHORT).show();
+        showConfirmDialog();
+        Toast.makeText(this, "抱歉，遇到了一个预料之外的错误！", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -242,12 +269,13 @@ public class DetailActivity extends BaseActivity<DetailPresenter> implements Det
             activity_detail_add_textView.setText("关注");
             activity_detail_add_textView.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.ic_add_blue_24dp, 0);
             hasFocus = false;
-            Toast.makeText(this, "取消关注成功" , Toast.LENGTH_SHORT).show();
-        }else {
+            Toast.makeText(this, "取消关注成功", Toast.LENGTH_SHORT).show();
+        } else {
             activity_detail_add_textView.setText("已关注");
             activity_detail_add_textView.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.ic_check_blue_24dp, 0);
             hasFocus = true;
-            Toast.makeText(this, "关注成功" , Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "关注成功", Toast.LENGTH_SHORT).show();
+            mACacheUtil.clear();
         }
     }
 
@@ -275,6 +303,24 @@ public class DetailActivity extends BaseActivity<DetailPresenter> implements Det
             actionBar.setDisplayShowTitleEnabled(false);
         }
     }
+
+    public void showConfirmDialog() {
+        View view = getLayoutInflater().inflate(R.layout.dialog_detial_delete, null);
+
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setTitle("抱歉！")//设置对话框的标题
+                .setView(view)
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        finish();
+
+                    }
+                }).create();
+        dialog.show();
+    }
+
 
     @Override
     public DetailPresenter getInstance() {

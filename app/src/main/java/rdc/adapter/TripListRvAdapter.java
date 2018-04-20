@@ -1,11 +1,15 @@
 package rdc.adapter;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 import java.util.List;
 
@@ -25,14 +29,16 @@ import static rdc.configs.TripItemType.sEMPTY;
 public class TripListRvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<Trip> mTripList;
     private OnClickListener mOnClickListener;
+    private Context mContext;
 
 
 
     public interface OnClickListener{
         void click(Trip trip);
     }
-    public TripListRvAdapter(List<Trip> tripList) {
+    public TripListRvAdapter(List<Trip> tripList,Context context) {
         mTripList = tripList;
+        mContext = context;
     }
 
     @Override
@@ -57,6 +63,7 @@ public class TripListRvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof ActivityViewHolder){
             final Trip trip = mTripList.get(position);
+            Glide.with(mContext).load(trip.getCoverImageUrl()).into(((ActivityViewHolder)holder).mImageView);
             ((ActivityViewHolder)holder).mTvPlace.setText(trip.getLocation());
             ((ActivityViewHolder)holder).mTvTime.setText(trip.getTime());
             ((ActivityViewHolder)holder).mTvTitle.setText(trip.getTitle());
