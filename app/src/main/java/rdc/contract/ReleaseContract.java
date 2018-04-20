@@ -32,10 +32,12 @@ public interface ReleaseContract {
     interface IModel {
         void release(User manager, String university, String imagePath, String place, Integer sawnum, String sendtime, String tag, String time, String title,
                      String content, BmobRelation attcipator, BmobDate expirationDate);
+        void addTrip();
     }
 
     interface IPresenter {
         void release();
         void releaseResult(Boolean state,String message);
+        void addTrip();
     }
 }

@@ -57,4 +57,10 @@ public class ReleasePresenter extends BasePresenter<ReleaseContract.IView> imple
             getMvpView().dismissProgressDialog();
         }
     }
+
+    @Override
+    public void addTrip() {
+//        mModel.addTrip(activityObjectId);
+        mModel.addTrip();
+    }
 }
