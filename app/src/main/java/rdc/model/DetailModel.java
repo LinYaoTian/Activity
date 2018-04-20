@@ -15,7 +15,6 @@ import cn.bmob.v3.listener.UpdateListener;
 import rdc.bean.Activity;
 import rdc.bean.User;
 import rdc.contract.DetailContract;
-import rdc.util.UserUtil;
 
 /**
  * Created by WaxBerry on 2018/4/18.
@@ -61,8 +60,27 @@ public class DetailModel implements DetailContract.IModel{
     }
 
     @Override
-    public void onSignUp(final DetailContract.IPresenter iPresenter, String objectId, boolean hasSignUp) {
+    public void getUserconcernedList(final DetailContract.IPresenter iPresenter) {
+        BmobQuery<User> userBmobQuery = new BmobQuery<>();
+        User currentUser = new User();
+        currentUser.setObjectId(BmobUser.getCurrentUser().getObjectId());
+        userBmobQuery.addWhereRelatedTo("conncerned", new BmobPointer(currentUser));
+        userBmobQuery.findObjects(new FindListener<User>() {
+            @Override
+            public void done(List<User> list, BmobException e) {
+                if (e == null) {
+                    Log.d(TAG, "查询我的关注列表成功" + list.size());
+                    iPresenter.setUserconcernedList(list);
+                }else {
+                    Log.d(TAG, "查询我的关注列表失败" + e.getMessage());
+                    iPresenter.releaseResult(false, e.getMessage());
+                }
+            }
+        });
+    }
 
+    @Override
+    public void onSignUp(final DetailContract.IPresenter iPresenter, String objectId, boolean hasSignUp) {
         User currentUser = BmobUser.getCurrentUser(User.class);
         Activity activity = new Activity();
         activity.setObjectId(objectId);
@@ -86,6 +104,36 @@ public class DetailModel implements DetailContract.IModel{
             }
         });
     }
+
+    @Override
+    public void addFocus(final DetailContract.IPresenter iPresenter, String toFocusUserObjectId, boolean hasFocus) {
+        User currentUser = BmobUser.getCurrentUser(User.class);
+        User toFocusUser = new User();
+        toFocusUser.setObjectId(toFocusUserObjectId);
+        BmobRelation relation = new BmobRelation();
+        if (hasFocus) {
+            relation.remove(toFocusUser);
+        }else {
+            relation.add(toFocusUser);
+        }
+        currentUser.setConncerned(relation);
+        currentUser.update(BmobUser.getCurrentUser(User.class).getObjectId(), new UpdateListener() {
+            @Override
+            public void done(BmobException e) {
+                if (e == null) {
+                    Log.d(TAG, "关注/取消关注成功");
+                    iPresenter.onConcernedSuccess();
+                }else {
+                    Log.d(TAG, "关注/取消关注失败，" + e.getMessage() + " , " + e.getErrorCode());
+                    iPresenter.releaseResult(false, e.getMessage());
+                }
+            }
+        });
+    }
+
+
+
+
 
     @Override
     public void addSawNum(DetailContract.IPresenter iPresenter, int currentNum, String objectId) {

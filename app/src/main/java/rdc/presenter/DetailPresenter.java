@@ -51,6 +51,26 @@ public class DetailPresenter extends BasePresenter<DetailContract.IView> impleme
     }
 
     @Override
+    public void addFocus(String toFocusUserObjectId, boolean hasFocus) {
+        mModel.addFocus(this, toFocusUserObjectId, hasFocus);
+    }
+
+    @Override
+    public void getUserconcernedList() {
+        mModel.getUserconcernedList(this);
+    }
+
+    @Override
+    public void setUserconcernedList(List<User> userconcernedList) {
+        getMvpView().setUserconcernedList(userconcernedList);
+    }
+
+    @Override
+    public void onConcernedSuccess() {
+        getMvpView().onConcernedSuccess();
+    }
+
+    @Override
     public void releaseResult(Boolean state, String message) {
         if (state) {
             getMvpView().onSuccess();

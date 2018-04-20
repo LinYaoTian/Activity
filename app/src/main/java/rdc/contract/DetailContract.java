@@ -18,12 +18,16 @@ public interface DetailContract {
         void onSingOrUnSingUpSuccess();
         void onError(String errMeg);
         String getobjectId();
+        void setUserconcernedList(List<User> userconcernedList);
+        void onConcernedSuccess();
     }
 
     interface IModel{
         void getDetail(IPresenter iPresenter, String objectId);
         void onSignUp(IPresenter iPresenter, String objectId, boolean hasSignUp);
         void addSawNum(IPresenter iPresenter, int currentNum, String objectId);
+        void addFocus(IPresenter iPresenter, String toFocusUserObjectId, boolean hasFocus);
+        void getUserconcernedList(IPresenter iPresenter);
     }
 
     interface IPresenter{
@@ -34,5 +38,9 @@ public interface DetailContract {
         void onSignUp(boolean hasSignUp);
         void onSingOrUnSingUpSuccess();
         void addSawNum(int currentNum);
+        void addFocus(String toFocusUserObjectId, boolean hasFocus);
+        void getUserconcernedList();
+        void setUserconcernedList(List<User> userconcernedList);
+        void onConcernedSuccess();
     }
 }

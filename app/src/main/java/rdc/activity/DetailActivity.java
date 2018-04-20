@@ -8,6 +8,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -53,7 +55,7 @@ public class DetailActivity extends BaseActivity<DetailPresenter> implements Det
     @BindView(R.id.activity_detail_manager_imageView) ImageView activity_detail_manager_imageView;
     @BindView(R.id.activity_detail_manager_name_textView) TextView activity_detail_manager_name_textView;
     @BindView(R.id.activity_detail_manager_introduction_textView) TextView activity_detail_manager_introduction_textView;
-//    @BindView(R.id.activity_detail_add_textView) TextView activity_detail_add_textView;
+    @BindView(R.id.activity_detail_add_textView) TextView activity_detail_add_textView;
     @BindView(R.id.activity_detail_content_textView) TextView activity_detail_content_textView;
     @BindView(R.id.activity_detail_consult_textView) TextView activity_detail_consult_textView;
     @BindView(R.id.activity_detail_signUp_textView) TextView activity_detail_signUp_textView;
@@ -61,6 +63,8 @@ public class DetailActivity extends BaseActivity<DetailPresenter> implements Det
     private Activity activity;
     private String objectId;
     private boolean hasSignUp = false;
+    private boolean hasFocus = false;
+//    private List<User> focusUserList;
 
     @Override
     protected int setLayoutResID() {
@@ -102,6 +106,11 @@ public class DetailActivity extends BaseActivity<DetailPresenter> implements Det
         }
     }
 
+    @OnClick(R.id.activity_detail_add_textView)
+    public void onAdd() {
+        presenter.addFocus(activity.getManager().getObjectId(), hasFocus);
+    }
+
     @OnClick(R.id.activity_detail_signUp_textView)
     public void onSignUp() {
         presenter.onSignUp(hasSignUp);
@@ -125,12 +134,16 @@ public class DetailActivity extends BaseActivity<DetailPresenter> implements Det
         Glide.with(this).load(activity.getImage().getFileUrl()).into(activity_detail_poster_imageView);
         activity_detail_title_textView.setText(activity.getTitle() + "");
         activity_detail_seeNum_textView.setText(activity.getSawnum() + "");
-//        activity_detail_attendNum_textView.setText(activity.getAttcipator().getObjects().size() + "");
         activity_detail_time_textView.setText(timeArray[0] + " 至 " + timeArray[1]);
         activity_detail_school_textView.setText(activity.getUniversity());
         activity_detail_place_textView.setText(activity.getPlace());
         activity_detail_tag_textView.setText(activity.getTag());
-        Glide.with(this).load(activity.getManager().getUserImg().getFileUrl()).into(activity_detail_manager_imageView);
+
+        if (activity.getManager().getUserImg().getUrl() == null) {
+            activity_detail_manager_imageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_person_gery_40dp));
+        }else {
+            Glide.with(this).load(activity.getManager().getUserImg().getFileUrl()).into(activity_detail_manager_imageView);
+        }
         if (activity.getManager().getNickname() == null || Objects.equals(activity.getManager().getNickname(), "")) {
             activity_detail_manager_name_textView.setText("暂无名称");
         }else {
@@ -145,6 +158,11 @@ public class DetailActivity extends BaseActivity<DetailPresenter> implements Det
 
         int currentSawNum = activity.getSawnum();
         presenter.addSawNum(currentSawNum);
+        presenter.getUserconcernedList();
+
+        if (Objects.equals(activity.getManager().getObjectId(), BmobUser.getCurrentUser().getObjectId())) {
+            activity_detail_add_textView.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -198,6 +216,39 @@ public class DetailActivity extends BaseActivity<DetailPresenter> implements Det
     @Override
     public String getobjectId() {
         return objectId;
+    }
+
+    @Override
+    public void setUserconcernedList(List<User> userconcernedList) {
+        Log.d(TAG, "我的ID ：" + BmobUser.getCurrentUser().getObjectId());
+        Log.d(TAG, "我关注的人数 ：" + userconcernedList.size());
+//        String userId = BmobUser.getCurrentUser().getObjectId();
+        if (userconcernedList != null && userconcernedList.size() != 0) {
+            for (int i = 0; i < userconcernedList.size(); i++) {
+                Log.d(TAG, "我关注的人的ID ：" + userconcernedList.get(i).getObjectId());
+                if (userconcernedList.get(i).getObjectId().equals(activity.getManager().getObjectId())) {
+                    hasFocus = true;
+                    activity_detail_add_textView.setText("已关注");
+                    activity_detail_add_textView.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.ic_check_blue_24dp, 0);
+                    return;
+                }
+            }
+        }
+    }
+
+    @Override
+    public void onConcernedSuccess() {
+        if (hasFocus) {
+            activity_detail_add_textView.setText("关注");
+            activity_detail_add_textView.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.ic_add_blue_24dp, 0);
+            hasFocus = false;
+            Toast.makeText(this, "取消关注成功" , Toast.LENGTH_SHORT).show();
+        }else {
+            activity_detail_add_textView.setText("已关注");
+            activity_detail_add_textView.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.ic_check_blue_24dp, 0);
+            hasFocus = true;
+            Toast.makeText(this, "关注成功" , Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
