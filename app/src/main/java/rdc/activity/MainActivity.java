@@ -17,6 +17,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -41,6 +42,7 @@ import rdc.bean.User;
 import rdc.contract.MainContract;
 import rdc.fragment.ActivityFragment;
 import rdc.presenter.MainPresenter;
+import rdc.util.ActivityCollectorUtil;
 
 
 public class MainActivity extends BaseActivity<MainPresenter> implements MainContract.View {
@@ -65,7 +67,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     private List<Fragment> mActivityFragmentList;
     private ActivityFragmentPagerAdapter mFragmentPagerAdapter;
     private String mTagsOrder;
-
+    private long mExitTime;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -256,6 +258,24 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         } else {
             Glide.with(this).load(user.getUserPhoto().getUrl()).into(photo);
 
+        }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            exit();
+            return false;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    public void exit() {
+        if ((System.currentTimeMillis() - mExitTime) > 2000) {
+            showToast("再按一次退出程序");
+            mExitTime = System.currentTimeMillis();
+        } else {
+            ActivityCollectorUtil.finishAll();
         }
     }
 
