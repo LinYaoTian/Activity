@@ -2,14 +2,11 @@ package rdc.model;
 
 import com.google.gson.Gson;
 
-import java.util.Collections;
 import java.util.List;
 
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.UpdateListener;
-import rdc.app.App;
-import rdc.avtivity.R;
 import rdc.bean.ItemTag;
 import rdc.bean.User;
 import rdc.contract.TagsContract;

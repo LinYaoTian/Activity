@@ -1,7 +1,5 @@
 package rdc.util;
 
-import android.util.Log;
-
 import org.joda.time.DateTime;
 
 import java.text.SimpleDateFormat;

@@ -1,7 +1,5 @@
 package rdc.model;
 
-import android.util.Log;
-
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;

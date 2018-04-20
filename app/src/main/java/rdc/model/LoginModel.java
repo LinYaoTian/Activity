@@ -1,13 +1,6 @@
 package rdc.model;
 
-import java.util.Arrays;
-import java.util.List;
-
-import cn.bmob.v3.BmobQuery;
-import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
-import cn.bmob.v3.listener.FindListener;
-import cn.bmob.v3.listener.LogInListener;
 import cn.bmob.v3.listener.SaveListener;
 import rdc.bean.User;
 import rdc.constant.Constant;
@@ -35,12 +28,14 @@ public class LoginModel implements LoginContract.Model {
             @Override
             public void done(User user, BmobException e) {
                 if (e == null){
+                    //保存用户帐号密码，下次可以自动登录
                     UserUtil.saveUser(userName, password);
-                    String tagsOrder = user.getTagsOrder();
-                    if (tagsOrder == null){
-                        tagsOrder = Constant.DEFAULT_TAGS_ORDER;
-                    }
-                    mPresenter.loginSuccess(tagsOrder);
+//                    //获取用户的
+//                    String tagsOrder = user.getTagsOrder();
+//                    if (tagsOrder == null){
+//                        tagsOrder = Constant.DEFAULT_TAGS_ORDER;
+//                    }
+                    mPresenter.loginSuccess();
                 }else if (e.getMessage().startsWith("username or password incorrect.")){
                     mPresenter.loginError("用户名或密码错误！");
                 }else if (e.getMessage().startsWith("The network is not available")){

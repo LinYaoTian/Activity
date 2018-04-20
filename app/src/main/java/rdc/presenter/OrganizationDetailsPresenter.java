@@ -1,8 +1,5 @@
 package rdc.presenter;
 
-import android.support.v7.widget.LinearLayoutCompat;
-import android.util.Log;
-
 import java.util.ArrayList;
 import java.util.List;
 

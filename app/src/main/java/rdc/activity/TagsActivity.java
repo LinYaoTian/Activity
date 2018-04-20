@@ -2,7 +2,6 @@ package rdc.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
@@ -21,7 +20,6 @@ import butterknife.BindView;
 import rdc.adapter.TagsRvAdapter;
 import rdc.avtivity.R;
 import rdc.base.BaseActivity;
-import rdc.base.BasePresenter;
 import rdc.bean.ItemTag;
 import rdc.contract.TagsContract;
 import rdc.listener.OnStartDragListener;

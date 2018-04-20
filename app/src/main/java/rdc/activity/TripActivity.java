@@ -4,40 +4,26 @@ package rdc.activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.joda.time.DateTime;
 
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.BindView;
 import noman.weekcalendar.WeekCalendar;
-import noman.weekcalendar.eventbus.Event;
 import noman.weekcalendar.listener.OnDateClickListener;
 import rdc.adapter.TripListRvAdapter;
 import rdc.avtivity.R;
 import rdc.base.BaseActivity;
-import rdc.base.BasePresenter;
-import rdc.bean.Activity;
-import rdc.bean.ItemActivity;
 import rdc.bean.Trip;
 import rdc.contract.ITripContract;
 import rdc.presenter.TripPresenter;
@@ -47,8 +33,6 @@ import rdc.util.LoadingDialogUtil;
 import rdc.util.ObjectCastUtil;
 import rdc.util.SeparateActivityUtil;
 
-import static rdc.configs.TripItemType.sACTIVITY;
-import static rdc.configs.TripItemType.sDIVIDER;
 import static rdc.util.DateUtil.getToday;
 
 

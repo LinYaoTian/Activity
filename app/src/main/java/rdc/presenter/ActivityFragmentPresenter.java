@@ -1,7 +1,5 @@
 package rdc.presenter;
 
-import android.util.Log;
-
 import java.util.List;
 
 import rdc.base.BasePresenter;

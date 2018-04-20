@@ -3,6 +3,7 @@ package rdc.activity;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -11,7 +12,6 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
-import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -31,12 +31,11 @@ import com.google.gson.reflect.TypeToken;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import butterknife.BindView;
 import cn.bmob.v3.BmobUser;
+import rdc.adapter.ActivityFragmentPagerAdapter;
 import rdc.avtivity.R;
 import rdc.base.BaseActivity;
-import rdc.adapter.ActivityFragmentPagerAdapter;
 import rdc.bean.ItemTag;
 import rdc.bean.User;
 import rdc.contract.MainContract;
@@ -71,7 +70,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        mTagsOrder = getIntent().getStringExtra("tagsOrder");
+        mTagsOrder = BmobUser.getCurrentUser(User.class).getTagsOrder();
         super.onCreate(savedInstanceState);
     }
 

@@ -1,7 +1,5 @@
 package rdc.presenter;
 
-import javax.xml.transform.sax.TemplatesHandler;
-
 import rdc.base.BasePresenter;
 import rdc.contract.LaunchContract;
 import rdc.model.LaunchModel;
@@ -24,9 +22,9 @@ public class LaunchPresenter extends BasePresenter<LaunchContract.View> implemen
     }
 
     @Override
-    public void updateSuccess(String tagsOrder) {
+    public void updateSuccess() {
         if (isAttachView()){
-            getMvpView().updateUserSuccess(tagsOrder);
+            getMvpView().updateUserSuccess();
         }
     }
 

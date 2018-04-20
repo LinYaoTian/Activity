@@ -4,7 +4,6 @@ import android.os.Environment;
 import android.util.Log;
 
 import java.io.File;
-import java.util.Date;
 
 import cn.bmob.v3.datatype.BmobDate;
 import cn.bmob.v3.datatype.BmobFile;

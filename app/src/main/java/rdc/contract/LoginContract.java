@@ -1,14 +1,12 @@
 package rdc.contract;
 
-import rdc.bean.User;
-
 /**
  * Created by Lin Yaotian on 2018/4/13.
  */
 
 public interface LoginContract {
     interface View{
-        void loginSuccess(String tagsOrder);
+        void loginSuccess();
         void loginError(String message);
     }
 
@@ -18,7 +16,7 @@ public interface LoginContract {
 
     interface Presenter{
         void login(String userName,String password);
-        void loginSuccess(String tagsOrder);
+        void loginSuccess();
         void loginError(String error);
     }
 }

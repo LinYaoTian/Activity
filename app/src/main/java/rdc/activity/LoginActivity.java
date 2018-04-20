@@ -1,24 +1,16 @@
 package rdc.activity;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.support.annotation.Nullable;
-import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import butterknife.BindView;
-import cn.bmob.v3.BmobUser;
-import rdc.app.App;
 import rdc.avtivity.R;
 import rdc.base.BaseActivity;
-import rdc.bean.User;
 import rdc.constant.Constant;
 import rdc.contract.LoginContract;
 import rdc.presenter.LoginPresenter;
@@ -36,12 +28,6 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     Button mBtnLogin;
     @BindView(R.id.tv_register_act_login)
     TextView mTvRegister;
-
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        initToolbar();
-    }
 
     private void initToolbar() {
         setSupportActionBar(mToolbar);
@@ -70,6 +56,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
     @Override
     protected void initView() {
+        initToolbar();
         mTvRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -105,10 +92,9 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     }
 
     @Override
-    public void loginSuccess(String tagsOrder) {
+    public void loginSuccess() {
         showToast("登录成功！");
         Intent intent = new Intent(this,MainActivity.class);
-        intent.putExtra("tagsOrder",tagsOrder);
         startActivity(intent);
         finish();
     }

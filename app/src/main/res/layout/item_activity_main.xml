@@ -18,7 +18,7 @@
         <ImageView
             android:id="@+id/iv_cover_item_act_main"
             android:layout_width="0dp"
-            android:layout_height="150dp"
+            android:layout_height="170dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"

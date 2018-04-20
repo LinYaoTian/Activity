@@ -1,7 +1,5 @@
 package rdc.contract;
 
-import java.util.Date;
-
 import cn.bmob.v3.datatype.BmobDate;
 import cn.bmob.v3.datatype.BmobRelation;
 import rdc.bean.User;

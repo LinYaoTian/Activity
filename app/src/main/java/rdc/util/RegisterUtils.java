@@ -1,8 +1,5 @@
 package rdc.util;
 
-import android.widget.Toast;
-
-import rdc.app.App;
 import rdc.constant.Constant;
 
 /**

@@ -1,7 +1,6 @@
 package rdc.presenter;
 
 import rdc.base.BasePresenter;
-import rdc.bean.User;
 import rdc.contract.LoginContract;
 import rdc.model.LoginModel;
 
@@ -23,9 +22,9 @@ public class LoginPresenter extends BasePresenter<LoginContract.View> implements
     }
 
     @Override
-    public void loginSuccess(String tagsOrder) {
+    public void loginSuccess() {
         if (isAttachView()){
-            getMvpView().loginSuccess(tagsOrder);
+            getMvpView().loginSuccess();
         }
     }
 

@@ -1,14 +1,10 @@
 package rdc.util;
 
-import android.util.Log;
-
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import rdc.bean.Activity;
 import rdc.bean.Trip;
 
 import static rdc.configs.TripItemType.sACTIVITY;

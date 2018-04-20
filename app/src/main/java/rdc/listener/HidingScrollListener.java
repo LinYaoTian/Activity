@@ -2,7 +2,6 @@ package rdc.listener;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 
 /**
  * Created by asus on 18-4-19.

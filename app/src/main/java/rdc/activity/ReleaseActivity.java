@@ -29,8 +29,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.zxy.tiny.callback.FileCallback;
-
 import java.io.FileNotFoundException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -45,10 +43,8 @@ import rdc.base.BaseActivity;
 import rdc.contract.ReleaseContract;
 import rdc.presenter.ReleasePresenter;
 import rdc.util.CustomDatePicker;
-import rdc.util.ImageUtil;
 import rdc.util.LoadingDialogUtil;
 import rdc.util.UniversityUtils;
-import rdc.util.UserUtil;
 
 import static rdc.util.ImageUtil.camera;
 import static rdc.util.ImageUtil.cropImageUri;

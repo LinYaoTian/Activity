@@ -1,8 +1,7 @@
 package rdc.activity;
 
-import android.content.DialogInterface;
-import android.support.v7.app.ActionBar;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -19,7 +18,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -31,7 +29,6 @@ import rdc.constant.Constant;
 import rdc.contract.RegisterContract;
 import rdc.presenter.RegisterPresenter;
 import rdc.util.RegisterUtils;
-import rdc.util.UniversityUtils;
 
 public class RegisterActivity extends BaseActivity<RegisterPresenter> implements RegisterContract.View {
 
@@ -105,14 +102,14 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
         mEtUniversity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final String [] schoolArray = {
+                String [] schoolArray = {
                         "广东工业大学","华南理工大学",
                         "中山大学","广州大学",
                         "广东外语外贸大学","广州中医药大学",
                         "广东药科大学","华南师范大学",
                         "广州美术学院","星海音乐学院"};
                 final AlertDialog dialog = new AlertDialog.Builder(RegisterActivity.this).create();
-                final List<String> schoolList = Arrays.asList(schoolArray);
+                List<String> schoolList = Arrays.asList(schoolArray);
                 final ArrayAdapter<String> listAdapter = new ArrayAdapter<>(RegisterActivity.this, android.R.layout.simple_list_item_1, schoolList);
                 View view1 = LayoutInflater.from(RegisterActivity.this)
                         .inflate(R.layout.dialog_universities_act_register,null);

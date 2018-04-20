@@ -17,7 +17,6 @@ import butterknife.BindView;
 import rdc.adapter.ManagedAdapter;
 import rdc.avtivity.R;
 import rdc.base.BaseActivity;
-import rdc.base.BasePresenter;
 import rdc.bean.ManagedActivity;
 import rdc.contract.IManagedContract;
 import rdc.presenter.ManagedPresenter;

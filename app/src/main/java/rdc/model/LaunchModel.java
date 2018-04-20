@@ -1,25 +1,8 @@
 package rdc.model;
 
-import android.content.res.TypedArray;
-import android.util.Log;
-import android.widget.Toast;
-
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
-import cn.bmob.v3.listener.FetchUserInfoListener;
-import cn.bmob.v3.listener.FindListener;
-import cn.bmob.v3.listener.LogInListener;
 import cn.bmob.v3.listener.SaveListener;
-import rdc.app.App;
-import rdc.bean.ItemTag;
 import rdc.bean.User;
 import rdc.constant.Constant;
 import rdc.contract.LaunchContract;
@@ -45,11 +28,11 @@ public class LaunchModel implements LaunchContract.Model {
             @Override
             public void done(User user, BmobException e) {
                 if (e == null){
-                    String tagsOrder = user.getTagsOrder();
-                    if (tagsOrder == null){
-                        tagsOrder = Constant.DEFAULT_TAGS_ORDER;
-                    }
-                    mPresenter.updateSuccess(tagsOrder);
+//                    String tagsOrder = user.getTagsOrder();
+//                    if (tagsOrder == null){
+//                        tagsOrder = Constant.DEFAULT_TAGS_ORDER;
+//                    }
+                    mPresenter.updateSuccess();
                 }else {
                     mPresenter.updateError();
                 }

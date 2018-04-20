@@ -2,7 +2,6 @@ package rdc.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +15,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import rdc.avtivity.R;
-import rdc.bean.Activity;
-import rdc.bean.Organization;
 import rdc.bean.OrganizationActivity;
 
 import static rdc.configs.OrganizationItemType.sACTIVITY;

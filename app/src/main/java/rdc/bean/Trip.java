@@ -1,7 +1,5 @@
 package rdc.bean;
 
-import android.util.Log;
-
 import java.io.Serializable;
 
 /**

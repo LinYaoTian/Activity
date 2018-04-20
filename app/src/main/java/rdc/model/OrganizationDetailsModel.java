@@ -1,7 +1,5 @@
 package rdc.model;
 
-import android.util.Log;
-
 import java.util.List;
 
 import cn.bmob.v3.BmobQuery;

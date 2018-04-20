@@ -5,13 +5,15 @@ import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
+
 import com.zxy.tiny.Tiny;
 import com.zxy.tiny.callback.FileCallback;
+
 import java.io.File;
 import java.io.IOException;
 
-import static rdc.activity.ReleaseActivity.CUT_GALLERY_PICTURE;
 import static rdc.activity.ReleaseActivity.CUT_CAMERA_PICTURE;
+import static rdc.activity.ReleaseActivity.CUT_GALLERY_PICTURE;
 
 
 public class ImageUtil {

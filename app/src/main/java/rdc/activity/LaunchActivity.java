@@ -8,9 +8,7 @@ import rdc.avtivity.R;
 import rdc.base.BaseActivity;
 import rdc.bean.User;
 import rdc.contract.LaunchContract;
-import rdc.contract.SimpleContract;
 import rdc.presenter.LaunchPresenter;
-import rdc.presenter.SimplePresenter;
 
 public class LaunchActivity extends BaseActivity<LaunchPresenter> implements LaunchContract.View {
 
@@ -65,9 +63,8 @@ public class LaunchActivity extends BaseActivity<LaunchPresenter> implements Lau
     }
 
     @Override
-    public void updateUserSuccess(String tagsOrder) {
+    public void updateUserSuccess() {
         Intent intent = new Intent(LaunchActivity.this,MainActivity.class);
-        intent.putExtra("tagsOrder",tagsOrder);
         startActivity(intent);
         finish();
     }

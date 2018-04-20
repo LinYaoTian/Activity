@@ -2,8 +2,6 @@ package rdc.presenter;
 
 import android.util.Log;
 
-import java.util.Date;
-
 import cn.bmob.v3.BmobUser;
 import rdc.base.BasePresenter;
 import rdc.bean.User;

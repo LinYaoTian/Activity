@@ -4,13 +4,9 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.zxy.tiny.callback.FileCallback;
 
-import java.io.File;
-
-import rdc.activity.IndividualActivity;
 import rdc.base.BasePresenter;
 import rdc.bean.User;
 import rdc.contract.IIndividualContract;
