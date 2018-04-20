@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.Collections;
+import java.util.List;
 
 import butterknife.BindView;
 import rdc.avtivity.R;
@@ -24,9 +25,11 @@ import rdc.listener.OnStartDragListener;
  */
 
 public class TagsRvAdapter extends BaseRecyclerViewAdapter<ItemTag> implements IItemTouchHelperAdapter {
-
-    private OnClickSwitchListener mOnClickSwitchListener;
     private final OnStartDragListener mDragListener;
+
+    public List<ItemTag> getDataList(){
+        return mDataList;
+    }
 
     public TagsRvAdapter(OnStartDragListener onStartDragListener){
         mDragListener = onStartDragListener;
@@ -77,7 +80,6 @@ public class TagsRvAdapter extends BaseRecyclerViewAdapter<ItemTag> implements I
                 public void onClick(View view) {
                     boolean b = itemTag.isChecked();
                     mDataList.get(getLayoutPosition()).setChecked(!b);
-                    mOnClickSwitchListener.onClick(getLayoutPosition(), !b);
                 }
             });
             menu.setOnTouchListener(new View.OnTouchListener() {
@@ -103,11 +105,4 @@ public class TagsRvAdapter extends BaseRecyclerViewAdapter<ItemTag> implements I
         }
     }
 
-    public void setOnClickSwitchListener(OnClickSwitchListener onClickSwitchListener) {
-        mOnClickSwitchListener = onClickSwitchListener;
-    }
-
-    public interface OnClickSwitchListener {
-        void onClick(int position, boolean isChecked);
-    }
 }

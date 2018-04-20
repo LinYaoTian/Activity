@@ -39,8 +39,6 @@ public class LoginModel implements LoginContract.Model {
                     String tagsOrder = user.getTagsOrder();
                     if (tagsOrder == null){
                         tagsOrder = Constant.DEFAULT_TAGS_ORDER;
-                    }else {
-                        tagsOrder = "首页，热门，"+ tagsOrder;
                     }
                     mPresenter.loginSuccess(tagsOrder);
                 }else if (e.getMessage().startsWith("username or password incorrect.")){

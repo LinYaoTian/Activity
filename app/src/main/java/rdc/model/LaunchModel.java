@@ -48,18 +48,7 @@ public class LaunchModel implements LaunchContract.Model {
                     String tagsOrder = user.getTagsOrder();
                     if (tagsOrder == null){
                         tagsOrder = Constant.DEFAULT_TAGS_ORDER;
-                    }else {
-                        tagsOrder = "首页，热门，"+ tagsOrder;
                     }
-                    List<String> list = Arrays.asList(tagsOrder.split("，"));
-                    List<ItemTag> list1 = new ArrayList<>();
-                    for (int i = 0; i < list.size(); i++) {
-                        ItemTag itemTag = new ItemTag(list.get(i),true);
-                        list1.add(itemTag);
-                    }
-                    Gson gson = new Gson();
-                    Log.d("LYT", "done1: "+gson.toJson(list1));
-                    Log.d("LYT", "done2: "+gson.fromJson(gson.toJson(list1),new TypeToken<List<ItemTag>>(){}.getType()).toString());
                     mPresenter.updateSuccess(tagsOrder);
                 }else {
                     mPresenter.updateError();

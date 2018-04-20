@@ -28,8 +28,6 @@ public class TagsModel implements TagsContract.Model {
 
     @Override
     public void saveTags(List<ItemTag> list) {
-        list.add(0,new ItemTag(App.getmContext().getResources().getString(R.string.hot),true));
-        list.add(0,new ItemTag(App.getmContext().getResources().getString(R.string.homePage),true));
         Gson gson = new Gson();
         User user = new User();
         user.setTagsOrder(gson.toJson(list));

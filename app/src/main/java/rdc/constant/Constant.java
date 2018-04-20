@@ -23,6 +23,7 @@ public class Constant {
     /**
      * 默认的标签顺序
      */
-    public static final String DEFAULT_TAGS_ORDER = "首页，热门，比赛，公益，运动，娱乐，交友，讲座，其他";
+    public static final String DEFAULT_TAGS_ORDER = "首页，热门，比赛，公益，运动，交友，讲座，其他";
+
 
 }

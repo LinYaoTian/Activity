@@ -1,8 +1,16 @@
 package rdc.model;
 
+import com.google.gson.Gson;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
+import rdc.bean.ItemActivity;
+import rdc.bean.ItemTag;
 import rdc.bean.User;
+import rdc.constant.Constant;
 import rdc.contract.RegisterContract;
 
 /**
@@ -19,6 +27,15 @@ public class RegisterModel implements RegisterContract.Model {
 
     @Override
     public void register(User user) {
+        //添加默认订阅的标签
+        List<ItemTag> list = new ArrayList<>();
+        String [] defaultTagsOrder = Constant.DEFAULT_TAGS_ORDER.split("，");
+        for (String s : defaultTagsOrder) {
+            ItemTag itemTag = new ItemTag(s,true);
+            list.add(itemTag);
+        }
+        Gson gson = new Gson();
+        user.setTagsOrder(gson.toJson(list));
         user.signUp(new SaveListener<User>() {
             @Override
             public void done(User u, BmobException e) {

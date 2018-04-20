@@ -45,6 +45,7 @@ public class ActivityFragmentModel implements ActivityFragmentContract.Model {
 
     @Override
     public void refresh(String tag) {
+        Log.d(TAG, "refresh: "+tag);
         if (!isRefreshing){
             isRefreshing = true;
             isLoadingMore = false;
@@ -54,7 +55,7 @@ public class ActivityFragmentModel implements ActivityFragmentContract.Model {
             query.addQueryKeys("title,time,ItemTag,sawnum,place,image,createdAt");
             if (!tag.equals(App.getmContext().getResources().getString(R.string.hot))
                     && !tag.equals(App.getmContext().getResources().getString(R.string.homePage))){
-                query.addWhereEqualTo("ItemTag",tag);
+                query.addWhereEqualTo("tag",tag);
             }
             if (tag.equals(App.getmContext().getResources().getString(R.string.hot))){
                 query.order("-sawnum");
@@ -146,11 +147,11 @@ public class ActivityFragmentModel implements ActivityFragmentContract.Model {
             }
             User user = BmobUser.getCurrentUser(User.class);
             BmobQuery<Activity> query = new BmobQuery<>();
-            query.addQueryKeys("title,time,ItemTag,sawnum,place,image,createdAt");
+            query.addQueryKeys("title,time,tag,sawnum,place,image,createdAt");
             if (!tag.equals(App.getmContext().getResources().getString(R.string.hot))
                     && !tag.equals(App.getmContext().getResources().getString(R.string.homePage))){
                 //除了热门和首页，其他都只获取对应类型的活动
-                query.addWhereEqualTo("ItemTag",tag);
+                query.addWhereEqualTo("tag",tag);
             }
             if (tag.equals(App.getmContext().getResources().getString(R.string.hot))){
                 ///热门活动按查看数排序

@@ -3,15 +3,12 @@ package rdc.activity;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.content.Intent;
-import android.graphics.Color;
-import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
@@ -23,29 +20,27 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 
 import butterknife.BindView;
-import butterknife.OnClick;
 import cn.bmob.v3.BmobUser;
 import rdc.avtivity.R;
 import rdc.base.BaseActivity;
+import rdc.adapter.ActivityFragmentPagerAdapter;
+import rdc.bean.ItemTag;
 import rdc.bean.User;
 import rdc.contract.MainContract;
 import rdc.fragment.ActivityFragment;
 import rdc.presenter.MainPresenter;
-import rdc.util.DisplayUtil;
 
 
 public class MainActivity extends BaseActivity<MainPresenter> implements MainContract.View {
@@ -67,8 +62,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     private static final String TAG = "MainActivity";
 
     private List<String> mTabNameList;//顶部Tab名字列表
-    private List<ActivityFragment> mActivityFragmentList;
-    private FragmentPagerAdapter mFragmentPagerAdapter;
+    private List<Fragment> mActivityFragmentList;
+    private ActivityFragmentPagerAdapter mFragmentPagerAdapter;
     private String mTagsOrder;
 
 
@@ -109,13 +104,33 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.more_menu_act_main:
-                showToast("更多");
+                Intent intent = new Intent(MainActivity.this,TagsActivity.class);
+                intent.putExtra("tagsOrder",mTagsOrder);
+                startActivityForResult(intent,0);
                 break;
             case android.R.id.home:
                 mDrawerLayout.openDrawer(GravityCompat.START);
                 break;
         }
         return true;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode){
+            case 0:
+                if (resultCode == RESULT_OK){
+                    String tagsOrder = data.getStringExtra("data_return");
+                    if (!mTagsOrder.equals(tagsOrder)){
+                        Log.d(TAG, "onActivityResult: ");
+                        //用户订阅的菜单顺序或种类有变
+                        mTagsOrder = tagsOrder;
+                        initData();
+                        mFragmentPagerAdapter.setFragments(mActivityFragmentList,mTabNameList);
+                    }
+                }
+                break;
+        }
     }
 
     @Override
@@ -126,7 +141,13 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     @Override
     protected void initData() {
         mTabNameList = new ArrayList<>();
-        mTabNameList.addAll(Arrays.asList(mTagsOrder.split("，")));
+        Gson gson = new Gson();
+        List<ItemTag> tagList = gson.fromJson(mTagsOrder,new TypeToken<List<ItemTag>>(){}.getType());
+        for (ItemTag itemTag : tagList) {
+            if (itemTag.isChecked()){
+                mTabNameList.add(itemTag.getTag());
+            }
+        }
         mActivityFragmentList = new ArrayList<>();
         for (int i = 0; i < mTabNameList.size(); i++) {
             ActivityFragment activityFragment = new ActivityFragment();
@@ -139,22 +160,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     protected void initView() {
         initToolbar();
         mVpActivities.setOffscreenPageLimit(mActivityFragmentList.size());
-        mFragmentPagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
-            @Override
-            public Fragment getItem(int position) {
-                return mActivityFragmentList.get(position);
-            }
-
-            @Override
-            public int getCount() {
-                return mActivityFragmentList.size();
-            }
-
-            @Override
-            public CharSequence getPageTitle(int position) {
-                return mTabNameList.get(position);
-            }
-        };
+        mFragmentPagerAdapter = new ActivityFragmentPagerAdapter(getSupportFragmentManager(),mActivityFragmentList,mTabNameList);
         mVpActivities.setAdapter(mFragmentPagerAdapter);
         mTlCategory.setupWithViewPager(mVpActivities);
         ActionBarDrawerToggle mDrawerToggle =

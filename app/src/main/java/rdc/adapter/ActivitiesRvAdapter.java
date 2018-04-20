@@ -74,7 +74,9 @@ public class ActivitiesRvAdapter extends BaseRecyclerViewAdapter<Activity> {
 
         @Override
         protected void bindView(Activity activity) {
-            Glide.with(mContext).load(activity.getImage().getFileUrl()).into(mIvCover);
+            if (activity.getImage()!= null){
+                Glide.with(mContext).load(activity.getImage().getUrl()).into(mIvCover);
+            }
             mTvTitle.setText(activity.getTitle());
             mTvLocation.setText(activity.getPlace());
             mTvTime.setText(activity.getTime());
