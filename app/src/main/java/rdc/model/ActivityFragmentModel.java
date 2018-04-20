@@ -27,7 +27,7 @@ import rdc.contract.ActivityFragmentContract;
 public class ActivityFragmentModel implements ActivityFragmentContract.Model {
 
     public static final String TAG = "LYT";
-    private static final int NUM_OF_ONE_PAGE = 3;
+    private static final int NUM_OF_ONE_PAGE = 10;
 
     private ActivityFragmentContract.Presenter mPresenter;
     private boolean isRefreshing;//是否正在刷新
@@ -88,7 +88,7 @@ public class ActivityFragmentModel implements ActivityFragmentContract.Model {
     }
 
     @Override
-    public void getMore(String tag) {
+    public void getMore(final String tag) {
 //        Log.d(TAG, "getMore: isRefreshing:"+isLoadingMore+",isLoadingMore:"+isLoadingMore+",hasMoreData:"+hasMoreData);
         if (!isRefreshing && !isLoadingMore && hasMoreData){
             isLoadingMore = true;
@@ -111,7 +111,7 @@ public class ActivityFragmentModel implements ActivityFragmentContract.Model {
                 ///热门活动按查看数排序
                 query.order("-sawnum");
                 //分页
-                query.addWhereGreaterThan("sawnum",mLastActivity.getSawnum());
+                query.addWhereLessThan("sawnum",mLastActivity.getSawnum());
             }else {
                 //其他活动按时间降序排序
                 query.order("-createdAt");
