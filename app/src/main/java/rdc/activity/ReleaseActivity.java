@@ -97,7 +97,7 @@ public class ReleaseActivity extends BaseActivity<ReleasePresenter> implements R
             case R.id.activity_release_release_textView:
                 release();
 //                Intent detailIntent = new Intent(ReleaseActivity.this, DetailActivity.class);
-//                detailIntent.putExtra("objectId", "qPSLiiiC");
+//                detailIntent.putExtra("objectId", "f345f2ecdf");
 //                startActivity(detailIntent);
                 break;
             case R.id.activity_release_poster_imageView:

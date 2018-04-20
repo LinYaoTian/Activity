@@ -355,16 +355,16 @@
                         android:maxLines="2"
                         android:text="-"/>
 
-                    <!--<TextView-->
-                        <!--android:id="@+id/activity_detail_add_textView"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:text="关注"-->
-                        <!--android:layout_alignParentEnd="true"-->
-                        <!--android:layout_marginEnd="20dp"-->
-                        <!--android:textColor="@color/colorPrimary"-->
-                        <!--android:textSize="15sp"-->
-                        <!--android:drawableEnd="@drawable/ic_add_blue_24dp"/>-->
+                    <TextView
+                        android:id="@+id/activity_detail_add_textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="关注"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="20dp"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="15sp"
+                        android:drawableEnd="@drawable/ic_add_blue_24dp"/>
 
                         <!--android:drawableEnd="@drawable/ic_check_blue_24dp"/>-->
 
