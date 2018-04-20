@@ -48,7 +48,7 @@ public class AccountManageActivity extends BaseActivity<AccountManagePresenter> 
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                finish();
+                onBackPressed();
                 break;
         }
         return true;

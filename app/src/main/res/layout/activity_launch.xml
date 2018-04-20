@@ -57,7 +57,7 @@
             android:id="@+id/tv_message_act_launch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="专注于校园活动的\n平台"
+            android:text="广州大学城\n校园活动平台"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

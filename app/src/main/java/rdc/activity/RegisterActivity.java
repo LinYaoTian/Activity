@@ -1,5 +1,6 @@
 package rdc.activity;
 
+import android.content.DialogInterface;
 import android.support.v7.app.ActionBar;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -18,6 +19,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
@@ -65,7 +68,7 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case android.R.id.home:
-                finish();
+                onBackPressed();
                 break;
         }
         return true;
@@ -102,29 +105,24 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
         mEtUniversity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                final String [] schoolArray = {
+                        "广东工业大学","华南理工大学",
+                        "中山大学","广州大学",
+                        "广东外语外贸大学","广州中医药大学",
+                        "广东药科大学","华南师范大学",
+                        "广州美术学院","星海音乐学院"};
                 final AlertDialog dialog = new AlertDialog.Builder(RegisterActivity.this).create();
-                final List<String> provinces = UniversityUtils.getProvinces();
-                final ArrayAdapter<String> listAdapter = new ArrayAdapter<>(RegisterActivity.this, android.R.layout.simple_list_item_1, provinces);
+                final List<String> schoolList = Arrays.asList(schoolArray);
+                final ArrayAdapter<String> listAdapter = new ArrayAdapter<>(RegisterActivity.this, android.R.layout.simple_list_item_1, schoolList);
                 View view1 = LayoutInflater.from(RegisterActivity.this)
                         .inflate(R.layout.dialog_universities_act_register,null);
                 TextView tvTitle = view1.findViewById(R.id.tv_title_dialog_act_register);
                 ListView lvList = view1.findViewById(R.id.lv_university_dialog_act_register);
                 lvList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    boolean selectingProvince = true;//是否正在选择学校所在省份
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                        if (selectingProvince){
-                            //正在选择学校所在省份
-                            String province = provinces.get(i);
-                            listAdapter.clear();
-                            listAdapter.addAll(UniversityUtils.getUniversities(province));
-                            listAdapter.notifyDataSetChanged();
-                            selectingProvince = !selectingProvince;
-                        }else {
-                            //正在选择学校
-                            mEtUniversity.setText(listAdapter.getItem(i));
-                            dialog.dismiss();
-                        }
+                        mEtUniversity.setText(listAdapter.getItem(i));
+                        dialog.dismiss();
                     }
                 });
                 tvTitle.setText("请选择所在的学校");

@@ -12,7 +12,7 @@
         android:layout_marginTop="@dimen/editTextMargin"
         android:text="请选择所在地区"
         android:textColor="@color/black"
-        android:textSize="@dimen/titleTextSize"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

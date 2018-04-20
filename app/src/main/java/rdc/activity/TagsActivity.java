@@ -121,7 +121,7 @@ public class TagsActivity extends BaseActivity<TagsPresenter> implements OnStart
 
     @Override
     public void saveTagsError(String error) {
-
+        showToast(error);
     }
 
     @Override

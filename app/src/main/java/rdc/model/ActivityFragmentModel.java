@@ -50,7 +50,6 @@ public class ActivityFragmentModel implements ActivityFragmentContract.Model {
             isRefreshing = true;
             isLoadingMore = false;
             hasMoreData = true;
-            User user = BmobUser.getCurrentUser(User.class);
             BmobQuery<Activity> query = new BmobQuery<>();
             query.addQueryKeys("title,time,ItemTag,sawnum,place,image,createdAt");
             if (!tag.equals(App.getmContext().getResources().getString(R.string.hot))
@@ -64,8 +63,6 @@ public class ActivityFragmentModel implements ActivityFragmentContract.Model {
             }
             //活动有效期大于当前时间
             query.addWhereGreaterThanOrEqualTo("expirationDate",new BmobDate(new Date()));
-            //活动与当前用户在同一个学校
-            query.addWhereEqualTo("university",user.getUniversity());
             query.setLimit(NUM_OF_ONE_PAGE);
             query.findObjects(new FindListener<Activity>() {
                 @Override
@@ -90,48 +87,6 @@ public class ActivityFragmentModel implements ActivityFragmentContract.Model {
         }
     }
 
-//    private List<Activity> queryfromCache(String ItemTag){
-//        User user = BmobUser.getCurrentUser(User.class);
-//        BmobQuery<Activity> query = new BmobQuery<>();
-//        query.addQueryKeys("title,time,ItemTag,sawnum,place,image,createdAt");
-//        if (!ItemTag.equals(App.getmContext().getResources().getString(R.string.hot))
-//                && !ItemTag.equals(App.getmContext().getResources().getString(R.string.homePage))){
-//            query.addWhereEqualTo("ItemTag",ItemTag);
-//        }
-//        if (ItemTag.equals(App.getmContext().getResources().getString(R.string.hot))){
-//            query.order("-sawnum");
-//        }else {
-//            query.order("-createdAt");
-//        }
-//        //活动有效期大于当前时间
-//        query.addWhereGreaterThanOrEqualTo("expirationDate",new BmobDate(new Date()));
-//        //活动与当前用户在同一个学校
-//        query.addWhereEqualTo("university",user.getUniversity());
-//        query.setLimit(NUM_OF_ONE_PAGE);
-//        query.setCachePolicy(BmobQuery.CachePolicy.CACHE_THEN_NETWORK);
-//        query.setMaxCacheAge(TimeUnit.DAYS.toMillis(10));//缓存10天
-//        query.findObjects(new FindListener<Activity>() {
-//            @Override
-//            public void done(List<Activity> list, BmobException e) {
-//                isRefreshing = false;
-//                if (e == null){
-//                    mPresenter.refreshSuccess(list);
-//                    if (list.size() != 0){
-//                        mLastActivity = list.get(list.size()-1);
-//                    }
-//                    if (list.size() < NUM_OF_ONE_PAGE){
-//                        hasMoreData = false;
-//                        mPresenter.noMoreData();
-//                    }
-//                }else if (e.getMessage().startsWith("The network is not available")){
-//                    mPresenter.refreshError("无网络！");
-//                }else {
-//                    mPresenter.refreshError(e.getMessage());
-//                }
-//            }
-//        });
-//    }
-
     @Override
     public void getMore(String tag) {
 //        Log.d(TAG, "getMore: isRefreshing:"+isLoadingMore+",isLoadingMore:"+isLoadingMore+",hasMoreData:"+hasMoreData);
@@ -145,7 +100,6 @@ public class ActivityFragmentModel implements ActivityFragmentContract.Model {
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            User user = BmobUser.getCurrentUser(User.class);
             BmobQuery<Activity> query = new BmobQuery<>();
             query.addQueryKeys("title,time,tag,sawnum,place,image,createdAt");
             if (!tag.equals(App.getmContext().getResources().getString(R.string.hot))
@@ -164,7 +118,6 @@ public class ActivityFragmentModel implements ActivityFragmentContract.Model {
                 //分页
                 query.addWhereLessThan("createdAt",new BmobDate(date));
             }
-            query.addWhereEqualTo("university",user.getUniversity());
             query.addWhereGreaterThanOrEqualTo("expirationDate",new BmobDate(new Date()));//活动有效期大于当前时间
             query.setLimit(NUM_OF_ONE_PAGE);
             query.findObjects(new FindListener<Activity>() {
