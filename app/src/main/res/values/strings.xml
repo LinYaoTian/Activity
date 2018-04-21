@@ -1,8 +1,8 @@
 <resources>
-    <string name="app_name">活动Plus</string>
+    <string name="app_name">US活动中心</string>
 
     <!--首页 MainActivity-->
-    <string name="title">活动Plus</string>
+    <string name="title">US活动中心</string>
     <string name="title_activity_scrolling">ScrollingActivity</string>
     <string name="more">更多</string>
     <string name="mine">我的</string>
