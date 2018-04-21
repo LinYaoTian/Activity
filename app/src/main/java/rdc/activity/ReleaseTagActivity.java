@@ -27,13 +27,13 @@ import static rdc.activity.ReleaseActivity.RELEASE_TAG_RESULT_CODE;
 public class ReleaseTagActivity extends BaseActivity {
 
     @BindView(R.id.toolbar) Toolbar mToolbar;
-    @BindView(R.id.activity_release_tag_confirm_imageView) ImageView activity_release_tag_confirm_imageView;
-    @BindView(R.id.activity_release_tag_lecture_linearLayout) LinearLayout activity_release_tag_lecture_linearLayout;
-    @BindView(R.id.activity_release_tag_contest_linearLayout) LinearLayout activity_release_tag_contest_linearLayout;
-    @BindView(R.id.activity_release_tag_welfare_linearLayout) LinearLayout activity_release_tag_welfare_linearLayout;
-    @BindView(R.id.activity_release_tag_outdoor_linearLayout) LinearLayout activity_release_tag_outdoor_linearLayout;
-    @BindView(R.id.activity_release_tag_friend_linearLayout) LinearLayout activity_release_tag_friend_linearLayout;
-    @BindView(R.id.activity_release_tag_others_linearLayout) LinearLayout activity_release_tag_others_linearLayout;
+    @BindView(R.id.iv_confirm_release_tag) ImageView activity_release_tag_confirm_imageView;
+    @BindView(R.id.ll_lecture_release_tag) LinearLayout activity_release_tag_lecture_linearLayout;
+    @BindView(R.id.ll_contest_release_tag) LinearLayout activity_release_tag_contest_linearLayout;
+    @BindView(R.id.ll_welfare_release_tag) LinearLayout activity_release_tag_welfare_linearLayout;
+    @BindView(R.id.ll_outdoor_release_tag) LinearLayout activity_release_tag_outdoor_linearLayout;
+    @BindView(R.id.ll_friend_release_tag) LinearLayout activity_release_tag_friend_linearLayout;
+    @BindView(R.id.ll_others_release_tag) LinearLayout activity_release_tag_others_linearLayout;
 
     private List<LinearLayout> linearLayoutList;
     private int selectTagNum = -1;
@@ -73,8 +73,8 @@ public class ReleaseTagActivity extends BaseActivity {
         linearLayoutList.add(activity_release_tag_others_linearLayout);
     }
 
-    @OnClick({R.id.activity_release_tag_lecture_linearLayout, R.id.activity_release_tag_contest_linearLayout, R.id.activity_release_tag_welfare_linearLayout,
-            R.id.activity_release_tag_outdoor_linearLayout, R.id.activity_release_tag_friend_linearLayout, R.id.activity_release_tag_others_linearLayout})
+    @OnClick({R.id.ll_lecture_release_tag, R.id.ll_contest_release_tag, R.id.ll_welfare_release_tag,
+            R.id.ll_outdoor_release_tag, R.id.ll_friend_release_tag, R.id.ll_others_release_tag})
     public void onClickLinearLayout(View view) {
         for (int i = 0; i < linearLayoutList.size(); i++) {
             linearLayoutList.get(i).setBackground(null);
@@ -85,7 +85,7 @@ public class ReleaseTagActivity extends BaseActivity {
         view.setBackground(getResources().getDrawable(R.drawable.item_release_tag_selected_shape));
     }
 
-    @OnClick(R.id.activity_release_tag_confirm_imageView)
+    @OnClick(R.id.iv_confirm_release_tag)
     public void onClickConfirm() {
         if (selectTagNum == -1) {
             Toast.makeText(this, "请选择一个标签！" , Toast.LENGTH_SHORT).show();

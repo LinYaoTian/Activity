@@ -30,7 +30,7 @@
                 android:textSize="20sp" />
 
             <ImageView
-                android:id="@+id/activity_release_tag_confirm_imageView"
+                android:id="@+id/iv_confirm_release_tag"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_alignParentEnd="true"
@@ -59,7 +59,7 @@
                 android:orientation="horizontal">
 
                 <LinearLayout
-                    android:id="@+id/activity_release_tag_lecture_linearLayout"
+                    android:id="@+id/ll_lecture_release_tag"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -85,7 +85,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/activity_release_tag_contest_linearLayout"
+                    android:id="@+id/ll_contest_release_tag"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -119,7 +119,7 @@
                 android:layout_marginTop="30dp">
 
                 <LinearLayout
-                    android:id="@+id/activity_release_tag_welfare_linearLayout"
+                    android:id="@+id/ll_welfare_release_tag"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -145,7 +145,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/activity_release_tag_outdoor_linearLayout"
+                    android:id="@+id/ll_outdoor_release_tag"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -178,7 +178,7 @@
                 android:orientation="horizontal">
 
                 <LinearLayout
-                    android:id="@+id/activity_release_tag_friend_linearLayout"
+                    android:id="@+id/ll_friend_release_tag"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -204,7 +204,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/activity_release_tag_others_linearLayout"
+                    android:id="@+id/ll_others_release_tag"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"

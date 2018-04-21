@@ -29,7 +29,7 @@
                 android:textSize="20sp" />
 
             <ImageView
-                android:id="@+id/activity_detail_forward_imageView"
+                android:id="@+id/iv_forward_detail"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_alignParentEnd="true"
@@ -55,18 +55,18 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/activity_detail_poster_imageView"
+                android:id="@+id/iv_poster_detail"
                 android:layout_width="match_parent"
                 android:layout_height="230dp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/activity_detail_poster_imageView"
+                android:layout_below="@id/iv_poster_detail"
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/activity_detail_title_textView"
+                    android:id="@+id/tv_title_detail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="0dp"
@@ -95,7 +95,7 @@
                         android:src="@drawable/ic_visibility_grey_20dp"/>
 
                     <TextView
-                        android:id="@+id/activity_detail_seeNum_textView"
+                        android:id="@+id/tv_seeNum_detail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -111,12 +111,12 @@
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_centerVertical="true"
-                        android:layout_toEndOf="@id/activity_detail_seeNum_textView"
+                        android:layout_toEndOf="@id/tv_seeNum_detail"
                         android:layout_marginStart="20dp"
                         android:src="@drawable/ic_group_grey_20dp"/>
 
                     <TextView
-                        android:id="@+id/activity_detail_attendNum_textView"
+                        android:id="@+id/tv_attendNum_detail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -150,7 +150,7 @@
                         android:src="@drawable/ic_schedule_grey_20dp"/>
 
                     <TextView
-                        android:id="@+id/activity_detail_time_textView"
+                        android:id="@+id/tv_time_detail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -185,7 +185,7 @@
                         android:src="@drawable/ic_school_grey_20dp"/>
 
                     <TextView
-                        android:id="@+id/activity_detail_school_textView"
+                        android:id="@+id/tv_school_detail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -220,7 +220,7 @@
                         android:src="@drawable/ic_place_grey_20dp"/>
 
                     <TextView
-                        android:id="@+id/activity_detail_place_textView"
+                        android:id="@+id/tv_place_detail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -255,7 +255,7 @@
                         android:src="@drawable/ic_assistant_photo_grey_20dp"/>
 
                     <TextView
-                        android:id="@+id/activity_detail_tag_textView"
+                        android:id="@+id/tv_tag_detail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -281,7 +281,7 @@
                     android:background="@color/lightGray" />
 
                 <TextView
-                    android:id="@+id/activity_detail_content_textView"
+                    android:id="@+id/tv_content_detail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"

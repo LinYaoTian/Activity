@@ -3,19 +3,13 @@ package rdc.activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,46 +19,41 @@ import java.util.List;
 import java.util.Objects;
 
 import butterknife.BindView;
-import butterknife.OnClick;
 import cn.bmob.v3.BmobUser;
 import rdc.avtivity.R;
 import rdc.base.BaseActivity;
 import rdc.bean.Activity;
-import rdc.bean.Organization;
 import rdc.bean.User;
-import rdc.contract.DetailContract;
 import rdc.contract.ICheckManagedContract;
 import rdc.presenter.CheckManagedPresenter;
-import rdc.presenter.DetailPresenter;
 import rdc.util.ACacheUtil;
-import rdc.util.ShareUtil;
 
 public class CheckManagedActivity extends BaseActivity<CheckManagedPresenter> implements ICheckManagedContract.IView {
 
     private String TAG = "DetailActivity";
-    @BindView(R.id.activity_detail_forward_imageView)
+    @BindView(R.id.iv_forward_detail)
     ImageView activity_detail_forward_imageView;
-    @BindView(R.id.activity_detail_poster_imageView)
+    @BindView(R.id.iv_poster_detail)
     ImageView activity_detail_poster_imageView;
-    @BindView(R.id.activity_detail_title_textView)
+    @BindView(R.id.tv_title_detail)
     TextView activity_detail_title_textView;
-    @BindView(R.id.activity_detail_seeNum_textView)
+    @BindView(R.id.tv_seeNum_detail)
     TextView activity_detail_seeNum_textView;
-    @BindView(R.id.activity_detail_attendNum_textView)
+    @BindView(R.id.tv_attendNum_detail)
     TextView activity_detail_attendNum_textView;
-    @BindView(R.id.activity_detail_time_textView)
+    @BindView(R.id.tv_time_detail)
     TextView activity_detail_time_textView;
-    @BindView(R.id.activity_detail_school_textView)
+    @BindView(R.id.tv_school_detail)
     TextView activity_detail_school_textView;
-    @BindView(R.id.activity_detail_place_textView)
+    @BindView(R.id.tv_place_detail)
     TextView activity_detail_place_textView;
-    @BindView(R.id.activity_detail_tag_textView)
+    @BindView(R.id.tv_tag_detail)
     TextView activity_detail_tag_textView;
 
 
 
 
-    @BindView(R.id.activity_detail_content_textView)
+    @BindView(R.id.tv_content_detail)
     TextView activity_detail_content_textView;
 
     @BindView(R.id.toolbar)
