@@ -16,6 +16,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -34,6 +35,7 @@ import com.bumptech.glide.Glide;
 
 import butterknife.BindView;
 import cn.bmob.v3.BmobUser;
+import de.hdodenhof.circleimageview.CircleImageView;
 import rdc.avtivity.R;
 import rdc.base.BaseActivity;
 import rdc.bean.User;
@@ -64,7 +66,7 @@ public class IndividualActivity extends BaseActivity<IndividualPresenter> implem
     @BindView(R.id.tv_introduction)
     TextView mIntroductionTextView;
     @BindView(R.id.imv_image)
-    ImageView mImageView;
+    CircleImageView mImageView;
     @BindView(R.id.imv_photo)
     ImageView mPhotoView;
     @BindView(R.id.tv_university)
