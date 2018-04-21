@@ -1,5 +1,6 @@
 package rdc.activity;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.ActionBar;
@@ -41,6 +42,11 @@ public class AccountManageActivity extends BaseActivity<AccountManagePresenter> 
     private AlertDialog mDialogChangePassword;
 
     private boolean isSeePassword;//新密码是否显示明文
+
+    public static void actionStart(Context context) {
+        Intent intent = new Intent(context, AccountManageActivity.class);
+        context.startActivity(intent);
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

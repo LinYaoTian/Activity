@@ -2,6 +2,7 @@ package rdc.activity;
 
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -74,6 +75,11 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         super.onCreate(savedInstanceState);
     }
 
+    public static void actionStart(Context context) {
+        Intent intent = new Intent(context, MainActivity.class);
+        context.startActivity(intent);
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -105,9 +111,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.more_menu_act_main:
-                Intent intent = new Intent(MainActivity.this,TagsActivity.class);
-                intent.putExtra("tagsOrder",mTagsOrder);
-                startActivityForResult(intent,0);
+                TagsActivity.actionStart(MainActivity.this,mTagsOrder);
                 break;
             case android.R.id.home:
                 mDrawerLayout.openDrawer(GravityCompat.START);
@@ -186,7 +190,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                         ConcernedActivity.actionStart(MainActivity.this);
                         break;
                     case R.id.nav_center:
-                        UserCenterActivity.actionStart(MainActivity.this);
+                        AccountManageActivity.actionStart(MainActivity.this);
                         break;
                     case R.id.nav_activity:
                         ManageActivity.actionStart(MainActivity.this);
@@ -208,7 +212,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         mFabSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, ReleaseActivity.class));
+                ReleaseActivity.actionStart(MainActivity.this);
             }
         });
     }

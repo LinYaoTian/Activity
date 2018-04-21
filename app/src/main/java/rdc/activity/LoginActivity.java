@@ -1,5 +1,6 @@
 package rdc.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
@@ -91,11 +92,15 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
     }
 
+    public static void actionStart(Context context) {
+        Intent intent = new Intent(context, LoginActivity.class);
+        context.startActivity(intent);
+    }
+
     @Override
     public void loginSuccess() {
         showToast("登录成功！");
-        Intent intent = new Intent(this,MainActivity.class);
-        startActivity(intent);
+        MainActivity.actionStart(this);
         finish();
     }
 

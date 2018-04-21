@@ -1,5 +1,7 @@
 package rdc.activity;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -33,15 +35,15 @@ public class TagsActivity extends BaseActivity<TagsPresenter> implements OnStart
     @BindView(R.id.rv_tag_list_act_tags)
     RecyclerView mRvTags;
 
-    private String mTagsOrder;
+    private static String mTagsOrder;
     private TagsRvAdapter mTagsRvAdapter;
     private List<ItemTag> mTagList;
     private ItemTouchHelper mItemTouchHelper;
 
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        mTagsOrder = getIntent().getStringExtra("tagsOrder");
-        super.onCreate(savedInstanceState);
+    public static void actionStart(Activity activity,String tagsOrder) {
+        mTagsOrder = tagsOrder;
+        Intent intent = new Intent(activity, TagsActivity.class);
+        activity.startActivityForResult(intent,0);
     }
 
     @Override

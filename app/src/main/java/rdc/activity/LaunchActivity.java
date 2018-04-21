@@ -1,6 +1,7 @@
 package rdc.activity;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -23,6 +24,11 @@ public class LaunchActivity extends BaseActivity<LaunchPresenter> implements Lau
     protected void onCreate(Bundle savedInstanceState) {
         checkPermission();
         super.onCreate(savedInstanceState);
+    }
+
+    public static void actionStart(Context context) {
+        Intent intent = new Intent(context, LaunchActivity.class);
+        context.startActivity(intent);
     }
 
     private void checkPermission() {
@@ -61,7 +67,7 @@ public class LaunchActivity extends BaseActivity<LaunchPresenter> implements Lau
                             presenter.updateUser();
                         }else {
                             finish();
-                            startActivity(new Intent(LaunchActivity.this,LoginActivity.class));
+                            LoginActivity.actionStart(LaunchActivity.this);
                         }
                     }
                 });
@@ -114,15 +120,14 @@ public class LaunchActivity extends BaseActivity<LaunchPresenter> implements Lau
 
     @Override
     public void updateUserSuccess() {
-        Intent intent = new Intent(LaunchActivity.this,MainActivity.class);
-        startActivity(intent);
+        MainActivity.actionStart(this);
         finish();
     }
 
     @Override
     public void updateUserError() {
-        finish();
         showToast("自动登录失败，请重新登录！");
-        startActivity(new Intent(LaunchActivity.this,LoginActivity.class));
+        LoginActivity.actionStart(this);
+        finish();
     }
 }

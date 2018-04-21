@@ -91,6 +91,11 @@ public class ReleaseActivity extends BaseActivity<ReleasePresenter> implements R
         return R.layout.activity_release;
     }
 
+    public static void actionStart(Context context) {
+        Intent intent = new Intent(context, ReleaseActivity.class);
+        context.startActivity(intent);
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {

@@ -1,5 +1,7 @@
 package rdc.activity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
@@ -53,6 +55,11 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initToolbar();
+    }
+
+    public static void actionStart(Context context) {
+        Intent intent = new Intent(context, RegisterActivity.class);
+        context.startActivity(intent);
     }
 
     @Override
@@ -187,7 +194,7 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
     @Override
     public void registerSuccess() {
         showToast("注册成功！");
-        finish();
+        onBackPressed();
     }
 
     @Override
