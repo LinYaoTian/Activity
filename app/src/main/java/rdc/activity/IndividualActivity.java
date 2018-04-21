@@ -29,6 +29,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -75,11 +76,11 @@ public class IndividualActivity extends BaseActivity<IndividualPresenter> implem
     Button mCommitButton;
 
 
-    private String mCommonPath;
-    private String mImagePath;
-    private String mPhotoPath;
+    private String mCommonPath;//相机或相册获取的图片的路径
+    private String mImagePath;//头像的路径
+    private String mPhotoPath;//背景照的路径
     private Bundle mSave;
-   private Dialog mDialog ;
+    private Dialog mDialog;
 
     private Dialog mUpLoadingDialog;
     private int mType = 0;
@@ -118,6 +119,7 @@ public class IndividualActivity extends BaseActivity<IndividualPresenter> implem
 
     @Override
     protected void initListener() {
+        //更改背景
         mPhotoLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -125,6 +127,7 @@ public class IndividualActivity extends BaseActivity<IndividualPresenter> implem
                 showDialog();
             }
         });
+        //更改头像
         mImageLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -132,6 +135,7 @@ public class IndividualActivity extends BaseActivity<IndividualPresenter> implem
                 showDialog();
             }
         });
+        //更改名称
         mNameLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -139,41 +143,47 @@ public class IndividualActivity extends BaseActivity<IndividualPresenter> implem
 
             }
         });
-
+      //更改介绍
         mIntroductionLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showEditDialog("简介", mIntroductionTextView.getText().toString());
             }
         });
+        //更改学校
         mUnversityLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showEditDialog("学校", mUniversityTextView.getText().toString());
             }
         });
+        //提交更改
         mCommitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                    mUpLoadingDialog = LoadingDialogUtil.createLoadingDialog(IndividualActivity.this,"正在上传...");
-                    presenter.updateUser();
+                mUpLoadingDialog = LoadingDialogUtil.createLoadingDialog(IndividualActivity.this, "正在上传...");
+                presenter.updateUser();
 
             }
         });
     }
 
+    @Override
+    public void setOnError() {
+        Toast.makeText(this,"上传失败！",Toast.LENGTH_SHORT).show();
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
-            case sTAKEPHOTO:
+            case sTAKEPHOTO://拍照成功
                 if (resultCode == RESULT_OK) {
 
                     setPhotoImage();
                 }
                 break;
-            case sCHOOSEALBUM:
+            case sCHOOSEALBUM://选择照片
                 if (resultCode == RESULT_OK) {
                     presenter.setAlbumPhoto(data);
                 }
@@ -184,7 +194,11 @@ public class IndividualActivity extends BaseActivity<IndividualPresenter> implem
         }
     }
 
-
+    /**
+     * 设置ToolBar
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -195,6 +209,11 @@ public class IndividualActivity extends BaseActivity<IndividualPresenter> implem
         return true;
     }
 
+    /**
+     * 弹出编辑框
+     * @param title
+     * @param input
+     */
     public void showEditDialog(final String title, final String input) {
         View view = getLayoutInflater().inflate(R.layout.dialog_edit, null);
         final EditText editText = view.findViewById(R.id.et_input);
@@ -214,7 +233,7 @@ public class IndividualActivity extends BaseActivity<IndividualPresenter> implem
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         String input = editText.getText().toString();
-                        if (!TextUtils.isEmpty(input)){
+                        if (!TextUtils.isEmpty(input)) {
                             switch (title) {
                                 case "名称":
                                     mNameTextView.setText(input);
@@ -229,12 +248,13 @@ public class IndividualActivity extends BaseActivity<IndividualPresenter> implem
                                 default:
                                     break;
                             }
+                            //判断是否有更改，没有就不用提交
                             User user = BmobUser.getCurrentUser(User.class);
-                            if (!mNameTextView.getText().toString().equals(user.getNickname())||
-                                    !mIntroductionTextView.getText().toString().equals(user.getIntroduction())||
-                                    !mUniversityTextView.getText().toString().equals(user.getUniversity())){
+                            if (!mNameTextView.getText().toString().equals(user.getNickname()) ||
+                                    !mIntroductionTextView.getText().toString().equals(user.getIntroduction()) ||
+                                    !mUniversityTextView.getText().toString().equals(user.getUniversity())) {
                                 mCommitButton.setEnabled(true);
-                            }else {
+                            } else {
                                 mCommitButton.setEnabled(false);
 
                             }
@@ -247,6 +267,9 @@ public class IndividualActivity extends BaseActivity<IndividualPresenter> implem
         dialog.show();
     }
 
+    /**
+     * 弹出选择相机或者相册的选择框
+     */
     public void showDialog() {
         mDialog = new Dialog(IndividualActivity.this, R.style.ActionSheetDialogStyle);
         View inflate = LayoutInflater.from(this).inflate(R.layout.dialog_select_photo, null);
@@ -256,6 +279,7 @@ public class IndividualActivity extends BaseActivity<IndividualPresenter> implem
         choosePhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //判断权限
                 if (ContextCompat.checkSelfPermission(IndividualActivity.this,
                         android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                     ActivityCompat.requestPermissions(IndividualActivity.this,
@@ -293,10 +317,18 @@ public class IndividualActivity extends BaseActivity<IndividualPresenter> implem
         mDialog.show();
     }
 
+    /**
+     * 启动方法
+     * @param context
+     */
     public static void actionStart(Context context) {
         Intent intent = new Intent(context, IndividualActivity.class);
         context.startActivity(intent);
     }
+
+    /**
+     * 初始化ToolBar
+     */
 
     private void initToolBar() {
         setSupportActionBar(mToolbar);
@@ -307,34 +339,36 @@ public class IndividualActivity extends BaseActivity<IndividualPresenter> implem
         }
     }
 
-    @Override
-    public void setUserInfo(User userInfo) {
-        Glide.with(this).load(userInfo.getUserPhoto().getUrl()).into(mPhotoView);
-        Glide.with(this).load(userInfo.getUserImg().getUrl()).into(mImageView);
-        mNameTextView.setText(userInfo.getNickname());
-        mIntroductionTextView.setText(userInfo.getIntroduction());
-    }
 
 
-    private void initUserInfo(){
+    /**
+     * 显示用户的信息
+     */
+
+    private void initUserInfo() {
         User user = User.getCurrentUser(User.class);
         mNameTextView.setText(user.getNickname());
         mIntroductionTextView.setText(user.getIntroduction());
         mUniversityTextView.setText(user.getUniversity());
-        if (user.getUserImg() == null) {
-            Glide.with(this).load(R.drawable.photo).into(mImageView);
+        if (user.getUserImg() == null) {//为空就设置默认图片
+            Glide.with(this).load(R.drawable.iv_app_ic_blue).into(mImageView);
 
         } else {
             Glide.with(this).load(user.getUserImg().getUrl()).into(mImageView);
         }
 
-        if (user.getUserPhoto() != null) {
+        if (user.getUserPhoto() != null) {//为空就设置默认图片
             Glide.with(this).load(user.getUserPhoto().getUrl()).into(mPhotoView);
         } else {
-            Glide.with(this).load(user.getUserPhoto().getUrl()).into(mPhotoView);
+            Glide.with(this).load(R.drawable.iv_cover_launch).into(mPhotoView);
 
         }
     }
+
+    /**
+     * 启动相机
+     * @param uri
+     */
     @Override
     public void takePhoto(Uri uri) {
         Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
@@ -343,6 +377,10 @@ public class IndividualActivity extends BaseActivity<IndividualPresenter> implem
         startActivityForResult(intent, sTAKEPHOTO);
     }
 
+    /**
+     * 打开相册
+     */
+
     @Override
     public void openAlbum() {
         Intent intent = new Intent(Intent.ACTION_PICK);
@@ -350,13 +388,18 @@ public class IndividualActivity extends BaseActivity<IndividualPresenter> implem
         startActivityForResult(intent, sCHOOSEALBUM);
     }
 
+
+    /**
+     * 照相后的显示
+     */
     @Override
     public void setPhotoImage() {
+        //可能会被kill,需保存数据从这里获取
         if (mSave != null) {
             mCommonPath = mSave.getString("commonPath");
         }
 
-
+       //判断是背景照还是头像
         if (mType == sIMAGE) {
             mImagePath = mCommonPath;
             Glide.with(this).load(mImagePath).into(mImageView);
@@ -364,9 +407,15 @@ public class IndividualActivity extends BaseActivity<IndividualPresenter> implem
             mPhotoPath = mCommonPath;
             Glide.with(this).load(mPhotoPath).into(mPhotoView);
         }
-            mCommitButton.setEnabled(true);
+        mCommitButton.setEnabled(true);
 
     }
+
+    /**
+     * 选择相册后的显示
+     *
+     * @param imagePath
+     */
 
     @Override
     public void setAlbumImage(String imagePath) {
@@ -414,6 +463,9 @@ public class IndividualActivity extends BaseActivity<IndividualPresenter> implem
         return mUniversityTextView.getText().toString();
     }
 
+    /**
+     * 提交后的回调
+     */
     @Override
     public void back() {
         LoadingDialogUtil.closeDialog(mUpLoadingDialog);

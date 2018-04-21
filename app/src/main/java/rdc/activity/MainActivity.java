@@ -247,7 +247,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         name.setText(user.getNickname());
         introduction.setText(user.getIntroduction());
         if (user.getUserImg() == null) {
-            Glide.with(this).load(R.drawable.photo).into(image);
+            Glide.with(this).load(R.drawable.iv_app_ic_blue).into(image);
 
         } else {
             Glide.with(this).load(user.getUserImg().getUrl()).into(image);
@@ -256,7 +256,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         if (user.getUserPhoto() != null) {
             Glide.with(this).load(user.getUserPhoto().getUrl()).into(photo);
         } else {
-            Glide.with(this).load(user.getUserPhoto().getUrl()).into(photo);
+            Glide.with(this).load(R.drawable.iv_cover_launch).into(photo);
 
         }
     }

@@ -3,7 +3,7 @@
     android:background="@color/colorDivider"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="50dp">
+    android:layout_height="@dimen/dimenEmptyItemHeight">
     <View
         android:layout_alignParentTop="true"
         android:layout_width="match_parent"
@@ -13,7 +13,7 @@
     android:layout_toRightOf="@+id/tv_empty_trip"
     android:background="@color/colorTextColor"
     android:layout_centerVertical="true"
-    android:layout_width="80dp"
+    android:layout_width="@dimen/dimenLineWidth"
     android:layout_height="1dp"/>
     <TextView
         android:id="@+id/tv_empty_trip"
@@ -26,6 +26,6 @@
         android:layout_toLeftOf="@+id/tv_empty_trip"
         android:background="@color/colorTextColor"
         android:layout_centerVertical="true"
-        android:layout_width="80dp"
+        android:layout_width="@dimen/dimenLineWidth"
         android:layout_height="1dp"/>
 </RelativeLayout>

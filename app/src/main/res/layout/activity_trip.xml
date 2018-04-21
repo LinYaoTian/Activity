@@ -56,8 +56,8 @@
         app:dayNameLength="threeLetters"
         app:numOfPages="@integer/integerPagerNum"
         app:weekTextSize="@dimen/dimenCalendarTextSize"
-        app:todaysDateBgColor="@color/colorOrange"
-        app:selectedBgColor="@color/colorOrange"
+        app:todaysDateBgColor="@color/lightblue"
+        app:selectedBgColor="@color/lightblue"
         app:daysTextSize="@dimen/dimenCalendarTextSize"
         />
 

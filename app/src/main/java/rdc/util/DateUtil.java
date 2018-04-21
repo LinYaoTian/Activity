@@ -13,7 +13,11 @@ import java.util.Date;
  */
 
 public class DateUtil {
-
+    /**
+     * 日期的解析方法，判断当前日期是哪一个昨天今天还是明天
+     * @param createTime
+     * @return
+     */
     public static String parseDate(String createTime) {
         try {
             String ret = "";
@@ -37,6 +41,12 @@ public class DateUtil {
         }
         return null;
     }
+
+    /**
+     * 更根据日期获取当前月份
+     * @param time
+     * @return
+     */
 
     public static String getMonth(DateTime time) {
         String month = "";
@@ -83,6 +93,10 @@ public class DateUtil {
         return month;
     }
 
+    /**
+     * 获取当前时间
+     * @return
+     */
     public static String getToday() {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// HH:mm:ss
         Date date = new Date(System.currentTimeMillis());

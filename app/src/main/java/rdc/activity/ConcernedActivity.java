@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +46,7 @@ public class ConcernedActivity extends BaseActivity<ConcernedPresenter> implemen
         mAdapter = new ConcernedListAdapter(mOrganizationList,this);
         mConcernedRecyclerView.setAdapter(mAdapter);
         mACacheUtil = ACacheUtil.get(getApplicationContext());
+        //先从缓存中读取，缓存没有联网获取数据
         if (ObjectCastUtil.cast(mACacheUtil.getAsObject("concerned"))!=null){
             mOrganizationList.addAll((ArrayList)ObjectCastUtil.cast(mACacheUtil.getAsObject("concerned")));
             mAdapter.notifyDataSetChanged();
@@ -70,16 +72,27 @@ public class ConcernedActivity extends BaseActivity<ConcernedPresenter> implemen
         mAdapter.setClickListener(new ConcernedListAdapter.OnClickListener() {
             @Override
             public void click(Organization organization) {
-                OrganizationDetailsActivity.actionStart(ConcernedActivity.this,organization);
+                //跳转到组织者个人主页
+                OrganizationDetailsActivity.actionStart(ConcernedActivity.this,organization.getImage()
+                        !=null?organization.getImage().getUrl():"",organization.getPhoto()!=null?organization.getPhoto().getUrl():"",
+                        organization.getName(),organization.getIntroduction(),organization.getId());
             }
         });
     }
 
+    /**
+     * 启动方法
+     * @param context
+     */
     public static void actionStart(Context context) {
         Intent intent = new Intent(context, ConcernedActivity.class);
         context.startActivity(intent);
     }
 
+    /**
+     * 显示我关注的组织
+     * @param list
+     */
     @Override
     public void setOrganization(List<Organization> list) {
         mACacheUtil.put("concerned",(ArrayList)list,5*60);
@@ -89,6 +102,11 @@ public class ConcernedActivity extends BaseActivity<ConcernedPresenter> implemen
         LoadingDialogUtil.closeDialog(mDialog);
     }
 
+    /**
+     * 设置ToolBar
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
@@ -98,6 +116,10 @@ public class ConcernedActivity extends BaseActivity<ConcernedPresenter> implemen
         }
         return true;
     }
+
+    /**
+     * 初始化ToolBar
+     */
     private void  initToolBar(){
         setSupportActionBar(mToolbar);
         ActionBar actionBar = getSupportActionBar();
@@ -105,6 +127,11 @@ public class ConcernedActivity extends BaseActivity<ConcernedPresenter> implemen
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setDisplayShowTitleEnabled(false);
         }
+    }
+
+    @Override
+    public void setOnError() {
+        Toast.makeText(this,"获取数据失败",Toast.LENGTH_SHORT);
     }
 
     @Override

@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minLines="3"
-        android:minHeight="60dp"
+        android:minHeight="@dimen/dimenItemLayoutHeight"
         android:gravity="center_vertical"
         android:inputType="text"
         android:paddingEnd="@dimen/editTextPadding"

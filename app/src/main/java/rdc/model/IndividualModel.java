@@ -51,28 +51,36 @@ public class IndividualModel implements IIndividualContract.Model {
                     photoBmobFile.upload(new UploadFileListener() {
                         @Override
                         public void done(BmobException e) {
-                            newUser.setUserImg(imageBmobFile);
-                            newUser.setUserPhoto(photoBmobFile);
-                            newUser.setNickname(name);
-                            newUser.setIntroduction(introduction);
-                            newUser.setUniversity(university);
-                            newUser.update(user.getObjectId(), new UpdateListener() {
-                                @Override
-                                public void done(BmobException e) {
+                            if (e==null){
+                                newUser.setUserImg(imageBmobFile);
+                                newUser.setUserPhoto(photoBmobFile);
+                                newUser.setNickname(name);
+                                newUser.setIntroduction(introduction);
+                                newUser.setUniversity(university);
+                                newUser.update(user.getObjectId(), new UpdateListener() {
+                                    @Override
+                                    public void done(BmobException e) {
 
-                                    if (e == null) {
-                                        user.setUserPhoto(photoBmobFile);
-                                        user.setUserImg(imageBmobFile);
-                                        user.setUniversity(university);
-                                        user.setNickname(name);
-                                        user.setIntroduction(introduction);
-                                        presenter.back();
+                                        if (e == null) {
+                                            user.setUserPhoto(photoBmobFile);
+                                            user.setUserImg(imageBmobFile);
+                                            user.setUniversity(university);
+                                            user.setNickname(name);
+                                            user.setIntroduction(introduction);
+                                            presenter.back();
 
+                                        }else {
+                                            presenter.onError();
+                                        }
                                     }
-                                }
-                            });
+                                });
+                            }else {
+                                presenter.onError();
+                            }
                         }
                     });
+                }else {
+                    presenter.onError();
                 }
             }
 
@@ -87,24 +95,31 @@ public class IndividualModel implements IIndividualContract.Model {
         photoBmobFile.upload(new UploadFileListener() {
             @Override
             public void done(BmobException e) {
-                newUser.setUserPhoto(photoBmobFile);
-                newUser.setNickname(name);
-                newUser.setIntroduction(introduction);
-                newUser.setUniversity(university);
-                newUser.update(user.getObjectId(), new UpdateListener() {
-                    @Override
-                    public void done(BmobException e) {
+                if (e==null){
+                    newUser.setUserPhoto(photoBmobFile);
+                    newUser.setNickname(name);
+                    newUser.setIntroduction(introduction);
+                    newUser.setUniversity(university);
+                    newUser.update(user.getObjectId(), new UpdateListener() {
+                        @Override
+                        public void done(BmobException e) {
 
-                        if (e == null) {
-                            user.setUserPhoto(photoBmobFile);
-                            user.setUniversity(university);
-                            user.setNickname(name);
-                            user.setIntroduction(introduction);
-                            presenter.back();
+                            if (e == null) {
+                                user.setUserPhoto(photoBmobFile);
+                                user.setUniversity(university);
+                                user.setNickname(name);
+                                user.setIntroduction(introduction);
+                                presenter.back();
 
+                            }else {
+                                presenter.onError();
+                            }
                         }
-                    }
-                });
+                    });
+                }else {
+                    presenter.onError();
+                }
+
             }
         });
 
@@ -136,9 +151,13 @@ public class IndividualModel implements IIndividualContract.Model {
                                 user.setIntroduction(introduction);
                                 presenter.back();
 
+                            }else {
+                                presenter.onError();
                             }
                         }
                     });
+                }else {
+                    presenter.onError();
                 }
             }
         });
@@ -163,6 +182,8 @@ public class IndividualModel implements IIndividualContract.Model {
                     user.setIntroduction(introduction);
                     presenter.back();
 
+                }else {
+                    presenter.onError();
                 }
             }
         });
@@ -170,22 +191,6 @@ public class IndividualModel implements IIndividualContract.Model {
 
     }
 
-    @Override
-    public void getUserInfo(final IIndividualContract.Presenter presenter) {
-        User user = BmobUser.getCurrentUser(User.class);
-        BmobQuery<User> query = new BmobQuery<User>();
-        query.getObject(user.getObjectId(), new QueryListener<User>() {
-
-            @Override
-            public void done(User object, BmobException e) {
-                if (e == null) {
-                    presenter.setUserInfo(object);
-                } else {
-                }
-            }
-
-        });
-    }
 
     public Uri getmImageUrl() {
         File outputImage = new File(App.getsCacheDir(), "output_image.JPEG");

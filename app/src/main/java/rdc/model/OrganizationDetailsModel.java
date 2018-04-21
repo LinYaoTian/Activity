@@ -21,10 +21,10 @@ public class OrganizationDetailsModel implements IOrganizationDetailsContract.Mo
 
     private static final String TAG = "OrganizationDetailsMode";
     @Override
-    public void getManagedActivity(final IOrganizationDetailsContract.Presenter presenter, Organization organization) {
+    public void getManagedActivity(final IOrganizationDetailsContract.Presenter presenter,String id) {
         BmobQuery<Activity> query = new BmobQuery<>();
         User user = new User();
-        user.setObjectId(organization.getId());
+        user.setObjectId(id);
         query.addWhereEqualTo("manager",new BmobPointer(user));
         query.findObjects(new FindListener<Activity>() {
             @Override

@@ -10,8 +10,8 @@
 
         android:id="@+id/et_input"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="该活动已被发布者删除！"
+        android:layout_height="@dimen/dimenItemLayoutHeight"
+        android:text="@string/deleted"
         android:gravity="center"
         android:textColor="@color/black"
         android:textSize="@dimen/titleTextSize" />

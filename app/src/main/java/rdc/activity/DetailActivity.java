@@ -149,7 +149,9 @@ public class DetailActivity extends BaseActivity<DetailPresenter> implements Det
         organization.setPhoto(activity.getManager().getUserPhoto());
         organization.setName(activity.getManager().getNickname());
         organization.setIntroduction(activity.getManager().getIntroduction());
-        OrganizationDetailsActivity.actionStart(this, organization);
+        OrganizationDetailsActivity.actionStart(DetailActivity.this,organization.getImage()
+                        !=null?organization.getImage().getUrl():"",organization.getPhoto()!=null?organization.getPhoto().getUrl():"",
+                organization.getName(),organization.getIntroduction(),organization.getId());
     }
 
     @Override

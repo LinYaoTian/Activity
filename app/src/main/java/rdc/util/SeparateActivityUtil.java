@@ -20,6 +20,7 @@ import static rdc.configs.TripItemType.sEMPTY;
  */
 
 public class SeparateActivityUtil {
+
     private static SeparateActivityUtil separateActivityUtil;
     private static final String TAG = "SeparateActivityUtil";
     private  Map<String,List<Trip>> mTripMap = new HashMap<>();
@@ -38,6 +39,11 @@ public class SeparateActivityUtil {
         return separateActivityUtil;
     }
 
+    /**
+     * 根据时间日期划分，用于显示行程的安排
+     * @param unSeparatedList
+     * @return
+     */
     public  Map separate(List<Trip> unSeparatedList){
         mTripList.addAll(unSeparatedList);
           for (int i=0;i<unSeparatedList.size();i++){
@@ -55,6 +61,11 @@ public class SeparateActivityUtil {
           return mTripMap;
     }
 
+    /**
+     * 根据时间日期划分，用于显示行程的安排
+     * @param unSeparatedList
+     * @return
+     */
     public  Map separateAll(List<Trip> unSeparatedList){
         mAllTripList.addAll(unSeparatedList);
         for (int i=0;i<mAllTripList.size();i++){
@@ -76,6 +87,11 @@ public class SeparateActivityUtil {
         return mAllActivityMap;
     }
 
+    /**
+     * 根据日期获取行程
+     * @param date
+     * @return
+     */
     public  List<Trip> getListByDate(String date){
              if (mTripMap.containsKey(date)){
                  return mTripMap.get(date);
@@ -89,6 +105,11 @@ public class SeparateActivityUtil {
 
     }
 
+    /**
+     * 获取推荐的行程
+     * @param date
+     * @return
+     */
     public  List<Trip> getRecommendListByDate(String date){
         if (mAllActivityMap.containsKey(date)){
             return mAllActivityMap.get(date);
@@ -99,6 +120,9 @@ public class SeparateActivityUtil {
 
     }
 
+    /**
+     * 清除集合中的数据
+     */
     public void release(){
         if (mTripMap!=null){
             mTripMap.clear();

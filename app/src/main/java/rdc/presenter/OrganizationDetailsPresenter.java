@@ -27,7 +27,10 @@ public class OrganizationDetailsPresenter extends BasePresenter<IOrganizationDet
         mModel = new OrganizationDetailsModel();
     }
 
-
+    /**
+     * 在这里进行类型的转换
+     * @param list
+     */
     @Override
     public void setManagedActivity(List<Activity> list) {
         List<OrganizationActivity> organizationActivities = new ArrayList<>();
@@ -47,7 +50,7 @@ public class OrganizationDetailsPresenter extends BasePresenter<IOrganizationDet
     }
 
     @Override
-    public void getManagedActivity(Organization organization) {
-         mModel.getManagedActivity(this,organization);
+    public void getManagedActivity(String id ) {
+         mModel.getManagedActivity(this,id);
     }
 }

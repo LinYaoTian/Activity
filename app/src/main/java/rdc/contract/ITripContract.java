@@ -14,6 +14,7 @@ public interface ITripContract {
     interface View {
         void setTripActivity(List<Trip> list);
         void setRecommenedTripActivity(List<Trip> list);
+        void setOnError();
 
     }
 
@@ -28,6 +29,7 @@ public interface ITripContract {
 
         void setRecommenedTripActivity(List<Activity> list);
         void getRecommenedTripActivity();
+        void onError();
 
 
     }

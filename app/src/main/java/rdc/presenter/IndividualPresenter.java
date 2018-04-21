@@ -31,15 +31,7 @@ public class IndividualPresenter extends BasePresenter<IIndividualContract.View>
         mModel = new IndividualModel();
     }
 
-    @Override
-    public void setUserInfo(User userInfo) {
-        getMvpView().setUserInfo(userInfo);
-    }
 
-    @Override
-    public void getUserInfo() {
-        mModel.getUserInfo(this);
-    }
 
     @Override
     public void takePhoto() {
@@ -54,10 +46,16 @@ public class IndividualPresenter extends BasePresenter<IIndividualContract.View>
     }
 
     @Override
+    public void onError() {
+        getMvpView().setOnError();
+    }
+
+    @Override
     public void updateUser() {
         final String imageFilePath = getMvpView().getImageFilePath();
         final String photoFilePath = getMvpView().getPhotoFilePath();
-
+        //如果背景和头像头不为空，都需要提交
+        // 如果一个有一个没有改变就之提交一部分，如果图片都没有更改就提交一部分数据
         if (!TextUtils.isEmpty(imageFilePath) && !TextUtils.isEmpty(photoFilePath)) {
             ImageUtil.compressImage(imageFilePath, new FileCallback() {
                 @Override

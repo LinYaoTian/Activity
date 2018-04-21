@@ -8,7 +8,6 @@
     <ImageView
         android:scaleType="center"
         android:id="@+id/imv_photo"
-        android:background="@drawable/iv_header"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
     <de.hdodenhof.circleimageview.CircleImageView
@@ -19,7 +18,6 @@
         android:id="@+id/imv_image"
         />
     <TextView
-        android:text="安卓组"
         android:id="@+id/tv_name"
         android:layout_centerVertical="true"
         android:layout_marginLeft="@dimen/dimenMarginLeft"
@@ -31,7 +29,6 @@
 
     <TextView
         android:layout_below="@+id/imv_image"
-        android:text="安卓组"
         android:layout_alignLeft="@+id/imv_image"
         android:id="@+id/tv_introduction"
         android:layout_marginLeft="@dimen/dimenMarginLeft"

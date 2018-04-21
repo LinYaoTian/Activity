@@ -43,7 +43,6 @@
     <string name="empty_organization">您还没有关注任何组织哦！</string>
     <string name="emptyManaged">您还没有发布过任何活动哦！</string>
     <string name="editInfo">编辑资料</string>
-    <string name="name">名称</string>
     <string name="backgroundPhoto">背景照片</string>
     <string name="commit">提交</string>
 
@@ -65,4 +64,15 @@
     <!--帐号管理-->
     <string name="changePassword">修改密码</string>
     <string name="changeAccount">更换帐号</string>
+    <string name="activityDetails">活动详情</string>
+    <string name="headerImage">头像</string>
+    <string name="school">学校</string>
+    <string name="name">名称</string>
+    <string name="introduction">简介</string>
+    <string name="managedActivity">管理的活动</string>
+    <string name="accountManage">账号管理</string>
+    <string name="deleted">该活动已被发布者删除！</string>
+    <string name="deleteWarning">删除后不可恢复！</string>
+    <string name="takephoto">拍照</string>
+    <string name="chooseablum">从相册选择</string>
 </resources>

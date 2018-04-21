@@ -12,7 +12,7 @@
         android:layout_marginRight="10dp"
         android:background="@drawable/item_select_selector"
         android:gravity="center"
-        android:text="拍照"
+        android:text="@string/takephoto"
         android:textColor="@color/colorPrimary"
         android:textSize="18sp" />
 
@@ -24,7 +24,7 @@
         android:layout_marginRight="10dp"
         android:background="@drawable/item_select_selector"
         android:gravity="center"
-        android:text="从相册选择"
+        android:text="@string/chooseablum"
         android:textColor="@color/colorPrimary"
         android:textSize="18sp" />
 

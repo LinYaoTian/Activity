@@ -20,22 +20,22 @@
             android:layout_alignParentTop="true">
 
             <TextView
-                android:id="@+id/tv_title_act_main"
+                android:id="@+id/tv_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:text="活动详情"
+                android:text="@string/activityDetails"
                 android:textColor="@color/white"
-                android:textSize="20sp" />
+                android:textSize="@dimen/dimenLargeTextSize" />
 
             <ImageView
-                android:id="@+id/activity_detail_forward_imageView"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:id="@+id/imv_delete"
+                android:layout_width="@dimen/dimenImageViewSize"
+                android:layout_height="@dimen/dimenImageViewSize"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:layout_marginEnd="15dp"
-                android:src="@drawable/imv_delete"/>
+                android:layout_marginEnd="@dimen/dimenMarginEnd"
+                android:src="@drawable/iv_delete"/>
 
 
         </RelativeLayout>
@@ -55,76 +55,72 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/activity_detail_poster_imageView"
+                android:id="@+id/imv_poster"
                 android:layout_width="match_parent"
-                android:layout_height="230dp"/>
+                android:layout_height="@dimen/dimenImageViewHeight"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/activity_detail_poster_imageView"
+                android:layout_below="@id/imv_poster"
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/activity_detail_title_textView"
+                    android:id="@+id/tv_details_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="0dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp"
-                    android:text="讲座通知"
-                    android:textSize="23sp"
+                   android:layout_marginTop="@dimen/dimenTVMarginTop"
+                    android:layout_marginStart="@dimen/dimenTVMarginStart"
+                    android:layout_marginEnd="@dimen/dimenTVMarginStart"
+                    android:textSize="@dimen/dimenTTitleTextSize"
                     android:textColor="@color/black"/>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:paddingBottom="5dp"
-                    android:paddingTop="0dp"
-                    android:layout_marginTop="0dp"
-                    android:layout_marginBottom="5dp">
+                    android:paddingBottom="@dimen/dimenPaddingBottom"
+                    android:layout_marginBottom="@dimen/dimenMarginBottom">
 
                     <ImageView
-                        android:id="@+id/activity_detail_seeNum_imageView"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
+                        android:id="@+id/imv_sawNum"
+                        android:layout_width="@dimen/dimenLitterImageViewSize"
+                        android:layout_height="@dimen/dimenLitterImageViewSize"
                         android:layout_centerVertical="true"
-                        android:layout_marginStart="20dp"
+                        android:layout_marginStart="@dimen/dimenTVMarginStart"
                         android:src="@drawable/ic_visibility_grey_20dp"/>
 
                     <TextView
-                        android:id="@+id/activity_detail_seeNum_textView"
+                        android:id="@+id/tv_sawNum"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_marginEnd="20dp"
-                        android:layout_marginStart="10dp"
-                        android:layout_toEndOf="@id/activity_detail_seeNum_imageView"
+                        android:layout_marginEnd="@dimen/dimenTVMarginEnd"
+                        android:layout_marginStart="@dimen/dimenTVMarginStart"
+                        android:layout_toEndOf="@id/imv_sawNum"
                         android:background="@color/white"
-                        android:textSize="13sp"
+                        android:textSize="@dimen/dimenTVLittleTextSize"
                         android:text="-"/>
 
                     <ImageView
-                        android:id="@+id/activity_detail_attendNum_imageView"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
+                        android:id="@+id/imv_attendNum"
+                        android:layout_width="@dimen/dimenLitterImageViewSize"
+                        android:layout_height="@dimen/dimenLitterImageViewSize"
                         android:layout_centerVertical="true"
-                        android:layout_toEndOf="@id/activity_detail_seeNum_textView"
-                        android:layout_marginStart="20dp"
+                        android:layout_toEndOf="@id/tv_sawNum"
+                        android:layout_marginStart="@dimen/dimenTVMarginStart"
                         android:src="@drawable/ic_group_grey_20dp"/>
 
                     <TextView
-                        android:id="@+id/activity_detail_attendNum_textView"
+                        android:id="@+id/tv_attendNum"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_marginEnd="20dp"
-                        android:layout_marginStart="10dp"
-                        android:layout_toEndOf="@id/activity_detail_attendNum_imageView"
+                        android:layout_marginEnd="@dimen/dimenMarginEnd"
+                        android:layout_marginStart="@dimen/dimenTVMarginStart"
+                        android:layout_toEndOf="@id/imv_attendNum"
                         android:background="@color/white"
-                        android:textSize="13sp"
+                        android:textSize="@dimen/dimenTVLittleTextSize"
                         android:text="-"/>
 
                 </RelativeLayout>
@@ -138,27 +134,27 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:paddingBottom="15dp"
-                    android:paddingTop="15dp">
+                    android:paddingBottom="@dimen/dimenRvPaddingBottom"
+                    android:paddingTop="@dimen/dimenRvMarginBottom">
 
                     <ImageView
-                        android:id="@+id/activity_detail_time_imageView"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
+                        android:id="@+id/imv_details_time"
+                        android:layout_width="@dimen/dimenLitterImageViewSize"
+                        android:layout_height="@dimen/dimenLitterImageViewSize"
                         android:layout_centerVertical="true"
-                        android:layout_marginStart="20dp"
+                        android:layout_marginStart="@dimen/dimenTVMarginStart"
                         android:src="@drawable/ic_schedule_grey_20dp"/>
 
                     <TextView
-                        android:id="@+id/activity_detail_time_textView"
+                        android:id="@+id/tv_details_time"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_marginEnd="20dp"
-                        android:layout_marginStart="10dp"
-                        android:layout_toRightOf="@id/activity_detail_time_imageView"
+                        android:layout_marginEnd="@dimen/dimenTVMarginStart"
+                        android:layout_marginStart="@dimen/dimenTVMarginStart"
+                        android:layout_toRightOf="@id/imv_details_time"
                         android:background="@color/white"
-                        android:textSize="15sp"
+                        android:textSize="@dimen/dimenLittleTextSize"
                         android:textColor="@color/black"
                         android:text="-"/>
 
@@ -173,27 +169,27 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:paddingBottom="15dp"
-                    android:paddingTop="15dp">
+                    android:paddingBottom="@dimen/dimenRvPaddingBottom"
+                    android:paddingTop="@dimen/dimenRvPaddingBottom">
 
                     <ImageView
-                        android:id="@+id/activity_detail_school_imageView"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
+                        android:id="@+id/imv_details_school"
+                        android:layout_width="@dimen/dimenLitterImageViewSize"
+                        android:layout_height="@dimen/dimenLitterImageViewSize"
                         android:layout_centerVertical="true"
-                        android:layout_marginStart="20dp"
+                        android:layout_marginStart="@dimen/dimenTVMarginStart"
                         android:src="@drawable/ic_school_grey_20dp"/>
 
                     <TextView
-                        android:id="@+id/activity_detail_school_textView"
+                        android:id="@+id/tv_details_school"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_marginEnd="20dp"
-                        android:layout_marginStart="10dp"
-                        android:layout_toRightOf="@id/activity_detail_school_imageView"
+                        android:layout_marginEnd="@dimen/dimenTVMarginEnd"
+                        android:layout_marginStart="@dimen/dimenTVMarginStart"
+                        android:layout_toRightOf="@id/imv_details_school"
                         android:background="@color/white"
-                        android:textSize="15sp"
+                        android:textSize="@dimen/dimenLittleTextSize"
                         android:textColor="@color/black"
                         android:text="-"/>
 
@@ -208,27 +204,27 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:paddingBottom="15dp"
-                    android:paddingTop="15dp">
+                    android:paddingBottom="@dimen/dimenRvPaddingBottom"
+                    android:paddingTop="@dimen/dimenRvMarginBottom">
 
                     <ImageView
-                        android:id="@+id/activity_detail_place_imageView"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
+                        android:id="@+id/imv_details_place"
+                        android:layout_width="@dimen/dimenLitterImageViewSize"
+                        android:layout_height="@dimen/dimenLitterImageViewSize"
                         android:layout_centerVertical="true"
-                        android:layout_marginStart="20dp"
+                        android:layout_marginStart="@dimen/dimenTVMarginStart"
                         android:src="@drawable/ic_place_grey_20dp"/>
 
                     <TextView
-                        android:id="@+id/activity_detail_place_textView"
+                        android:id="@+id/tv_details_place"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_marginEnd="20dp"
-                        android:layout_marginStart="10dp"
-                        android:layout_toRightOf="@id/activity_detail_place_imageView"
+                        android:layout_marginEnd="@dimen/dimenTVMarginEnd"
+                        android:layout_marginStart="@dimen/dimenTVMarginStart"
+                        android:layout_toRightOf="@id/imv_details_place"
                         android:background="@color/white"
-                        android:textSize="15sp"
+                        android:textSize="@dimen/dimenLittleTextSize"
                         android:textColor="@color/black"
                         android:text="-"/>
 
@@ -243,27 +239,27 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:paddingBottom="15dp"
-                    android:paddingTop="15dp">
+                    android:paddingBottom="@dimen/dimenRvPaddingBottom"
+                    android:paddingTop="@dimen/dimenRvMarginBottom">
 
                     <ImageView
-                        android:id="@+id/activity_detail_tag_imageView"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
+                        android:id="@+id/imv_details_tag"
+                        android:layout_width="@dimen/dimenLitterImageViewSize"
+                        android:layout_height="@dimen/dimenLitterImageViewSize"
                         android:layout_centerVertical="true"
-                        android:layout_marginStart="20dp"
+                        android:layout_marginStart="@dimen/dimenTVMarginStart"
                         android:src="@drawable/ic_assistant_photo_grey_20dp"/>
 
                     <TextView
-                        android:id="@+id/activity_detail_tag_textView"
+                        android:id="@+id/tv_details_tag"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_marginEnd="20dp"
-                        android:layout_marginStart="10dp"
-                        android:layout_toRightOf="@id/activity_detail_tag_imageView"
+                        android:layout_marginEnd="@dimen/dimenTVMarginEnd"
+                        android:layout_marginStart="@dimen/dimenTVMarginStart"
+                        android:layout_toRightOf="@id/imv_details_tag"
                         android:background="@color/white"
-                        android:textSize="15sp"
+                        android:textSize="@dimen/dimenLittleTextSize"
                         android:textColor="@color/black"
                         android:text="-"/>
 
@@ -277,28 +273,28 @@
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="10dp"
+                    android:layout_height="@dimen/dimenTextViewHeight"
                     android:background="@color/lightGray" />
 
                 <TextView
-                    android:id="@+id/activity_detail_content_textView"
+                    android:id="@+id/tv_content"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
-                    android:paddingBottom="10dp"
-                    android:paddingTop="10dp"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="30dp"
-                    android:textSize="15sp"
+                    android:paddingBottom="@dimen/dimenPaddingTopBottom"
+                    android:paddingTop="@dimen/dimenPaddingTopBottom"
+                    android:layout_marginEnd="@dimen/dimenTVMarginEnd"
+                    android:layout_marginStart="@dimen/dimenTVMarginStart"
+                    android:layout_marginTop="@dimen/dimenTvMarginTop"
+                    android:layout_marginBottom="@dimen/dimenTvMarginBottom"
+                    android:textSize="@dimen/dimenLittleTextSize"
                     android:gravity="start|top"
                     android:textColor="@color/black"
                     android:text="-"/>
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="10dp"
+                    android:layout_height="@dimen/dimenDividerHeight"
                     android:background="@color/lightGray" />
 
             </LinearLayout>

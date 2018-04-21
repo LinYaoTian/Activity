@@ -1,5 +1,6 @@
 package rdc.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
@@ -26,7 +27,8 @@ public class ConcernedModel implements IConcernedContract.Model {
                if (e==null){
                    presenter.setOrganization(list);
                }else {
-
+                     presenter.setOrganization(new ArrayList<User>());
+                    presenter.onError();
                }
             }
         });

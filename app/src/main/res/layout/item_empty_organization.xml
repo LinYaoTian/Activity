@@ -7,7 +7,7 @@
 
     <TextView
         android:gravity="center"
-        android:textSize="18sp"
+        android:textSize="@dimen/dimenLargeTextSize"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="@string/empty_organization" />

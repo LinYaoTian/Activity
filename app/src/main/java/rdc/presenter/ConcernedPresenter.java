@@ -21,7 +21,10 @@ public class ConcernedPresenter extends BasePresenter<IConcernedContract.View> i
     public ConcernedPresenter() {
         mModel = new ConcernedModel();
     }
-
+    /**
+     * 在这里进行类型的转换
+     * @param list
+     */
     @Override
     public void setOrganization(List<User> users) {
         List<Organization> organizations  = new ArrayList<>();
@@ -40,6 +43,7 @@ public class ConcernedPresenter extends BasePresenter<IConcernedContract.View> i
 
 
         }
+        //如果为空设置一个对象，显示空布局
         if (organizations.size()==0){
             Organization organization = new Organization();
             organization.setType(sEMPTY);
@@ -47,6 +51,11 @@ public class ConcernedPresenter extends BasePresenter<IConcernedContract.View> i
 
         }
         getMvpView().setOrganization(organizations);
+    }
+
+    @Override
+    public void onError() {
+        getMvpView().setOnError();
     }
 
     @Override
