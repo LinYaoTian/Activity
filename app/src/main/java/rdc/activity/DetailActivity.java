@@ -264,6 +264,8 @@ public class DetailActivity extends BaseActivity<DetailPresenter> implements Det
             Toast.makeText(this, "报名成功!", Toast.LENGTH_SHORT).show();
             mACacheUtil.clear();
         }
+        mACacheUtil.clear();
+
     }
 
     @Override
@@ -311,6 +313,8 @@ public class DetailActivity extends BaseActivity<DetailPresenter> implements Det
             Toast.makeText(this, "关注成功", Toast.LENGTH_SHORT).show();
             mACacheUtil.clear();
         }
+        mACacheUtil.clear();
+
     }
 
     @Override

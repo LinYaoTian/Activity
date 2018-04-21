@@ -62,6 +62,19 @@ public class ManageActivity extends BaseActivity<ManagedPresenter> implements IM
     }
 
     @Override
+    protected void onRestart() {
+        super.onRestart();
+        if (ObjectCastUtil.cast(mACacheUtil.getAsObject("manage")) != null) {
+            mManagedActivityList.clear();
+            mManagedActivityList.addAll((ArrayList) ObjectCastUtil.cast(mACacheUtil.getAsObject("manage")));
+
+        } else {
+            presenter.getManagedActivity();
+
+        }
+    }
+
+    @Override
     protected void initView() {
         initToolBar();
         LinearLayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);

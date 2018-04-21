@@ -57,8 +57,8 @@ public class ConcernedListAdapter extends RecyclerView.Adapter<RecyclerView.View
            final Organization organization = mOrganizationList.get(position);
            Glide.with(mContext).load(organization.getImage().getUrl()).into( ((ViewHolder)holder).mImage);
            ((ViewHolder)holder).mName.setText(organization.getName());
-           ((ViewHolder)holder).mMessage.setText(organization.getMessage());
-           ((ViewHolder)holder).mTime.setText(parseDate(organization.getTime())+organization.getTime().substring(11,16));
+           ((ViewHolder)holder).mMessage.setText(organization.getIntroduction());
+           ((ViewHolder)holder).mTime.setText("最新发布："+organization.getTime().substring(11,16));
            ((ViewHolder)holder).itemView.setOnClickListener(new View.OnClickListener() {
                @Override
                public void onClick(View view) {

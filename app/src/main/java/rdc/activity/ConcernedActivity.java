@@ -7,6 +7,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -57,6 +58,20 @@ public class ConcernedActivity extends BaseActivity<ConcernedPresenter> implemen
         }
 
 
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        if (ObjectCastUtil.cast(mACacheUtil.getAsObject("concerned"))!=null){
+            mOrganizationList.clear();
+            mOrganizationList.addAll((ArrayList)ObjectCastUtil.cast(mACacheUtil.getAsObject("concerned")));
+            mAdapter.notifyDataSetChanged();
+        }else {
+            presenter.getConcernedOrganization();
+            mDialog = LoadingDialogUtil.createLoadingDialog(ConcernedActivity.this,"正在加载数据...");
+
+        }
     }
 
     @Override
@@ -132,6 +147,13 @@ public class ConcernedActivity extends BaseActivity<ConcernedPresenter> implemen
     @Override
     public void setOnError() {
         Toast.makeText(this,"获取数据失败!",Toast.LENGTH_SHORT);
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mOrganizationList.clear();
     }
 
     @Override

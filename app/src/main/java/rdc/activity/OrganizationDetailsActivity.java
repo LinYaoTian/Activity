@@ -63,6 +63,8 @@ public class OrganizationDetailsActivity extends BaseActivity<OrganizationDetail
     TextView mName;
     @BindView(R.id.tv_introduction)
     TextView mIntroduction;
+    @BindView(R.id.tv_title)
+    TextView mTitle;
     private List<OrganizationActivity> mActivities;
     private ACacheUtil mACacheUtil;
     private OrganizationActivityListAdapter mAdapter;
@@ -110,11 +112,8 @@ public class OrganizationDetailsActivity extends BaseActivity<OrganizationDetail
         });
         mActivityRecyclerView.setAdapter(mAdapter);
 
-
         initViews();
         initHeaderOrganization();
-
-
     }
 
     /**
@@ -142,7 +141,7 @@ public class OrganizationDetailsActivity extends BaseActivity<OrganizationDetail
                     //设置不透明百分比为100%
                     TitleAlphaChange(1, 1);
                     HeaderTranslate(head_height);
-                    mBack.setImageResource(R.drawable.iv_back_dark);
+                    mBack.setImageResource(R.drawable.iv_back);
                     mSpiteLine.setVisibility(View.VISIBLE);
 
                 } else if (isUp && dy > move_distance) {
@@ -154,7 +153,7 @@ public class OrganizationDetailsActivity extends BaseActivity<OrganizationDetail
                     TitleAlphaChange(dy, move_distance);
                     HeaderTranslate(dy);
 
-                    mBack.setImageResource(R.drawable.iv_back_white);
+                    mBack.setImageResource(R.drawable.iv_back);
                     mSpiteLine.setVisibility(View.GONE);
                 }
             }
@@ -182,7 +181,6 @@ public class OrganizationDetailsActivity extends BaseActivity<OrganizationDetail
             alpha = 255;
         }
         mToolbar.getBackground().setAlpha(alpha);
-
 
     }
 
@@ -281,7 +279,7 @@ public class OrganizationDetailsActivity extends BaseActivity<OrganizationDetail
                     | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                     | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            getWindow().setStatusBarColor(getColor(R.color.color_dark_transparent));   //这里动态修改颜色
+            getWindow().setStatusBarColor(getResources().getColor(R.color.color_dark_transparent));   //这里动态修改颜色
         }
 
         return R.layout.activity_organization_details;

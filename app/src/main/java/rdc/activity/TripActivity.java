@@ -8,6 +8,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -78,24 +79,29 @@ public class TripActivity extends BaseActivity<TripPresenter> implements ITripCo
         mACacheUtil = ACacheUtil.get(getApplicationContext());
         //先从缓存中读取，缓存没有联网获取数据
 
+
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         if (ObjectCastUtil.cast(mACacheUtil.getAsObject("trip"))!=null
                 ||ObjectCastUtil.cast(mACacheUtil.getAsObject("RecommendTrip"))!=null){
+            mTripList.clear();
+            SeparateActivityUtil.getInstance().release();
             SeparateActivityUtil.getInstance().separate((ArrayList)ObjectCastUtil.cast(mACacheUtil.getAsObject("trip")));
             mTripList.addAll(SeparateActivityUtil.getInstance().getListByDate(getToday()));
             SeparateActivityUtil.getInstance().separateAll((ArrayList)ObjectCastUtil.cast(mACacheUtil.getAsObject("RecommendTrip")));
             mTripList.addAll(SeparateActivityUtil.getInstance().getRecommendListByDate(getToday()));
             mAdapter.notifyDataSetChanged();
         }else {
+            SeparateActivityUtil.getInstance().release();
+            mTripList.clear();
             presenter.getMyTripActivity();
             mLoadingDialog = LoadingDialogUtil.createLoadingDialog(TripActivity.this, "正在加载数据...");
 
         }
-
-
-
-
-
-
     }
 
     @Override
@@ -221,7 +227,6 @@ public class TripActivity extends BaseActivity<TripPresenter> implements ITripCo
     @Override
     public void setRecommenedTripActivity(List<Trip> list) {
         mACacheUtil.put("RecommendTrip",(ArrayList)list,60*5);
-
         SeparateActivityUtil.getInstance().separateAll(list);
         mTripList.addAll(SeparateActivityUtil.getInstance().getRecommendListByDate(getToday()));
         mAdapter.notifyDataSetChanged();
