@@ -101,7 +101,7 @@ public class ReleaseActivity extends BaseActivity<ReleasePresenter> implements R
         switch (v.getId()) {
             case R.id.tv_release_release:
                 release();
-//                DetailActivity.actionStart(this, "TnBzaaau");
+//                DetailActivity.actionStart(this, "90ef5e8350");
                 break;
             case R.id.iv_poster_release:
                 showDialog();

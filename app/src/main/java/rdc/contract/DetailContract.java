@@ -20,6 +20,8 @@ public interface DetailContract {
         String getobjectId();
         void setUserconcernedList(List<User> userconcernedList);
         void onConcernedSuccess();
+        void showProgressDialog();
+        void dismissProgressDialog();
     }
 
     interface IModel{
@@ -28,6 +30,7 @@ public interface DetailContract {
         void addSawNum(IPresenter iPresenter, int currentNum, String objectId);
         void addFocus(IPresenter iPresenter, String toFocusUserObjectId, boolean hasFocus);
         void getUserconcernedList(IPresenter iPresenter);
+//        void addTrip();
     }
 
     interface IPresenter{
@@ -42,5 +45,6 @@ public interface DetailContract {
         void getUserconcernedList();
         void setUserconcernedList(List<User> userconcernedList);
         void onConcernedSuccess();
+//        void addTrip();
     }
 }

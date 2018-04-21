@@ -80,9 +80,9 @@ public class DetailModel implements DetailContract.IModel{
     }
 
     @Override
-    public void onSignUp(final DetailContract.IPresenter iPresenter, String objectId, boolean hasSignUp) {
-        User currentUser = BmobUser.getCurrentUser(User.class);
-        Activity activity = new Activity();
+    public void onSignUp(final DetailContract.IPresenter iPresenter, String objectId, final boolean hasSignUp) {
+        final User currentUser = BmobUser.getCurrentUser(User.class);
+        final Activity activity = new Activity();
         activity.setObjectId(objectId);
         BmobRelation relation = new BmobRelation();
         if (hasSignUp) {
@@ -95,10 +95,27 @@ public class DetailModel implements DetailContract.IModel{
             @Override
             public void done(BmobException e) {
                 if (e == null) {
-                    Log.d(TAG, "更新成功");
+                    Log.d(TAG, "报名成功（relation）");
                     iPresenter.onSingOrUnSingUpSuccess();
+                    BmobRelation relation = new BmobRelation();
+                    if (hasSignUp) {
+                        relation.remove(activity);
+                    }else {
+                        relation.add(activity);
+                    }
+                    currentUser.setTrip(relation);
+                    currentUser.update(new UpdateListener() {
+                        @Override
+                        public void done(BmobException e) {
+                            if(e == null){
+                                Log.d(TAG,"添加/取消trip成功");
+                            }else{
+                                Log.d(TAG,"添加/取消trip失败："+e.getMessage());
+                            }
+                        }
+                    });
                 }else {
-                    Log.d(TAG, "更新失败，" + e.getMessage() + " , " + e.getErrorCode());
+                    Log.d(TAG, "报名失败（relation）" + e.getMessage() + " , " + e.getErrorCode());
                     iPresenter.releaseResult(false, e.getMessage());
                 }
             }
@@ -130,10 +147,6 @@ public class DetailModel implements DetailContract.IModel{
             }
         });
     }
-
-
-
-
 
     @Override
     public void addSawNum(DetailContract.IPresenter iPresenter, int currentNum, String objectId) {

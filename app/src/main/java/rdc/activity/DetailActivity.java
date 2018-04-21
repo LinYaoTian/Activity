@@ -1,5 +1,6 @@
 package rdc.activity;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -38,6 +39,7 @@ import rdc.bean.User;
 import rdc.contract.DetailContract;
 import rdc.presenter.DetailPresenter;
 import rdc.util.ACacheUtil;
+import rdc.util.LoadingDialogUtil;
 import rdc.util.ShareUtil;
 import rdc.util.UserUtil;
 
@@ -74,7 +76,7 @@ public class DetailActivity extends BaseActivity<DetailPresenter> implements Det
     private boolean hasFocus = false;
     //    private List<User> focusUserList;
     private ACacheUtil mACacheUtil;
-
+    private Dialog mUpLoadingDialog;
 
     @Override
     protected int setLayoutResID() {
@@ -86,12 +88,12 @@ public class DetailActivity extends BaseActivity<DetailPresenter> implements Det
      */
     @Override
     protected void initData() {
+        showProgressDialog();
         activity = new Activity();
         Intent intent = getIntent();
         objectId = intent.getStringExtra("objectId");
         presenter.getDetail(objectId);
         mACacheUtil = ACacheUtil.get(getApplicationContext());
-
     }
 
     /**
@@ -99,6 +101,7 @@ public class DetailActivity extends BaseActivity<DetailPresenter> implements Det
      */
     @Override
     protected void initView() {
+
         initToolBar();
         WindowManager wm = (WindowManager) this.getSystemService(Context.WINDOW_SERVICE);
         int screenWidth  = wm.getDefaultDisplay().getWidth();
@@ -210,6 +213,7 @@ public class DetailActivity extends BaseActivity<DetailPresenter> implements Det
         if (Objects.equals(activity.getManager().getObjectId(), BmobUser.getCurrentUser().getObjectId())) {
             activity_detail_add_textView.setVisibility(View.GONE);
         }
+        dismissProgressDialog();
     }
 
     /**
@@ -267,6 +271,7 @@ public class DetailActivity extends BaseActivity<DetailPresenter> implements Det
         Log.d(TAG, "获取活动详情错误， " + errMeg);
         showConfirmDialog();
         Toast.makeText(this, "抱歉，遇到了一个预料之外的错误！", Toast.LENGTH_SHORT).show();
+        dismissProgressDialog();
     }
 
     @Override
@@ -352,6 +357,16 @@ public class DetailActivity extends BaseActivity<DetailPresenter> implements Det
                     }
                 }).create();
         dialog.show();
+    }
+
+    @Override
+    public void showProgressDialog() {
+        mUpLoadingDialog = LoadingDialogUtil.createLoadingDialog(DetailActivity.this,"正在加载...");
+    }
+
+    @Override
+    public void dismissProgressDialog() {
+        LoadingDialogUtil.closeDialog(mUpLoadingDialog);
     }
 
     /**
