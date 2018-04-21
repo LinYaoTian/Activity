@@ -1,204 +1,202 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:background="@color/colorDivider"
-android:orientation="vertical"
-tools:context="rdc.activity.IndividualActivity">
-
-<android.support.v7.widget.Toolbar
-    android:id="@+id/toolbar"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="?attr/actionBarSize"
-    android:background="@color/colorPrimary"
-    android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-    app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+    android:layout_height="match_parent"
+    android:background="@color/colorDivider"
+    android:orientation="vertical"
+    tools:context="rdc.activity.IndividualActivity">
 
-    <TextView
-        android:id="@+id/tv_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/editInfo"
-        android:textColor="@color/white"
-        android:textSize="20sp" />
-
-    <Button
-        android:id="@+id/btn_commit"
-        android:background="@drawable/button_commit_selector"
-        android:layout_gravity="end"
-        android:layout_marginRight="20dp"
-        android:layout_width="40dp"
-        android:layout_height="30dp"
-        android:text="@string/commit"/>
-
-</android.support.v7.widget.Toolbar>
-
-<View
-    android:layout_width="match_parent"
-    android:layout_height="20dp"
-    android:background="@color/colorDivider" />
-
-<RelativeLayout
-    android:id="@+id/rl_photo"
-    android:layout_width="match_parent"
-    android:layout_height="80dp"
-    android:background="@drawable/item_background_selector"
-    android:clickable="true"
-    android:orientation="horizontal">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="10dp"
-        android:gravity="center_vertical"
-        android:text="@string/backgroundPhoto"
-        android:textSize="18sp" />
-
-    <ImageView
-        android:scaleType="fitXY"
-        android:layout_marginStart="120dp"
-        android:layout_centerVertical="true"
-        android:id="@+id/imv_photo"
-        android:layout_width="80dp"
-        android:layout_height="65dp"
-        />
-</RelativeLayout>
-
-<View
-    android:layout_width="match_parent"
-    android:layout_height="1dp"
-    android:layout_marginLeft="10dp"
-    android:layout_marginRight="10dp"
-    android:background="@color/colorDivider" />
-
-<RelativeLayout
-    android:id="@+id/rl_image"
-    android:layout_width="match_parent"
-    android:layout_height="60dp"
-    android:background="@drawable/item_background_selector"
-    android:clickable="true"
-    android:orientation="horizontal">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="10dp"
-        android:gravity="center_vertical"
-        android:text="头像"
-        android:textSize="18sp" />
-
-    <ImageView
-        android:layout_centerVertical="true"
-        android:id="@+id/imv_image"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="120dp"
-        />
-</RelativeLayout>
-
-
-<View
-    android:layout_width="match_parent"
-    android:layout_height="20dp"
-    android:background="@color/colorDivider" />
-
-<RelativeLayout
-    android:id="@+id/rl_name"
-    android:layout_width="match_parent"
-    android:layout_height="60dp"
-    android:background="@drawable/item_background_selector"
-    android:clickable="true"
-    android:orientation="horizontal">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="10dp"
-        android:gravity="center_vertical"
-        android:text="名称"
-        android:textSize="18sp" />
-    <TextView
-        android:id="@+id/tv_name"
-        android:textSize="18sp"
-        android:ellipsize="end"
-        android:gravity="center_vertical"
-        android:layout_gravity="center"
-        android:text="@string/app_name"
-        android:layout_marginStart="120dp"
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/editInfo"
+            android:textColor="@color/white"
+            android:textSize="@dimen/dimenLargeTextSize" />
 
+        <Button
+            android:id="@+id/btn_commit"
+            android:layout_width="@dimen/dimenButtonWidth"
+            android:layout_height="@dimen/dimenButtonHeight"
+            android:layout_gravity="end"
+            android:layout_marginRight="@dimen/dimenButtonMarginRight"
+            android:background="@drawable/button_commit_selector"
+            android:text="@string/commit" />
 
+    </android.support.v7.widget.Toolbar>
 
-<View
-    android:layout_width="match_parent"
-    android:layout_height="1dp"
-    android:background="@color/colorDivider" />
-
-<RelativeLayout
-    android:id="@+id/rl_introduction"
-    android:layout_width="match_parent"
-    android:layout_height="60dp"
-    android:background="@drawable/item_background_selector"
-    android:clickable="true"
-    android:orientation="horizontal">
-
-    <TextView
-        android:minHeight="60dp"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="10dp"
-        android:gravity="center_vertical"
-        android:text="简介"
-        android:textSize="18sp" />
-    <TextView
-        android:id="@+id/tv_introduction"
-        android:textSize="18sp"
-        android:ellipsize="end"
-        android:gravity="center_vertical"
-        android:layout_gravity="center"
-        android:text="@string/app_name"
-        android:layout_marginStart="120dp"
+    <View
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="@dimen/dimenDividerHeight"
+        android:background="@color/colorDivider" />
 
-</RelativeLayout>
-<View
-    android:layout_width="match_parent"
-    android:layout_height="1dp"
-    android:background="@color/colorDivider" />
-
-<RelativeLayout
-    android:id="@+id/rl_university"
-    android:layout_width="match_parent"
-    android:layout_height="60dp"
-    android:background="@drawable/item_background_selector"
-    android:clickable="true"
-    android:orientation="horizontal">
-
-    <TextView
-        android:minHeight="60dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:gravity="center_vertical"
-        android:text="学校"
-        android:textSize="18sp" />
-    <TextView
-        android:id="@+id/tv_university"
-        android:textSize="18sp"
-        android:ellipsize="end"
-        android:gravity="center_vertical"
-        android:layout_gravity="center"
-        android:text="@string/app_name"
-        android:layout_marginStart="120dp"
+    <RelativeLayout
+        android:id="@+id/rl_photo"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="@dimen/dimenItemLargeHeight"
+        android:background="@drawable/item_background_selector"
+        android:clickable="true"
+        android:orientation="horizontal">
 
-</RelativeLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/dimenTvMarginLeftRight"
+            android:gravity="center_vertical"
+            android:text="@string/backgroundPhoto"
+            android:textSize="@dimen/dimenTextSize" />
+
+        <ImageView
+            android:id="@+id/imv_photo"
+            android:layout_width="@dimen/dimenImvWidth"
+            android:layout_height="@dimen/dimenImvHeight"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/dimenImvMarginStart"
+            android:scaleType="fitXY" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="@dimen/dimenTvMarginLeftRight"
+        android:layout_marginRight="@dimen/dimenTvMarginLeftRight"
+        android:background="@color/colorDivider" />
+
+    <RelativeLayout
+        android:id="@+id/rl_image"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimenItemLittleHeight"
+        android:background="@drawable/item_background_selector"
+        android:clickable="true"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/dimenTvMarginLeftRight"
+            android:gravity="center_vertical"
+            android:text="@string/headerImage"
+            android:textSize="@dimen/dimenTextSize" />
+
+        <ImageView
+            android:id="@+id/imv_image"
+            android:layout_width="@dimen/dimenLittleImageViewSize"
+            android:layout_height="@dimen/dimenLittleImageViewSize"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/dimenImvMarginStart" />
+    </RelativeLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimenDividerHeight"
+        android:background="@color/colorDivider" />
+
+    <RelativeLayout
+        android:id="@+id/rl_name"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimenItemLittleHeight"
+        android:background="@drawable/item_background_selector"
+        android:clickable="true"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/dimenTvMarginLeftRight"
+            android:gravity="center_vertical"
+            android:text="@string/name"
+            android:textSize="@dimen/dimenTextSize" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginStart="@dimen/dimenImvMarginStart"            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:textSize="@dimen/dimenTextSize" />
+
+        <TextView
+            android:id="@+id/tv_university"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_gravity="center"
+            android:layout_marginTop="59dp"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:textSize="@dimen/dimenTextSize" />
+
+    </RelativeLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorDivider" />
+
+    <RelativeLayout
+        android:id="@+id/rl_introduction"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimenItemLittleHeight"
+        android:background="@drawable/item_background_selector"
+        android:clickable="true"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/dimenTvMarginLeftRight"
+            android:gravity="center_vertical"
+            android:minHeight="@dimen/dimenItemLittleHeight"
+            android:text="@string/introduction"
+            android:textSize="@dimen/dimenTextSize" />
+
+        <TextView
+            android:id="@+id/tv_introduction"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginStart="@dimen/dimenImvMarginStart"            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:textSize="@dimen/dimenTextSize" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorDivider" />
+
+    <RelativeLayout
+        android:id="@+id/rl_university"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimenItemLittleHeight"
+        android:background="@drawable/item_background_selector"
+        android:clickable="true"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimenTvMarginLeftRight"
+            android:gravity="center_vertical"
+            android:minHeight="@dimen/dimenItemLittleHeight"
+            android:text="@string/school"
+            android:textSize="@dimen/dimenTextSize" />
+
+    </RelativeLayout>
 
 </LinearLayout>

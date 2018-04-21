@@ -43,9 +43,6 @@ public class OrganizationActivityListAdapter extends RecyclerView.Adapter {
         if (viewType == sACTIVITY) {
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_organization_activity, parent, false);
             return new ItemViewHolder(view);
-        } else if (viewType == sORGANIZATION) {
-            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_organization_header, parent, false);
-            return new HeaderViewHolder(view);
         }
         return null;
     }
@@ -69,14 +66,6 @@ public class OrganizationActivityListAdapter extends RecyclerView.Adapter {
                     }
                 });
 
-            }else if (holder instanceof  HeaderViewHolder){
-
-                Glide.with(mContext).load(activity.getPhoto()).into(((HeaderViewHolder)holder).mPhoto);
-                Glide.with(mContext).load(activity.getImage()).into(((HeaderViewHolder)holder).mImage);
-                ((HeaderViewHolder)holder).mName.setText(activity.getName());
-                ((HeaderViewHolder)holder).mIntroduction.setText(activity.getIntroduction());
-
-
             }
 
     }
@@ -91,9 +80,6 @@ public class OrganizationActivityListAdapter extends RecyclerView.Adapter {
         return mActivities.get(position).getType();
     }
 
-    public OnClickListener getClickListener() {
-        return mClickListener;
-    }
 
     public void setClickListener(OnClickListener clickListener) {
         mClickListener = clickListener;
@@ -118,20 +104,5 @@ public class OrganizationActivityListAdapter extends RecyclerView.Adapter {
         }
     }
 
-    class HeaderViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.imv_photo)
-        ImageView mPhoto;
-        @BindView(R.id.imv_image)
-        ImageView mImage;
-        @BindView(R.id.tv_name)
-        TextView mName;
-        @BindView(R.id.tv_introduction)
-        TextView mIntroduction;
 
-
-        public HeaderViewHolder(View itemView) {
-            super(itemView);
-            ButterKnife.bind(this, itemView);
-        }
-    }
 }

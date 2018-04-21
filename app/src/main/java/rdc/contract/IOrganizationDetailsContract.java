@@ -13,16 +13,19 @@ import rdc.bean.OrganizationActivity;
 public interface IOrganizationDetailsContract {
     interface View{
         void setManagedActivity(List<OrganizationActivity> list);
+        void setOnError();
+
     }
 
     interface Model{
-         void getManagedActivity(Presenter presenter, Organization organization);
+         void getManagedActivity(Presenter presenter,String id);
     }
 
 
     interface Presenter {
         void setManagedActivity(List<Activity> list);
-        void getManagedActivity(Organization organization);
+        void getManagedActivity(String id);
+        void onError();
 
     }
 }

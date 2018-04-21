@@ -21,6 +21,11 @@ public class ImageUtil {
 
     private static File mFile = null;
 
+    /**
+     * 图片的压缩
+     * @param filePath
+     * @param callback
+     */
     public static void compressImage(String filePath, FileCallback callback) {
            mFile = new File(filePath);
            Tiny.FileCompressOptions options = new Tiny.FileCompressOptions();

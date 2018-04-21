@@ -15,7 +15,6 @@
             android:icon="@drawable/iv_menu_activity"
             android:title="@string/myManagedActivity" />
         <item
-
             android:id="@+id/nav_center"
             android:icon="@drawable/iv_menu_center"
             android:title="@string/myIndividual" />

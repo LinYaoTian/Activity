@@ -22,6 +22,12 @@
         <item name="windowNoTitle">true</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
+
+        <item name="android:actionMenuTextAppearance">@style/MenuTextStyle</item>
+
+    </style>
+    <style name="MenuTextStyle">
+        <item name="android:textSize">20sp</item>
     </style>
 
     <style name="AppTheme.launchTheme" parent="Theme.AppCompat.Light.NoActionBar">

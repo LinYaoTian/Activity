@@ -10,7 +10,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
@@ -46,13 +46,13 @@ public class OrganizationDetailsActivity extends BaseActivity<OrganizationDetail
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
     @BindView(R.id.iv_back)
-    ImageView ivBack;
+    ImageView mBack;
     @BindView(R.id.scrollView)
-    ObservableScrollView scrollView;
+    ObservableScrollView mScrollView;
     @BindView(R.id.spite_line)
-    View spiteLine;
+    View mSpiteLine;
     @BindView(R.id.lv_header)
-    RelativeLayout lvHeader;
+    RelativeLayout mHeader;
 
     @BindView(R.id.imv_photo)
     ImageView mPhoto;
@@ -66,22 +66,33 @@ public class OrganizationDetailsActivity extends BaseActivity<OrganizationDetail
     private ACacheUtil mACacheUtil;
     private OrganizationActivityListAdapter mAdapter;
     private String mId;
-    private Organization organization;
     private Dialog mLoadingDialog;
+    private String mImageUrl;
+    private String mPhotoUrl;
+    private String mNames;
+    private String mIntroductions;
 
 
     @Override
     protected void initData() {
-        organization = (Organization) getIntent().getBundleExtra("bundle").get("organization");
-        mId = organization.getId();
+        //获取个人信息类
+        Bundle bundle = getIntent().getBundleExtra("bundle");
+        mImageUrl =bundle.getString("image");
+        mPhotoUrl =bundle.getString("photo");
+        mNames =bundle.getString("name");
+        mIntroductions =bundle.getString("introduction");
+        mId = bundle.getString("id");
+
         mACacheUtil = ACacheUtil.get(getApplicationContext());
         mActivities = new ArrayList<>();
         mAdapter = new OrganizationActivityListAdapter(mActivities, this);
+        //先从缓存中读取，缓存没有联网获取数据
+
         if (ObjectCastUtil.cast(mACacheUtil.getAsObject(mId)) != null) {
             mActivities.addAll((ArrayList) ObjectCastUtil.cast(mACacheUtil.getAsObject(mId)));
             mAdapter.notifyDataSetChanged();
         } else {
-            presenter.getManagedActivity(organization);
+            presenter.getManagedActivity(mId);
             mLoadingDialog = LoadingDialogUtil.createLoadingDialog(OrganizationDetailsActivity.this, "正在加载数据...");
 
         }
@@ -90,7 +101,7 @@ public class OrganizationDetailsActivity extends BaseActivity<OrganizationDetail
 
     @Override
     protected void initView() {
-        mActivityRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayout.VERTICAL,false){
+        mActivityRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayout.VERTICAL, false) {
             @Override
             public boolean canScrollVertically() {
                 return false;
@@ -100,62 +111,76 @@ public class OrganizationDetailsActivity extends BaseActivity<OrganizationDetail
 
 
         initViews();
-        initHeaderOrganization(organization);
-
+        initHeaderOrganization();
 
 
     }
 
+    /**
+     * 初始化ScrollView的滑动监听
+     */
     private void initViews() {
-
+        //获取dimen属性中 标题和头部的高度
         final float title_height = getResources().getDimension(R.dimen.title_height);
         final float head_height = getResources().getDimension(R.dimen.head_height);
 
-        scrollView.setOnScrollListener(new ObservableScrollView.ScrollViewListener() {
+        mScrollView.setOnScrollListener(new ObservableScrollView.ScrollViewListener() {
             @Override
             public void onScroll(int oldy, int dy, boolean isUp) {
                 float move_distance = head_height - title_height;
                 if (!isUp && dy <= move_distance) {
+                    //手指往上滑
+                    // 标题栏逐渐从透明变成不透明
 
                     mToolbar.setBackgroundColor(ContextCompat.getColor(OrganizationDetailsActivity.this, R.color.colorPrimary));
                     TitleAlphaChange(dy, move_distance);
                     HeaderTranslate(dy);
 
                 } else if (!isUp && dy > move_distance) {
+                    //手指往上滑
+                    //设置不透明百分比为100%
                     TitleAlphaChange(1, 1);
-
                     HeaderTranslate(head_height);
-                    ivBack.setImageResource(R.mipmap.ic_back_dark);
-                    spiteLine.setVisibility(View.VISIBLE);
+                    mBack.setImageResource(R.drawable.iv_back_dark);
+                    mSpiteLine.setVisibility(View.VISIBLE);
 
                 } else if (isUp && dy > move_distance) {
 
 
                 } else if (isUp && dy <= move_distance) {
+                    //标题栏逐渐从不透明变成透明
 
                     TitleAlphaChange(dy, move_distance);
                     HeaderTranslate(dy);
 
-                    ivBack.setImageResource(R.mipmap.ic_back);
-                    spiteLine.setVisibility(View.GONE);
+                    mBack.setImageResource(R.drawable.iv_back_white);
+                    mSpiteLine.setVisibility(View.GONE);
                 }
             }
         });
     }
 
+    /**
+     *隐藏头部
+     * @param distance
+     */
     private void HeaderTranslate(float distance) {
-        lvHeader.setTranslationY(-distance);
+        mHeader.setTranslationY(-distance);
     }
 
+    /**
+     * 根据滑动的位置显示TitleBar,设置背景色
+     * @param dy
+     * @param mHeaderHeight_px
+     */
     private void TitleAlphaChange(int dy, float mHeaderHeight_px) {
 
         float percent = (float) Math.abs(dy) / Math.abs(mHeaderHeight_px);
-        int alpha = (int) (percent*1.4 * 255);
-        if (alpha>255){
-            alpha=255;
+        int alpha = (int) (percent * 1.4 * 255);
+        if (alpha > 255) {
+            alpha = 255;
         }
         mToolbar.getBackground().setAlpha(alpha);
-
 
 
     }
@@ -170,7 +195,7 @@ public class OrganizationDetailsActivity extends BaseActivity<OrganizationDetail
                 DetailActivity.actionStart(OrganizationDetailsActivity.this, activity.getId());
             }
         });
-        ivBack.setOnClickListener(new View.OnClickListener() {
+        mBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
@@ -191,39 +216,60 @@ public class OrganizationDetailsActivity extends BaseActivity<OrganizationDetail
     }
 
 
-
+    /**
+     * @param list
+     */
 
     @Override
     public void setManagedActivity(List<OrganizationActivity> list) {
-        mACacheUtil.put(mId, (ArrayList) list);
-
+        mACacheUtil.put(mId, (ArrayList) list);//缓存
         mActivities.addAll(list);
         mAdapter.notifyDataSetChanged();
         LoadingDialogUtil.closeDialog(mLoadingDialog);
     }
-private void initHeader(OrganizationActivity activity){
-    Glide.with(this).load(activity.getPhoto()).into(mPhoto);
-    Glide.with(this).load(activity.getImage()).into(mImage);
-    mName.setText(activity.getName());
-    mIntroduction.setText(activity.getIntroduction());
-}
+    //初始个人主页的信息
+    private void initHeader(OrganizationActivity activity) {
+        if (!TextUtils.isEmpty(activity.getPhoto())){
+            Glide.with(this).load(activity.getPhoto()).into(mPhoto);
+
+        }else{
+            Glide.with(this).load(R.drawable.iv_cover_launch).into(mPhoto);
+        }
+        if (!TextUtils.isEmpty(activity.getImage())){
+            Glide.with(this).load(activity.getImage()).into(mImage);
+
+        }else {
+            Glide.with(this).load(R.drawable.iv_app_ic_blue).into(mImage);
+
+        }
+        mName.setText(activity.getName());
+        mIntroduction.setText(activity.getIntroduction());
+    }
+
     @Override
     public OrganizationDetailsPresenter getInstance() {
         return new OrganizationDetailsPresenter();
     }
 
-
-    private void initHeaderOrganization(Organization organization) {
+    /**
+     * 显示个人主页的信息
+     * @param
+     */
+    private void initHeaderOrganization() {
         OrganizationActivity activity = new OrganizationActivity();
-        activity.setPhoto(organization.getPhoto().getUrl());
-        activity.setImage(organization.getImage().getUrl());
-        activity.setName(organization.getName());
+        activity.setPhoto(mPhotoUrl);
+        activity.setImage(mImageUrl);
+        activity.setName(mNames);
         activity.setType(sORGANIZATION);
-        activity.setIntroduction(organization.getIntroduction());
+        activity.setIntroduction(mIntroductions);
         initHeader(activity);
 
     }
 
+    /**
+     * 设置状态栏顶上
+     * @return
+     */
     @Override
     protected int setLayoutResID() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -234,16 +280,25 @@ private void initHeader(OrganizationActivity activity){
                     | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                     | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            getWindow().setStatusBarColor(Color.TRANSPARENT);   //这里动态修改颜色
+            getWindow().setStatusBarColor(getColor(R.color.color_dark_transparent));   //这里动态修改颜色
         }
 
         return R.layout.activity_organization_details;
     }
 
-    public static void actionStart(Context context, Organization organization) {
+    /**
+     * 启动方法
+     * @param context
+     * @param
+     */
+    public static void actionStart(Context context,String imageUrl,String photoUrl,String names,String introductions,String id) {
         Intent intent = new Intent(context, OrganizationDetailsActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putSerializable("organization", organization);
+        bundle.putString("image",imageUrl);
+        bundle.putString("photo",photoUrl);
+        bundle.putString("name",names);
+        bundle.putString("introduction",introductions);
+        bundle.putString("id",id);
         intent.putExtra("bundle", bundle);
         context.startActivity(intent);
     }

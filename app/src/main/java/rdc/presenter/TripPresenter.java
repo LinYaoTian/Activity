@@ -22,7 +22,10 @@ public class TripPresenter extends BasePresenter<ITripContract.View> implements 
     public TripPresenter() {
         mModel = new TripModel();
     }
-
+    /**
+     * 在这里进行类型的转换
+     * @param list
+     */
     @Override
     public void setTripActivity(List<Activity> list) {
         List<Trip> activityList = new ArrayList<>();
@@ -41,7 +44,10 @@ public class TripPresenter extends BasePresenter<ITripContract.View> implements 
         }
         getMvpView().setTripActivity(activityList);
     }
-
+    /**
+     * 在这里进行类型的转换
+     * @param list
+     */
 
     @Override
     public void setRecommenedTripActivity(List<Activity> list) {

@@ -12,15 +12,17 @@ import rdc.bean.User;
 public interface IConcernedContract {
     interface View {
         void setOrganization(List<Organization> list);
+        void setOnError();
     }
 
     interface Model{
         void getConcernedOrganization(Presenter presenter);
+
     }
 
     interface Presenter{
         void setOrganization(List<User> users);
         void getConcernedOrganization();
-
+        void onError();
     }
 }

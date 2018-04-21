@@ -19,9 +19,9 @@
             android:id="@+id/tv_title_act_main"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="管理的活动"
+            android:text="@string/managedActivity"
             android:textColor="@color/white"
-            android:textSize="20sp" />
+            android:textSize="@dimen/dimenLargeTextSize" />
     </android.support.v7.widget.Toolbar>
 
     <android.support.v7.widget.RecyclerView

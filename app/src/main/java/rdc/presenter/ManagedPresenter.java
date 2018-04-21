@@ -24,7 +24,10 @@ public class ManagedPresenter extends BasePresenter<IManagedContract.View> imple
     public ManagedPresenter() {
         mModel = new ManagedModel();
     }
-
+    /**
+     * 在这里进行类型的转换
+     * @param list
+     */
     @Override
     public void setManagedActivity(List<Activity> list) {
         List<ManagedActivity> managedActivities = new ArrayList<>();
@@ -39,6 +42,7 @@ public class ManagedPresenter extends BasePresenter<IManagedContract.View> imple
             managedActivities.add(activity);
 
         }
+        //如果为空则只设置一个空布局
         if (list.size()==0){
             ManagedActivity activity = new ManagedActivity();
             activity.setType(sEMPTY);

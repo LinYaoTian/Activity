@@ -12,6 +12,8 @@ import rdc.bean.ManagedActivity;
 public interface IManagedContract {
     interface View {
         void setManagedActivity(List<ManagedActivity> list);
+        void setOnError();
+
     }
 
     interface Model{
@@ -21,6 +23,7 @@ public interface IManagedContract {
     interface Presenter {
         void setManagedActivity(List<Activity> list);
         void getManagedActivity();
+        void onError();
 
     }
 }

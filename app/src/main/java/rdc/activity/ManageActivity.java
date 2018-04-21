@@ -49,6 +49,8 @@ public class ManageActivity extends BaseActivity<ManagedPresenter> implements IM
         mManagedActivityList = new ArrayList<>();
         mAdapter = new ManagedAdapter(mManagedActivityList, this);
         mACacheUtil = ACacheUtil.get(getApplicationContext());
+        //先从缓存中读取，缓存没有联网获取数据
+
         if (ObjectCastUtil.cast(mACacheUtil.getAsObject("manage")) != null) {
             mManagedActivityList.addAll((ArrayList) ObjectCastUtil.cast(mACacheUtil.getAsObject("manage")));
         } else {
@@ -72,16 +74,24 @@ public class ManageActivity extends BaseActivity<ManagedPresenter> implements IM
           mAdapter.setOnClickListener(new ManagedAdapter.OnClickListener() {
               @Override
               public void click(ManagedActivity activity) {
+                  //跳转到管理活动的详情界面
                   CheckManagedActivity.actionStart(ManageActivity.this,activity.getId());
               }
           });
     }
 
+    /**
+     * 启动方法
+     * @param context
+     */
     public static void actionStart(Context context) {
         Intent intent = new Intent(context, ManageActivity.class);
         context.startActivity(intent);
     }
 
+    /**
+     * 初始化ToolBar
+     */
     private void initToolBar() {
         setSupportActionBar(mToolbar);
         ActionBar actionBar = getSupportActionBar();
@@ -91,6 +101,11 @@ public class ManageActivity extends BaseActivity<ManagedPresenter> implements IM
         }
     }
 
+    /**
+     * 设置ToolBar
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -101,6 +116,10 @@ public class ManageActivity extends BaseActivity<ManagedPresenter> implements IM
         return true;
     }
 
+    /**
+     * 显示我管理的活动的列表
+     * @param list
+     */
     @Override
     public void setManagedActivity(List<ManagedActivity> list) {
         mACacheUtil.put("manage",(ArrayList)list,5*60);

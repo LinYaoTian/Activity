@@ -34,8 +34,6 @@ public class CheckManagedModel implements ICheckManagedContract.IModel{
             public void done(Activity activity, BmobException e) {
                 if (e == null) {
                     iPresenter.setDetail(activity);
-                    iPresenter.releaseResult(true, null);
-                    Log.d(TAG, "获取详情成功");
                     BmobQuery<User> userBmobQuery = new BmobQuery<>();
                     Activity activity1 = new Activity();
                     activity1.setObjectId(objectId);
@@ -44,68 +42,22 @@ public class CheckManagedModel implements ICheckManagedContract.IModel{
                         @Override
                         public void done(List<User> list, BmobException e) {
                             if (e == null) {
-                                Log.d(TAG, "获取详情参与者成功");
                                 iPresenter.setDetailAttcipator(list);
                             }else {
-                                Log.d(TAG, "获取详情参与者失败");
-                                iPresenter.releaseResult(false, e.getMessage());
+
+
                             }
                         }
                     });
                 }else {
-                    Log.d(TAG, "获取详情失败，" + e.getMessage() + " , " + e.getErrorCode());
-                    iPresenter.releaseResult(false, e.getMessage());
                 }
             }
         });
     }
 
-    @Override
-    public void getUserconcernedList(final ICheckManagedContract.IPresenter iPresenter) {
-        BmobQuery<User> userBmobQuery = new BmobQuery<>();
-        User currentUser = new User();
-        currentUser.setObjectId(BmobUser.getCurrentUser().getObjectId());
-        userBmobQuery.addWhereRelatedTo("conncerned", new BmobPointer(currentUser));
-        userBmobQuery.findObjects(new FindListener<User>() {
-            @Override
-            public void done(List<User> list, BmobException e) {
-                if (e == null) {
-                    iPresenter.setUserconcernedList(list);
-                }else {
-                    iPresenter.releaseResult(false, e.getMessage());
-                }
-            }
-        });
-    }
 
-    @Override
-    public void onSignUp(final ICheckManagedContract.IPresenter iPresenter, String objectId, boolean hasSignUp) {
-        User currentUser = BmobUser.getCurrentUser(User.class);
-        Activity activity = new Activity();
-        activity.setObjectId(objectId);
-        BmobRelation relation = new BmobRelation();
-        if (hasSignUp) {
-            relation.remove(currentUser);
-        }else {
-            relation.add(currentUser);
-        }
-        activity.setAttcipator(relation);
-        activity.update(objectId, new UpdateListener() {
-            @Override
-            public void done(BmobException e) {
-                if (e == null) {
-                    iPresenter.onSingOrUnSingUpSuccess();
-                }else {
-                    iPresenter.releaseResult(false, e.getMessage());
-                }
-            }
-        });
-    }
 
-    @Override
-    public void addFocus(final ICheckManagedContract.IPresenter iPresenter, String toFocusUserObjectId, boolean hasFocus) {
 
-    }
 
 
 

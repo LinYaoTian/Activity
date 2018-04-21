@@ -37,49 +37,15 @@ public class CheckManagedPresenter extends BasePresenter<ICheckManagedContract.I
         mModel.getDetail(this, objectId);
     }
 
-    @Override
-    public void onSignUp(boolean hasSignUp) {
-        mModel.onSignUp(this, getMvpView().getobjectId(), hasSignUp);
-    }
 
-    @Override
-    public void onSingOrUnSingUpSuccess() {
-        getMvpView().onSingOrUnSingUpSuccess();
-    }
 
     @Override
     public void addSawNum(int currentNum) {
         mModel.addSawNum(this, currentNum, getMvpView().getobjectId());
     }
 
-    @Override
-    public void addFocus(String toFocusUserObjectId, boolean hasFocus) {
-        mModel.addFocus(this, toFocusUserObjectId, hasFocus);
-    }
 
-    @Override
-    public void getUserconcernedList() {
-        mModel.getUserconcernedList(this);
-    }
 
-    @Override
-    public void setUserconcernedList(List<User> userconcernedList) {
-        getMvpView().setUserconcernedList(userconcernedList);
-    }
-
-    @Override
-    public void onConcernedSuccess() {
-        getMvpView().onConcernedSuccess();
-    }
-
-    @Override
-    public void releaseResult(Boolean state, String message) {
-        if (state) {
-            getMvpView().onSuccess();
-        } else {
-            getMvpView().onError(message);
-        }
-    }
 
     @Override
     public void deleteActivity(String activityId) {

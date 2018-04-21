@@ -22,20 +22,20 @@
             android:layout_height="wrap_content"
             android:text="@string/individual"
             android:textColor="@color/white"
-            android:textSize="20sp" />
+            android:textSize="@dimen/dimenLargeTextSize" />
     </android.support.v7.widget.Toolbar>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginLeft="@dimen/dimenTvMarginLeftRight"
+        android:layout_marginRight="@dimen/dimenTvMarginLeftRight"
         android:background="@color/colorDivider" />
 
     <RelativeLayout
         android:id="@+id/rl_certificate"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="@dimen/dimenItemLayoutHeight"
         android:background="@drawable/item_background_selector"
         android:clickable="true"
         android:orientation="horizontal">
@@ -43,35 +43,35 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="@dimen/dimenTvMarginLeftRight"
             android:gravity="center_vertical"
             android:text="个人/组织认证"
-            android:textSize="18sp" />
+            android:textSize="@dimen/dimenLargeTextSize" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="10dp"
+            android:layout_marginRight="@dimen/dimenTvMarginLeftRight"
             android:ellipsize="end"
             android:gravity="center_vertical"
             android:maxLines="1"
             android:text="学生"
-            android:textSize="15sp" />
+            android:textSize="@dimen/dimenLargeTextSize" />
     </RelativeLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginLeft="@dimen/dimenTvMarginLeftRight"
+        android:layout_marginRight="@dimen/dimenTvMarginLeftRight"
         android:background="@color/colorDivider" />
 
     <RelativeLayout
         android:id="@+id/rl_change_account_act_account_manage"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="@dimen/dimenItemLayoutHeight"
         android:background="@drawable/item_background_selector"
         android:clickable="true"
         android:orientation="horizontal">
@@ -81,8 +81,8 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="10dp"
             android:gravity="center_vertical"
-            android:text="账号管理"
-            android:textSize="18sp" />
+            android:text="@string/accountManage"
+            android:textSize="@dimen/dimenLargeTextSize" />
 
 
     </RelativeLayout>

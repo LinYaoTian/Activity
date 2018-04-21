@@ -26,6 +26,8 @@
     <dimen name="dimenWeekCalendar">65dp</dimen>
     <integer name="integerPagerNum">150</integer>
     <dimen name="dimenCalendarTextSize">13sp</dimen>
+    <dimen name="dimenLineWidth">80dp</dimen>
+    <dimen name="dimenEmptyItemHeight">50dp</dimen>
 
     <!--我的行程的item-->
     <dimen name="dimenMargin">10dp</dimen>
@@ -53,41 +55,77 @@
     <integer name="dimenMaxLines">1</integer>
     <dimen name="dimenTextHeight">20dp</dimen>
     <dimen name="dimenImageHeaderHeight">300dp</dimen>
+    <!--个人主页-->
+    <dimen name="title_height">75dp</dimen>
+    <dimen name="head_height">310dp</dimen>
+    <dimen name="dimenLayoutHeight">310dp</dimen>
+    <dimen name="dimenImageLargeHeight">200dp</dimen>
+    <dimen name="dimenCircleImageSize">80dp</dimen>
+    <dimen name="dimenCircleMarginTop">165dp</dimen>
+    <dimen name="dimenTvLargeMargin">5dp</dimen>
+    <dimen name="dimenTvLittleMargin">3dp</dimen>
+    <dimen name="dimenImvPadding">10dp</dimen>
+    <dimen name="dimenImvSize">40dp</dimen>
+
+    <dimen name="dimenCardViewMarginStartEnd">10dp</dimen>
+    <dimen name="dimenCardViewMarginTopBottom">6dp</dimen>
+    <dimen name="dimenCardViewImageHeight">150dp</dimen>
+    <dimen name="dimenCardViewTvMargin">10dp</dimen>
+    <dimen name="dimenCardViewTextSize">18sp</dimen>
+    <dimen name="dimenCardViewLittleTextSize">13sp</dimen>
+    <dimen name="dimenCardViewLargeTextSize">17sp</dimen>
+
+    <dimen name="dimenCardVewImvSize">15dp</dimen>
+
+    <dimen name="dimenCardViewImageSize">150dp</dimen>
+
+
+    <!--管理活动-->
+    <dimen name="dimenImageViewSize">30dp</dimen>
+    <dimen name="dimenMarginEnd">15dp</dimen>
+    <dimen name="dimenImageViewHeight">230dp</dimen>
+    <dimen name="dimenTVMarginTop">15dp</dimen>
+    <dimen name="dimenTVMarginStart">20dp</dimen>
+    <dimen name="dimenTVMarginEnd">20dp</dimen>
+    <dimen name="dimenTTitleTextSize">23sp</dimen>
+
+    <dimen name="dimenPaddingBottom">5dp</dimen>
+    <dimen name="dimenMarginBottom">5dp</dimen>
+    <dimen name="dimenLitterImageViewSize">20dp</dimen>
+    <dimen name="dimenTVLittleTextSize">13sp</dimen>
+    <dimen name="dimenPaddingTopBottom">10dp</dimen>
+    <dimen name="dimenDividerHeight">20dp</dimen>
+
+    <dimen name="dimenRvPaddingBottom">15dp</dimen>
+    <dimen name="dimenRvMarginBottom">15dp</dimen>
+    <dimen name="dimenTvMarginTop">10dp</dimen>
+    <dimen name="dimenTvMarginBottom">30dp</dimen>
+    <dimen name="dimenTextViewHeight">10dp</dimen>
+
+
+    <!--个人资料-->
+    <dimen name="dimenButtonMarginRight">20dp</dimen>
+    <dimen name="dimenButtonWidth">40dp</dimen>
+    <dimen name="dimenButtonHeight">30dp</dimen>
+    <dimen name="dimenItemLargeHeight">80dp</dimen>
+    <dimen name="dimenItemLittleHeight">60dp</dimen>
+    <dimen name="dimenTvMarginLeftRight">10dp</dimen>
+    <dimen name="dimenImvWidth">80dp</dimen>
+    <dimen name="dimenImvHeight">65dp</dimen>
+    <dimen name="dimenImvMarginStart">120dp</dimen>
+    <dimen name="dimenLittleImageViewSize">50dp</dimen>
+
+
+    <!--个人中心-->
+    <dimen name="dimenItemLayoutHeight">50dp</dimen>
+
+
+
+
+
 
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
-    <dimen name="title_height">75dp</dimen>
-    <dimen name="head_height">310dp</dimen>
-    <string name="TextContent">测试内容测试内容测试内容测试内容测试
-        内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测
-        试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内
-        内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测
-        试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试
-        内内容测试测试内容测试内容测试内容测试内容测试内容测试内容测试内容测
-        试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试
-        内内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测
-        试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内
-        容测试内容内容测试内容测试内容测试内容测试内容测试内容测试内容测
-        测试测试内容测试内容测试内容测试内容测试内容测试内容测试内容测
-        试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试
-        内内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测
-        试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内
-        容测试内容内容测试内容测试内容测试内容测试内容测试内容测试内容测
-        试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内
-        测试测试内容测试内容测试内容测试内容测试内容测试内容测试内容测
-        试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试
-        内内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测
-        试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内
-        容测试内容内容测试内容测试内容测试内容测试内容测试内容测试内容测
-        试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内
-        测试测试内容测试内容测试内容测试内容测试内容测试内容测试内容测
-        试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试
-        内内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测
-        试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内
-        容测试内容内容测试内容测试内容测试内容测试内容测试内容测试内容测
-        试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内
-        试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内
-        容测试内容</string>
 
 </resources>

@@ -12,7 +12,6 @@ import rdc.bean.User;
 public interface IIndividualContract {
     interface View {
 
-        void  setUserInfo(User userInfo);
         void takePhoto(Uri uri);
         void openAlbum();
         void setPhotoImage();
@@ -23,13 +22,13 @@ public interface IIndividualContract {
         String getIntroduction();
         String getUniversity();
         void back();
+        void setOnError();
 
 
     }
 
 
     interface Model{
-        void getUserInfo(Presenter presenter);
         void updateUserWithAllFile(String imageUrl,String Photo,String name,String introduction,String university,Presenter presenter);
         void updateUserWithPhoto(String Photo,String name,String introduction,String university,Presenter presenter);
         void updateUserWithImage(String imageUrl,String name,String introduction,String university,Presenter presenter);
@@ -45,9 +44,8 @@ public interface IIndividualContract {
         void chooseAlbum();
         void setAlbumPhoto(Intent intent);
 
-        void  setUserInfo(User userInfo);
-        void getUserInfo();
         void back();
+        void onError();
 
 
     }
