@@ -69,7 +69,7 @@
 
     <dimen name="dimenCardViewMarginStartEnd">10dp</dimen>
     <dimen name="dimenCardViewMarginTopBottom">6dp</dimen>
-    <dimen name="dimenCardViewImageHeight">150dp</dimen>
+    <dimen name="dimenCardViewImageHeight">170dp</dimen>
     <dimen name="dimenCardViewTvMargin">10dp</dimen>
     <dimen name="dimenCardViewTextSize">18sp</dimen>
     <dimen name="dimenCardViewLittleTextSize">13sp</dimen>

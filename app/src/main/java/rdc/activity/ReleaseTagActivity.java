@@ -103,7 +103,7 @@ public class ReleaseTagActivity extends BaseActivity {
                     type = "公益";
                     break;
                 case 3:
-                    type = "户外活动";
+                    type = "运动";
                     break;
                 case 4:
                     type = "交友";

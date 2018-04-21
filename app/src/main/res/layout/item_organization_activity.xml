@@ -52,7 +52,7 @@
         <TextView
             android:id="@+id/tv_place"
             android:layout_width="0dp"
-            android:layout_height="14dp"
+            android:layout_height="wrap_content"
             android:layout_margin="@dimen/dimenCardViewMarginStartEnd"
             android:ellipsize="end"
             android:gravity="center_vertical"
