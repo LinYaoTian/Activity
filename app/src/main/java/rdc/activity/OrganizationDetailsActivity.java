@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -301,6 +302,12 @@ public class OrganizationDetailsActivity extends BaseActivity<OrganizationDetail
         bundle.putString("id",id);
         intent.putExtra("bundle", bundle);
         context.startActivity(intent);
+    }
+
+    @Override
+    public void setOnError() {
+        Toast.makeText(this,"获取数据失败!",Toast.LENGTH_SHORT).show();
+
     }
 
     @Override

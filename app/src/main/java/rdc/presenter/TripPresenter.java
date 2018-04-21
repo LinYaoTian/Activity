@@ -74,6 +74,10 @@ public class TripPresenter extends BasePresenter<ITripContract.View> implements 
     }
 
     @Override
+    public void onError() {
+        getMvpView().setOnError();
+    }
+    @Override
     public void getMyTripActivity() {
          mModel.getMyTripActivity(this);
     }

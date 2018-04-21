@@ -47,6 +47,10 @@ public class OrganizationDetailsPresenter extends BasePresenter<IOrganizationDet
     }
 
     @Override
+    public void onError() {
+        getMvpView().setOnError();
+    }
+    @Override
     public void getManagedActivity(String id ) {
          mModel.getManagedActivity(this,id);
     }

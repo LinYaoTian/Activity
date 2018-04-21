@@ -1,5 +1,8 @@
 package rdc.model;
 
+import android.util.Log;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
@@ -29,6 +32,9 @@ public class OrganizationDetailsModel implements IOrganizationDetailsContract.Mo
             public void done(List<Activity> list, BmobException e) {
                 if (e==null){
                     presenter.setManagedActivity(list);
+                }else {
+                    presenter.setManagedActivity(new ArrayList<Activity>());
+                    presenter.onError();
                 }
             }
         });

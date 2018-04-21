@@ -52,6 +52,11 @@ public class ManagedPresenter extends BasePresenter<IManagedContract.View> imple
     }
 
     @Override
+    public void onError() {
+        getMvpView().setOnError();
+    }
+
+    @Override
     public void getManagedActivity() {
          mModel.getManagedActivity(this);
     }

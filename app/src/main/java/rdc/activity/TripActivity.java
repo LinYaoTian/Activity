@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.joda.time.DateTime;
 
@@ -257,6 +258,12 @@ public class TripActivity extends BaseActivity<TripPresenter> implements ITripCo
     @Override
     public TripPresenter getInstance() {
         return new TripPresenter();
+    }
+
+    @Override
+    public void setOnError() {
+        Toast.makeText(this,"获取数据失败!", Toast.LENGTH_SHORT).show();
+
     }
 
     @Override

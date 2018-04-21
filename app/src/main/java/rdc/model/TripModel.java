@@ -1,12 +1,17 @@
 package rdc.model;
 
+import android.util.Log;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.datatype.BmobPointer;
+import cn.bmob.v3.datatype.BmobRelation;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
+import cn.bmob.v3.listener.UpdateListener;
 import rdc.bean.Activity;
 import rdc.bean.User;
 import rdc.contract.ITripContract;
@@ -28,6 +33,8 @@ public class TripModel implements ITripContract.Model {
                 if (e==null){
                     presenter.setTripActivity(list);
                 }else {
+                    presenter.setTripActivity(new ArrayList<Activity>());
+                    presenter.onError();
                 }
             }
         });
@@ -44,6 +51,8 @@ public class TripModel implements ITripContract.Model {
                 if (e==null){
                     presenter.setRecommenedTripActivity(list);
                 }else {
+                    presenter.setTripActivity(new ArrayList<Activity>());
+                    presenter.onError();
                 }
             }
         });

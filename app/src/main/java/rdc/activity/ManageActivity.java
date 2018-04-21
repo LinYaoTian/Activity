@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -127,6 +128,11 @@ public class ManageActivity extends BaseActivity<ManagedPresenter> implements IM
         mManagedActivityList.addAll(list);
         mAdapter.notifyDataSetChanged();
         LoadingDialogUtil.closeDialog(mLoadingDialog);
+    }
+
+    @Override
+    public void setOnError() {
+        Toast.makeText(this,"获取数据失败!",Toast.LENGTH_SHORT).show();
     }
 
     @Override
