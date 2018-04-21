@@ -35,6 +35,7 @@ import rdc.bean.Organization;
 import rdc.bean.User;
 import rdc.contract.DetailContract;
 import rdc.presenter.DetailPresenter;
+import rdc.util.ACacheUtil;
 import rdc.util.ShareUtil;
 import rdc.util.UserUtil;
 
@@ -70,6 +71,7 @@ public class DetailActivity extends BaseActivity<DetailPresenter> implements Det
     private boolean hasSignUp = false;
     private boolean hasFocus = false;
 //    private List<User> focusUserList;
+    private ACacheUtil mACacheUtil;
 
     @Override
     protected int setLayoutResID() {
@@ -82,6 +84,7 @@ public class DetailActivity extends BaseActivity<DetailPresenter> implements Det
         Intent intent = getIntent();
         objectId = intent.getStringExtra("objectId");
         presenter.getDetail(objectId);
+        mACacheUtil = ACacheUtil.get(getApplicationContext());
     }
 
     @Override
