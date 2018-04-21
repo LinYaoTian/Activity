@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -54,6 +55,7 @@ public class DetailActivity extends BaseActivity<DetailPresenter> implements Det
     @BindView(R.id.activity_detail_content_textView) TextView activity_detail_content_textView;
     @BindView(R.id.activity_detail_consult_textView) TextView activity_detail_consult_textView;
     @BindView(R.id.activity_detail_signUp_textView) TextView activity_detail_signUp_textView;
+    @BindView(R.id.activity_scrollView) ScrollView activity_rootView_scrollView;
     @BindView(R.id.toolbar) Toolbar mToolbar;
     private Activity activity;
     private String objectId;
@@ -86,8 +88,9 @@ public class DetailActivity extends BaseActivity<DetailPresenter> implements Det
 
     @OnClick(R.id.activity_detail_forward_imageView)
     public void onForward() {
-        ShareUtil.share(getSupportFragmentManager(), activity.getTitle() + "\n" + "时间 ： " + activity_detail_time_textView.getText().toString() +
-                "\n" + "地点 ： " + activity.getUniversity() + activity.getPlace());
+        showToast("生成图片中...");
+        Uri uri = ShareUtil.saveBitmap(ShareUtil.getBitmapByView(activity_rootView_scrollView),"share");
+        ShareUtil.share(getSupportFragmentManager(),"活动信息",uri);
     }
 
     @OnClick(R.id.activity_detail_consult_textView)

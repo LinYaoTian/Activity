@@ -19,5 +19,5 @@
         android:paddingEnd="@dimen/editTextPadding"
         android:paddingStart="@dimen/editTextPadding"
         android:textColor="@color/black"
-        android:textSize="@dimen/titleTextSize" />
+        android:textSize="@dimen/bigTextSize" />
 </LinearLayout>

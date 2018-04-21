@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
+import java.util.List;
+
 import butterknife.BindView;
 import rdc.avtivity.R;
 import rdc.base.BaseRecyclerViewAdapter;
@@ -22,6 +24,10 @@ import rdc.bean.Activity;
 public class ActivitiesRvAdapter extends BaseRecyclerViewAdapter<Activity> {
 
     private Context mContext;
+
+    public String getActivityObjectId(int position){
+        return mDataList.get(position).getObjectId();
+    }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

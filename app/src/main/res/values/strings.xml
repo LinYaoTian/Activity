@@ -20,6 +20,9 @@
 
     <!--TagsActivity-->
     <string name="my_tags">我的标签</string>
+    
+    <!--启动页-->
+    <string name="app_slogan">广州大学城\n校园活动平台</string>
 
     <!--登录-->
     <string name="login">登录</string>

@@ -24,7 +24,7 @@
         android:layout_centerVertical="true"
         android:layout_marginLeft="@dimen/dimenMarginLeft"
         android:layout_toRightOf="@+id/imv_image"
-        android:textSize="@dimen/dimenTextSize"
+        android:textSize="@dimen/bigTextSize"
         android:textColor="@color/white"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />

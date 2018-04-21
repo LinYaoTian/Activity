@@ -26,19 +26,18 @@ public class ItemTouchHelperCallback extends ItemTouchHelper.Callback {
 
     @Override
     public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+        //RecyclerView上下滑动时通知RecyclerViewAdapter里的数据源同步改变
         mAdapter.onItemMove(viewHolder.getAdapterPosition(), target.getAdapterPosition());
         return true;
     }
 
-    @Override
-    public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
-        mAdapter.onItemDismiss(viewHolder.getAdapterPosition());
-    }
+
 
     @Override
     public void onSelectedChanged(RecyclerView.ViewHolder viewHolder, int actionState) {
         if (actionState != ItemTouchHelper.ACTION_STATE_IDLE) {
             if (viewHolder instanceof IItemTouchHelperViewHolder) {
+                //当Item被选中时改变其Z轴高度
                 IItemTouchHelperViewHolder itemTouchHelperViewHolder =
                         (IItemTouchHelperViewHolder) viewHolder;
                 itemTouchHelperViewHolder.onItemSelected();
@@ -51,6 +50,7 @@ public class ItemTouchHelperCallback extends ItemTouchHelper.Callback {
     public void clearView(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
         super.clearView(recyclerView, viewHolder);
         if (viewHolder instanceof IItemTouchHelperViewHolder) {
+            //当Item被释放时回复其原本的Z轴高度
             IItemTouchHelperViewHolder itemTouchHelperViewHolder =
                     (IItemTouchHelperViewHolder) viewHolder;
             itemTouchHelperViewHolder.onItemClear();
@@ -59,7 +59,12 @@ public class ItemTouchHelperCallback extends ItemTouchHelper.Callback {
 
     @Override
     public boolean isItemViewSwipeEnabled() {
-        return true;
+        return false;
+    }
+
+    @Override
+    public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+
     }
 
     @Override

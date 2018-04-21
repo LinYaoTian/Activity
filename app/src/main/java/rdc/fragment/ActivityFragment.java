@@ -16,6 +16,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import butterknife.BindView;
+import rdc.activity.DetailActivity;
 import rdc.activity.MainActivity;
 import rdc.adapter.ActivitiesRvAdapter;
 import rdc.avtivity.R;
@@ -124,7 +125,7 @@ public class ActivityFragment extends BaseLazyLoadFragment<ActivityFragmentPrese
         mActivityListAdapter.setOnRecyclerViewListener(new OnClickRecyclerViewListener() {
             @Override
             public void onItemClick(int position) {
-
+                DetailActivity.actionStart(mBaseActivity,mActivityListAdapter.getActivityObjectId(position));
             }
 
             @Override

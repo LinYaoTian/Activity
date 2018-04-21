@@ -8,7 +8,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
-        android:textSize="@dimen/inputTextSize"
+        android:textSize="@dimen/middleTextSize"
         android:text="@string/none"
         android:id="@+id/tv_no_data_layout_none"/>
 

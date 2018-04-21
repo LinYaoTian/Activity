@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.ResolveInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialogFragment;
@@ -28,9 +29,17 @@ public class ShareFragment extends BottomSheetDialogFragment {
     private List<ShareItem> mShareList;
     private Context mContext;
     private static String mTitle;
+    private static Uri mImageUri;
 
-    public static ShareFragment getInstance(String title) {
+    /**
+     * 获取 ShareFragment 实例
+     * @param title 分享的标题
+     * @param uri 需要分享的图片的Uri
+     * @return ShareFragment
+     */
+    public static ShareFragment getInstance(String title, Uri uri) {
         mTitle = title;
+        mImageUri = uri;
         return new ShareFragment();
     }
 
@@ -52,10 +61,11 @@ public class ShareFragment extends BottomSheetDialogFragment {
             @Override
             public void OnClick(int position) {
                 Intent intent = new Intent(Intent.ACTION_SEND);
-                intent.putExtra(Intent.EXTRA_TEXT, "活动信息：" + "\n" + mTitle + "\n" + "(来自活动plus APP)");
-                intent.setType("text/plain");
+                intent.putExtra(Intent.EXTRA_STREAM, mImageUri);
+                intent.setType("image/*");
                 ActivityInfo activityInfo = mShareResolveInfoList.get(position).activityInfo;
                 intent.setClassName(activityInfo.packageName, activityInfo.name);
+                intent.putExtra(Intent.EXTRA_TITLE, mTitle);
                 startActivity(intent);
                 dismiss();
             }

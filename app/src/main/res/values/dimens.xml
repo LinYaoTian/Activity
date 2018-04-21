@@ -11,8 +11,8 @@
     <dimen name="editTextMargin">20dp</dimen>
     <dimen name="editTextPadding">10dp</dimen>
     <dimen name="editTextHeight">55dp</dimen>
-    <dimen name="titleTextSize">18sp</dimen>
-    <dimen name="inputTextSize">15sp</dimen>
+    <dimen name="bigTextSize">18sp</dimen>
+    <dimen name="middleTextSize">15sp</dimen>
     <dimen name="textInputLayoutHeight">75dp</dimen>
     <dimen name="dimenTextSize">20sp</dimen>
     <dimen name="dimenMarginStart">40dp</dimen>

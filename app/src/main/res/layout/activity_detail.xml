@@ -80,7 +80,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/toolbar"
-        android:layout_above="@id/activity_detail_signUp_linearLayout">
+        android:layout_above="@id/activity_detail_signUp_linearLayout"
+        android:id="@+id/activity_scrollView"
+        android:background="@color/white">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -89,7 +91,8 @@
             <ImageView
                 android:id="@+id/activity_detail_poster_imageView"
                 android:layout_width="match_parent"
-                android:layout_height="230dp"/>
+                android:layout_height="230dp"
+                android:scaleType="centerCrop"/>
 
             <LinearLayout
                 android:layout_width="match_parent"

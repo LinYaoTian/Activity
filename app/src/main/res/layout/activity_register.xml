@@ -40,7 +40,7 @@
         android:hint="@string/accountName"
         android:inputType="textPersonName"
         android:textColor="@color/black"
-        android:textSize="@dimen/titleTextSize"
+        android:textSize="@dimen/bigTextSize"
         android:singleLine="true"
         tools:ignore="TextFields"
         android:maxLength="10"/>
@@ -70,7 +70,7 @@
             android:gravity="center_vertical|start"
             android:hint="@string/university"
             android:textColor="@color/black"
-            android:textSize="@dimen/titleTextSize"
+            android:textSize="@dimen/bigTextSize"
             android:singleLine="true"
             tools:ignore="Deprecated,TextFields"
             android:focusable="false"/>
@@ -100,7 +100,7 @@
         android:gravity="center_vertical|start"
         android:hint="@string/account_number"
         android:textColor="@color/black"
-        android:textSize="@dimen/titleTextSize"
+        android:textSize="@dimen/bigTextSize"
         android:singleLine="true"
         tools:ignore="TextFields" />
 
@@ -130,7 +130,7 @@
         android:hint="@string/password"
         android:inputType="textPassword"
         android:textColor="@color/black"
-        android:textSize="@dimen/titleTextSize"
+        android:textSize="@dimen/bigTextSize"
         android:singleLine="true"
         android:maxLength="16" />
 
@@ -159,7 +159,7 @@
         android:layout_marginTop="@dimen/editTextMargin"
         android:text="@string/register"
         android:textColor="@color/white"
-        android:textSize="@dimen/titleTextSize"
+        android:textSize="@dimen/bigTextSize"
         android:background="@drawable/bg_state_login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
