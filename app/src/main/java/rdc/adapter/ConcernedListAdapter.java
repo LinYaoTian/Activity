@@ -2,6 +2,7 @@ package rdc.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import de.hdodenhof.circleimageview.CircleImageView;
 import rdc.avtivity.R;
 import rdc.bean.Organization;
 
@@ -87,7 +89,7 @@ public class ConcernedListAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     class ViewHolder extends RecyclerView.ViewHolder{
         @BindView(R.id.imv_image)
-        ImageView mImage;
+        CircleImageView mImage;
         @BindView(R.id.tv_name)
         TextView mName;
         @BindView(R.id.tv_message)

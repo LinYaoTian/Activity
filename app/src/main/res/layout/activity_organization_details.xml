@@ -16,7 +16,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <LinearLayout
+            <RelativeLayout
+                android:descendantFocusability="blocksDescendants"
                 android:focusable="true"
                 android:focusableInTouchMode="true"
                 android:paddingTop="@dimen/dimenLayoutHeight"
@@ -26,11 +27,11 @@
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rv_organization"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="wrap_content">
 
 
                 </android.support.v7.widget.RecyclerView>
-            </LinearLayout>
+            </RelativeLayout>
 
         </rdc.widget.ObservableScrollView>
     </LinearLayout>

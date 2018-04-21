@@ -11,6 +11,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
@@ -224,6 +225,7 @@ public class OrganizationDetailsActivity extends BaseActivity<OrganizationDetail
         mACacheUtil.put(mId, (ArrayList) list);//缓存
         mActivities.addAll(list);
         mAdapter.notifyDataSetChanged();
+
         LoadingDialogUtil.closeDialog(mLoadingDialog);
     }
     //初始个人主页的信息

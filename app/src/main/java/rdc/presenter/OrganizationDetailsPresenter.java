@@ -1,5 +1,7 @@
 package rdc.presenter;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,6 +45,8 @@ public class OrganizationDetailsPresenter extends BasePresenter<IOrganizationDet
             organizationActivity.setType(sACTIVITY);
             organizationActivities.add(organizationActivity);
         }
+        Log.e("TAG", "setManagedActivity: "+organizationActivities.size() );
+
         getMvpView().setManagedActivity(organizationActivities);
     }
 
