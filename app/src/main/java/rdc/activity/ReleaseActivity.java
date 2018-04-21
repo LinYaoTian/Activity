@@ -133,8 +133,8 @@ public class ReleaseActivity extends BaseActivity<ReleasePresenter> implements R
                 Toast.makeText(this, "请填写完整的内容 ！ " , Toast.LENGTH_SHORT).show();
             }else {
                 presenter.release();
+                showProgressDialog();
             }
-            showProgressDialog();
         }else {
             Toast.makeText(this, "请添加活动海报！" , Toast.LENGTH_SHORT).show();
         }
