@@ -33,6 +33,9 @@ public class ImageUtil {
                    .compress(callback);
     }
 
+    /**
+     * 从相册选择照片
+     */
     public static void gallery(AppCompatActivity activity, Uri imageUri) {
         File outputImage = new File(Environment.getExternalStorageDirectory().getPath(),"cccc.jpg");
         try {
@@ -50,12 +53,18 @@ public class ImageUtil {
         activity.startActivityForResult(intent, CUT_GALLERY_PICTURE);
     }
 
+    /**
+     * 拍照
+     */
     public static void camera(AppCompatActivity activity, Uri imageUri) {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
         activity.startActivityForResult(intent, CUT_CAMERA_PICTURE);
     }
 
+    /**
+     * 裁剪图片
+     */
     public static void cropImageUri(AppCompatActivity activity, Uri uri, Uri imageUri, int outputX, int outputY, int requestCode){
         Intent intent = new Intent("com.android.camera.action.CROP");
         intent.setDataAndType(uri, "image/*");

@@ -29,7 +29,7 @@
                 android:textSize="20sp" />
 
             <TextView
-                android:id="@+id/activity_release_release_textView"
+                android:id="@+id/tv_release_release"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
@@ -60,15 +60,16 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/activity_release_poster_imageView"
+                android:id="@+id/iv_poster_release"
                 android:layout_width="match_parent"
-                android:layout_height="230dp"
-                android:src="@drawable/ic_add_a_photo_gery_230dp" />
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_add_a_photo_gery_230dp"
+                android:adjustViewBounds="true"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/activity_release_poster_imageView"
+                android:layout_below="@id/iv_poster_release"
                 android:orientation="vertical">
 
                 <TextView
@@ -96,7 +97,7 @@
                         android:textSize="15sp" />
 
                     <EditText
-                        android:id="@+id/activity_release_theme_editText"
+                        android:id="@+id/et_theme_release"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -136,7 +137,7 @@
                         android:textSize="15sp" />
 
                     <TextView
-                        android:id="@+id/activity_release_time_start_textView"
+                        android:id="@+id/tv_time_start_release"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="4"
@@ -155,7 +156,7 @@
                         android:textSize="15sp" />
 
                     <TextView
-                        android:id="@+id/activity_release_time_end_textView"
+                        android:id="@+id/tv_time_end_release"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="20dp"
@@ -192,7 +193,7 @@
                         android:textSize="15sp" />
 
                     <TextView
-                        android:id="@+id/activity_release_university_textView2"
+                        android:id="@+id/tv_university2_release"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -233,7 +234,7 @@
                         android:textSize="15sp" />
 
                     <EditText
-                        android:id="@+id/activity_release_place_editText"
+                        android:id="@+id/et_place_release"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -274,7 +275,7 @@
                         android:textSize="15sp" />
 
                     <TextView
-                        android:id="@+id/activity_release_tag_textView2"
+                        android:id="@+id/tv_tag2_release"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -304,7 +305,7 @@
                     android:background="@color/lightGray" />
 
                 <EditText
-                    android:id="@+id/activity_release_content_editText"
+                    android:id="@+id/rt_content_release"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"

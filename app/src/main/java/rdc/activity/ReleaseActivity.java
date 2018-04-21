@@ -1,6 +1,7 @@
 package rdc.activity;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -18,6 +19,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
@@ -28,8 +30,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.zxy.tiny.callback.FileCallback;
 
 import java.io.FileNotFoundException;
 import java.text.ParseException;
@@ -47,10 +47,7 @@ import rdc.contract.ReleaseContract;
 import rdc.presenter.ReleasePresenter;
 import rdc.util.ACacheUtil;
 import rdc.util.CustomDatePicker;
-import rdc.util.ImageUtil;
 import rdc.util.LoadingDialogUtil;
-import rdc.util.UniversityUtils;
-import rdc.util.UserUtil;
 
 import static rdc.util.ImageUtil.camera;
 import static rdc.util.ImageUtil.cropImageUri;
@@ -63,15 +60,15 @@ import static rdc.util.ImageUtil.gallery;
 public class ReleaseActivity extends BaseActivity<ReleasePresenter> implements ReleaseContract.IView, View.OnClickListener {
 
     private String TAG = "ReleaseActivity";
-    @BindView(R.id.activity_release_poster_imageView) ImageView activity_release_poster_imageView;
-    @BindView(R.id.activity_release_release_textView) TextView activity_release_release_textView;
-    @BindView(R.id.activity_release_theme_editText) EditText activity_release_theme_editText;
-    @BindView(R.id.activity_release_place_editText) EditText activity_release_place_editText;
-    @BindView(R.id.activity_release_time_start_textView) TextView activity_release_time_start_textView;
-    @BindView(R.id.activity_release_time_end_textView) TextView activity_release_time_end_textView;
-    @BindView(R.id.activity_release_university_textView2) TextView activity_release_university_textView2;
-    @BindView(R.id.activity_release_tag_textView2) TextView activity_release_tag_textView2;
-    @BindView(R.id.activity_release_content_editText) EditText activity_release_content_editText;
+    @BindView(R.id.iv_poster_release) ImageView activity_release_poster_imageView;
+    @BindView(R.id.tv_release_release) TextView activity_release_release_textView;
+    @BindView(R.id.et_theme_release) EditText activity_release_theme_editText;
+    @BindView(R.id.et_place_release) EditText activity_release_place_editText;
+    @BindView(R.id.tv_time_start_release) TextView activity_release_time_start_textView;
+    @BindView(R.id.tv_time_end_release) TextView activity_release_time_end_textView;
+    @BindView(R.id.tv_university2_release) TextView activity_release_university_textView2;
+    @BindView(R.id.tv_tag2_release) TextView activity_release_tag_textView2;
+    @BindView(R.id.rt_content_release) EditText activity_release_content_editText;
     @BindView(R.id.toolbar) Toolbar mToolbar;
 
     private Dialog mDialog;
@@ -97,30 +94,31 @@ public class ReleaseActivity extends BaseActivity<ReleasePresenter> implements R
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.activity_release_release_textView:
+            case R.id.tv_release_release:
                 release();
-//                Intent detailIntent = new Intent(ReleaseActivity.this, DetailActivity.class);
-//                detailIntent.putExtra("objectId", "f345f2ecdf");
-//                startActivity(detailIntent);
+//                DetailActivity.actionStart(this, "TnBzaaau");
                 break;
-            case R.id.activity_release_poster_imageView:
+            case R.id.iv_poster_release:
                 showDialog();
                 break;
-            case R.id.activity_release_time_start_textView:
+            case R.id.tv_time_start_release:
                 showTime(activity_release_time_start_textView);
                 break;
-            case R.id.activity_release_time_end_textView:
+            case R.id.tv_time_end_release:
                 showTime(activity_release_time_end_textView);
                 break;
-            case R.id.activity_release_university_textView2:
+            case R.id.tv_university2_release:
                 chooseUniversity();
                 break;
-            case R.id.activity_release_tag_textView2:
+            case R.id.tv_tag2_release:
                 Intent intent = new Intent(ReleaseActivity.this, ReleaseTagActivity.class);
                 startActivityForResult(intent, SELECT_TAG);
         }
     }
 
+    /**
+     * 发布活动
+     */
     private void release() {
         if (hasPicture) {
             if (TextUtils.isEmpty(activity_release_theme_editText.getText()) || TextUtils.isEmpty(activity_release_time_start_textView.getText()) ||
@@ -138,6 +136,10 @@ public class ReleaseActivity extends BaseActivity<ReleasePresenter> implements R
 
     }
 
+    /**
+     * 时间选择控件初始化
+     * @param v
+     */
     private void showTime(final TextView v) {
         timePicker = new CustomDatePicker(this, "请选择时间", new CustomDatePicker.ResultHandler() {
             @Override
@@ -150,6 +152,9 @@ public class ReleaseActivity extends BaseActivity<ReleasePresenter> implements R
         timePicker.show(currentTime);
     }
 
+    /**
+     * 选择大学
+     */
     private void chooseUniversity() {
         final String [] schoolArray = {
                 "广东工业大学","华南理工大学",
@@ -177,16 +182,31 @@ public class ReleaseActivity extends BaseActivity<ReleasePresenter> implements R
         dialog.getWindow().setContentView(view1);
     }
 
+    /**
+     * 初始化数据
+     */
     @Override
     protected void initData() {
         mACacheUtil = ACacheUtil.get(getApplicationContext());
     }
 
+    /**
+     * 初始化界面
+     */
     @Override
     protected void initView() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.CHINA);
         currentTime = sdf.format(new Date());
         initToolBar();
+
+        WindowManager wm = (WindowManager) this.getSystemService(Context.WINDOW_SERVICE);
+        int screenWidth  = wm.getDefaultDisplay().getWidth();
+        ViewGroup.LayoutParams lp = activity_release_poster_imageView.getLayoutParams();
+        lp.width = screenWidth;
+        lp.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+        activity_release_poster_imageView.setLayoutParams(lp);
+        activity_release_poster_imageView.setMaxWidth(screenWidth);
+        activity_release_poster_imageView.setMaxHeight((int)(screenWidth * 0.7));
     }
 
     @Override
@@ -201,6 +221,9 @@ public class ReleaseActivity extends BaseActivity<ReleasePresenter> implements R
         Toast.makeText(this, "发布失败" + message, Toast.LENGTH_SHORT).show();
     }
 
+    /**
+     * 选择照片的dialog
+     */
     public void showDialog() {
         mDialog = new Dialog(ReleaseActivity.this, R.style.ActionSheetDialogStyle);
         View inflate = LayoutInflater.from(this).inflate(R.layout.dialog_select_photo, null);
@@ -243,6 +266,12 @@ public class ReleaseActivity extends BaseActivity<ReleasePresenter> implements R
         mDialog.show();
     }
 
+    /**
+     * 拍摄照片/相册选择照片/裁剪/选择Tag的返回
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
@@ -275,6 +304,9 @@ public class ReleaseActivity extends BaseActivity<ReleasePresenter> implements R
         }
     }
 
+    /**
+     * 初始化监听器
+     */
     @Override
     protected void initListener() {
         activity_release_release_textView.setOnClickListener(this);
@@ -311,6 +343,9 @@ public class ReleaseActivity extends BaseActivity<ReleasePresenter> implements R
         return new ReleasePresenter();
     }
 
+    /**
+     * 以下看函数名就知道干嘛用的
+     */
     @Override
     public String getImagePath() {
         return IMAGE_FILE_LOCATION;
