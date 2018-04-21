@@ -78,4 +78,5 @@
     <string name="deleteWarning">删除后不可恢复！</string>
     <string name="takephoto">拍照</string>
     <string name="chooseablum">从相册选择</string>
+    <string name="string">返回</string>
 </resources>

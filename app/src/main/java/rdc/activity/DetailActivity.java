@@ -271,6 +271,9 @@ public class DetailActivity extends BaseActivity<DetailPresenter> implements Det
     @Override
     public void onError(String errMeg) {
         Log.d(TAG, "获取活动详情错误， " + errMeg);
+        if (errMeg.substring(0,16).equals("object not found")){
+            showConfirmDialog();
+        }
         Toast.makeText(this, "抱歉，遇到了一个预料之外的错误！", Toast.LENGTH_SHORT).show();
         dismissProgressDialog();
     }

@@ -146,7 +146,9 @@ public class ConcernedActivity extends BaseActivity<ConcernedPresenter> implemen
 
     @Override
     public void setOnError() {
-        Toast.makeText(this,"获取数据失败!",Toast.LENGTH_SHORT);
+        LoadingDialogUtil.closeDialog(mDialog);
+
+        Toast.makeText(this,"获取数据失败!",Toast.LENGTH_SHORT).show();
     }
 
 

@@ -19,9 +19,10 @@
             android:paddingRight="@dimen/dimenImvPadding"
             android:src="@drawable/iv_back" />
         <TextView
+            android:paddingTop="25dp"
+            android:text="@string/string"
             android:textColor="@color/color_white"
             android:id="@+id/tv_title"
-            android:layout_marginLeft="@dimen/dimenMarginStart"
             android:textSize="@dimen/dimenLargeTextSize"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />

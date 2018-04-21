@@ -306,6 +306,8 @@ public class OrganizationDetailsActivity extends BaseActivity<OrganizationDetail
 
     @Override
     public void setOnError() {
+        LoadingDialogUtil.closeDialog(mLoadingDialog);
+
         Toast.makeText(this,"获取数据失败!",Toast.LENGTH_SHORT).show();
 
     }
