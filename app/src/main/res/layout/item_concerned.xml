@@ -11,7 +11,6 @@
         android:layout_height="@dimen/dimenItemContentHeight">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:scaleType="fitXY"
 
             android:id="@+id/imv_image"
             android:layout_width="@dimen/dimenImageSize"
