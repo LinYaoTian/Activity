@@ -80,7 +80,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/toolbar"
-        android:layout_above="@id/activity_detail_signUp_linearLayout">
+        android:layout_above="@id/activity_detail_signUp_linearLayout"
+        android:id="@+id/activity_detail_scrollView">
 
         <RelativeLayout
             android:layout_width="match_parent"

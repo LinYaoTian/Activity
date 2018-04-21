@@ -11,6 +11,8 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
@@ -64,7 +66,7 @@ public class DetailActivity extends BaseActivity<DetailPresenter> implements Det
     @BindView(R.id.tv_consult_detail) TextView activity_detail_consult_textView;
     @BindView(R.id.tv_signUp_detail) TextView activity_detail_signUp_textView;
     @BindView(R.id.toolbar) Toolbar mToolbar;
-    @BindView(R.id.activity_scrollView)
+    @BindView(R.id.activity_detail_scrollView)
     ScrollView activity_rootView_scrollView;
     private Activity activity;
     private String objectId;
@@ -118,8 +120,8 @@ public class DetailActivity extends BaseActivity<DetailPresenter> implements Det
      */
     @OnClick(R.id.iv_forward_detail)
     public void onForward() {
-        ShareUtil.share(getSupportFragmentManager(), activity.getTitle() + "\n" + "时间 ： " + activity_detail_time_textView.getText().toString() +
-                "\n" + "地点 ： " + activity.getUniversity() + activity.getPlace());
+        Uri uri = ShareUtil.saveBitmap(ShareUtil.getBitmapByView(activity_rootView_scrollView),"share");
+        ShareUtil.share(getSupportFragmentManager(),"活动信息",uri);
     }
 
     /**
