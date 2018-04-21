@@ -9,6 +9,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +32,8 @@ public class ManageActivity extends BaseActivity<ManagedPresenter> implements IM
     RecyclerView mActivityRecyclerView;
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
+
+
     private List<ManagedActivity> mManagedActivityList;
     private ManagedAdapter mAdapter;
     private Dialog mLoadingDialog;
@@ -67,7 +72,7 @@ public class ManageActivity extends BaseActivity<ManagedPresenter> implements IM
           mAdapter.setOnClickListener(new ManagedAdapter.OnClickListener() {
               @Override
               public void click(ManagedActivity activity) {
-                    DetailActivity.actionStart(ManageActivity.this,activity.getId());
+                  CheckManagedActivity.actionStart(ManageActivity.this,activity.getId());
               }
           });
     }
@@ -98,7 +103,7 @@ public class ManageActivity extends BaseActivity<ManagedPresenter> implements IM
 
     @Override
     public void setManagedActivity(List<ManagedActivity> list) {
-        mACacheUtil.put("manage",(ArrayList)list);
+        mACacheUtil.put("manage",(ArrayList)list,5*60);
         mManagedActivityList.clear();
         mManagedActivityList.addAll(list);
         mAdapter.notifyDataSetChanged();

@@ -72,7 +72,7 @@ public class TripActivity extends BaseActivity<TripPresenter> implements ITripCo
     @Override
     protected void initData() {
         mTripList = new ArrayList<>();
-        mAdapter = new TripListRvAdapter(mTripList);
+        mAdapter = new TripListRvAdapter(mTripList,this);
         mDateTime = new DateTime();
         mACacheUtil = ACacheUtil.get(getApplicationContext());
 

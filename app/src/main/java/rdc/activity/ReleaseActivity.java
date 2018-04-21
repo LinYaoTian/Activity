@@ -43,6 +43,7 @@ import rdc.avtivity.R;
 import rdc.base.BaseActivity;
 import rdc.contract.ReleaseContract;
 import rdc.presenter.ReleasePresenter;
+import rdc.util.ACacheUtil;
 import rdc.util.CustomDatePicker;
 import rdc.util.LoadingDialogUtil;
 import rdc.util.UniversityUtils;
@@ -82,6 +83,7 @@ public class ReleaseActivity extends BaseActivity<ReleasePresenter> implements R
     private CustomDatePicker timePicker;
     private String currentTime;
     private Dialog mUpLoadingDialog;
+    private ACacheUtil mACacheUtil;
 
     @Override
     protected int setLayoutResID() {
@@ -173,6 +175,7 @@ public class ReleaseActivity extends BaseActivity<ReleasePresenter> implements R
 
     @Override
     protected void initData() {
+        mACacheUtil = ACacheUtil.get(getApplicationContext());
     }
 
     @Override
@@ -185,6 +188,7 @@ public class ReleaseActivity extends BaseActivity<ReleasePresenter> implements R
     @Override
     public void onSuccess() {
         Toast.makeText(this, "发布成功！" , Toast.LENGTH_SHORT).show();
+        mACacheUtil.clear();
         finish();
     }
 

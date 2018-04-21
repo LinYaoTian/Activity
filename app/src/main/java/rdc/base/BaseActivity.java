@@ -26,11 +26,13 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
         if (presenter!=null){
             presenter.attachView(this);
         }
-        setContentView(setLayoutResID());
-        ButterKnife.bind(this);
-        initData();
-        initView();
-        initListener();
+
+          setContentView(setLayoutResID());
+          ButterKnife.bind(this);
+          initData();
+          initView();
+          initListener();
+
     }
 
     @Override

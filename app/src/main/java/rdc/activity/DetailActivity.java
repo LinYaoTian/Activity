@@ -1,9 +1,12 @@
 package rdc.activity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
@@ -16,20 +19,24 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.datatype.BmobRelation;
 import rdc.avtivity.R;
 import rdc.base.BaseActivity;
+import rdc.base.BasePresenter;
 import rdc.bean.Activity;
 import rdc.bean.Organization;
 import rdc.bean.User;
 import rdc.contract.DetailContract;
 import rdc.presenter.DetailPresenter;
 import rdc.util.ShareUtil;
+import rdc.util.UserUtil;
 
 /**
  * Created by WaxBerry on 2018/4/13.
@@ -55,7 +62,8 @@ public class DetailActivity extends BaseActivity<DetailPresenter> implements Det
     @BindView(R.id.activity_detail_content_textView) TextView activity_detail_content_textView;
     @BindView(R.id.activity_detail_consult_textView) TextView activity_detail_consult_textView;
     @BindView(R.id.activity_detail_signUp_textView) TextView activity_detail_signUp_textView;
-    @BindView(R.id.activity_scrollView) ScrollView activity_rootView_scrollView;
+    @BindView(R.id.activity_scrollView)
+    ScrollView activity_rootView_scrollView;
     @BindView(R.id.toolbar) Toolbar mToolbar;
     private Activity activity;
     private String objectId;
@@ -208,7 +216,8 @@ public class DetailActivity extends BaseActivity<DetailPresenter> implements Det
     @Override
     public void onError(String errMeg) {
         Log.d(TAG, "获取活动详情错误， " + errMeg);
-        Toast.makeText(this, "抱歉，遇到了一个预料之外的错误！" , Toast.LENGTH_SHORT).show();
+        showConfirmDialog();
+        Toast.makeText(this, "抱歉，遇到了一个预料之外的错误！", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -240,12 +249,13 @@ public class DetailActivity extends BaseActivity<DetailPresenter> implements Det
             activity_detail_add_textView.setText("关注");
             activity_detail_add_textView.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.ic_add_blue_24dp, 0);
             hasFocus = false;
-            Toast.makeText(this, "取消关注成功" , Toast.LENGTH_SHORT).show();
-        }else {
+            Toast.makeText(this, "取消关注成功", Toast.LENGTH_SHORT).show();
+        } else {
             activity_detail_add_textView.setText("已关注");
             activity_detail_add_textView.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.ic_check_blue_24dp, 0);
             hasFocus = true;
-            Toast.makeText(this, "关注成功" , Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "关注成功", Toast.LENGTH_SHORT).show();
+            mACacheUtil.clear();
         }
     }
 
@@ -273,6 +283,24 @@ public class DetailActivity extends BaseActivity<DetailPresenter> implements Det
             actionBar.setDisplayShowTitleEnabled(false);
         }
     }
+
+    public void showConfirmDialog() {
+        View view = getLayoutInflater().inflate(R.layout.dialog_detial_delete, null);
+
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setTitle("抱歉！")//设置对话框的标题
+                .setView(view)
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        finish();
+
+                    }
+                }).create();
+        dialog.show();
+    }
+
 
     @Override
     public DetailPresenter getInstance() {
