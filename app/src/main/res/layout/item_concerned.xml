@@ -10,8 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimenItemContentHeight">
 
-        <ImageView
-            android:scaleType="fitXY"
+        <de.hdodenhof.circleimageview.CircleImageView
+
 
             android:id="@+id/imv_image"
             android:layout_width="@dimen/dimenImageSize"

@@ -17,6 +17,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -248,18 +249,19 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         ImageView photo = view.findViewById(R.id.imv_photo);
         User user = BmobUser.getCurrentUser(User.class);
         name.setText(user.getNickname());
-        introduction.setText(user.getIntroduction());
-        if (user.getUserImg() == null) {
+        introduction.setText(!TextUtils.isEmpty(user.getIntroduction())==true?user.getIntroduction():"暂无个人简介");
+        if (TextUtils.isEmpty(user.getUserImg().getUrl())) {//为空就设置默认图片
             Glide.with(this).load(R.drawable.iv_app_ic_blue).into(image);
 
         } else {
             Glide.with(this).load(user.getUserImg().getUrl()).into(image);
         }
 
-        if (user.getUserPhoto() != null) {
-            Glide.with(this).load(user.getUserPhoto().getUrl()).into(photo);
-        } else {
+        if (TextUtils.isEmpty(user.getUserPhoto().getUrl())) {//为空就设置默认图片
             Glide.with(this).load(R.drawable.iv_cover_launch).into(photo);
+
+        } else {
+            Glide.with(this).load(user.getUserPhoto().getUrl()).into(photo);
 
         }
     }
