@@ -349,19 +349,19 @@ public class IndividualActivity extends BaseActivity<IndividualPresenter> implem
     private void initUserInfo() {
         User user = User.getCurrentUser(User.class);
         mNameTextView.setText(user.getNickname());
-        mIntroductionTextView.setText(user.getIntroduction());
+        mIntroductionTextView.setText(!TextUtils.isEmpty(user.getIntroduction())==true?user.getIntroduction():"暂无个人简介");
         mUniversityTextView.setText(user.getUniversity());
-        if (user.getUserImg() == null) {//为空就设置默认图片
+        if (TextUtils.isEmpty(user.getUserImg().getUrl())) {//为空就设置默认图片
             Glide.with(this).load(R.drawable.iv_app_ic_blue).into(mImageView);
 
         } else {
             Glide.with(this).load(user.getUserImg().getUrl()).into(mImageView);
         }
-
-        if (user.getUserPhoto() != null) {//为空就设置默认图片
-            Glide.with(this).load(user.getUserPhoto().getUrl()).into(mPhotoView);
-        } else {
+        if (TextUtils.isEmpty(user.getUserPhoto().getUrl())) {//为空就设置默认图片
             Glide.with(this).load(R.drawable.iv_cover_launch).into(mPhotoView);
+
+        } else {
+            Glide.with(this).load(user.getUserPhoto().getUrl()).into(mPhotoView);
 
         }
     }
