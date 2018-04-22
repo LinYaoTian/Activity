@@ -49,7 +49,10 @@ public class ConcernedPresenter extends BasePresenter<IConcernedContract.View> i
             organizations.add(organization);
 
         }
-        getMvpView().setOrganization(organizations);
+        if (isAttachView()){
+            getMvpView().setOrganization(organizations);
+
+        }
     }
 
     @Override

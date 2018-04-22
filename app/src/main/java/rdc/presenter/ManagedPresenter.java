@@ -48,12 +48,18 @@ public class ManagedPresenter extends BasePresenter<IManagedContract.View> imple
             activity.setType(sEMPTY);
             managedActivities.add(activity);
         }
-        getMvpView().setManagedActivity(managedActivities);
+        if (isAttachView()){
+            getMvpView().setManagedActivity(managedActivities);
+
+        }
     }
 
     @Override
     public void onError() {
-        getMvpView().setOnError();
+        if (isAttachView()){
+            getMvpView().setOnError();
+
+        }
     }
 
     @Override

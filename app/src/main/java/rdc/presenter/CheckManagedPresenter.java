@@ -29,7 +29,10 @@ public class CheckManagedPresenter extends BasePresenter<ICheckManagedContract.I
 
     @Override
     public void setDetailAttcipator(List<User> userList) {
-        getMvpView().setDetailAttcipator(userList);
+        if (isAttachView()){
+            getMvpView().setDetailAttcipator(userList);
+
+        }
     }
 
     @Override

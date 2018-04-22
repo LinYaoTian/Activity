@@ -42,7 +42,9 @@ public class TripPresenter extends BasePresenter<ITripContract.View> implements 
             activityList.add(trip);
 
         }
-        getMvpView().setTripActivity(activityList);
+if (isAttachView()){
+    getMvpView().setTripActivity(activityList);
+}
     }
     /**
      * 在这里进行类型的转换
@@ -65,7 +67,10 @@ public class TripPresenter extends BasePresenter<ITripContract.View> implements 
             activityList.add(trip);
 
         }
-        getMvpView().setRecommenedTripActivity(activityList);
+        if (isAttachView()){
+            getMvpView().setRecommenedTripActivity(activityList);
+
+        }
     }
 
     @Override
@@ -75,7 +80,9 @@ public class TripPresenter extends BasePresenter<ITripContract.View> implements 
 
     @Override
     public void onError() {
-        getMvpView().setOnError();
+        if (isAttachView()){
+            getMvpView().setOnError();
+        }
     }
     @Override
     public void getMyTripActivity() {

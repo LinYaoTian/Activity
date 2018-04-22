@@ -45,8 +45,10 @@ public class OrganizationDetailsPresenter extends BasePresenter<IOrganizationDet
             organizationActivity.setType(sACTIVITY);
             organizationActivities.add(organizationActivity);
         }
+if (isAttachView()){
+    getMvpView().setManagedActivity(organizationActivities);
 
-        getMvpView().setManagedActivity(organizationActivities);
+}
     }
 
     @Override

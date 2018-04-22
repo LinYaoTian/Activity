@@ -31,13 +31,19 @@ public class IndividualPresenter extends BasePresenter<IIndividualContract.View>
 
     @Override
     public void takePhoto() {
-        getMvpView().takePhoto(mModel.getmImageUrl());
+        if (isAttachView()){
+            getMvpView().takePhoto(mModel.getmImageUrl());
+
+        }
 
     }
 
     @Override
     public void chooseAlbum() {
-        getMvpView().openAlbum();
+        if (isAttachView()){
+            getMvpView().openAlbum();
+
+        }
 
     }
 
