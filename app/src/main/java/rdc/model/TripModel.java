@@ -33,7 +33,6 @@ public class TripModel implements ITripContract.Model {
                 if (e==null){
                     presenter.setTripActivity(list);
                 }else {
-                    presenter.setTripActivity(new ArrayList<Activity>());
                     presenter.onError();
                 }
             }
@@ -51,7 +50,6 @@ public class TripModel implements ITripContract.Model {
                 if (e==null){
                     presenter.setRecommenedTripActivity(list);
                 }else {
-                    presenter.setTripActivity(new ArrayList<Activity>());
                     presenter.onError();
                 }
             }

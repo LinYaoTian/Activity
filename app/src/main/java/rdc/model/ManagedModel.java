@@ -29,7 +29,6 @@ public class ManagedModel implements IManagedContract.Model {
                if (e==null){
                    presenter.setManagedActivity(list);
                }else {
-                   presenter.setManagedActivity(new ArrayList<Activity>());
                    presenter.onError();
                }
 

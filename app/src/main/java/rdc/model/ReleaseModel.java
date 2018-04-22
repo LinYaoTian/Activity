@@ -40,41 +40,40 @@ public class ReleaseModel implements ReleaseContract.IModel{
                         final String content, final BmobRelation attcipator, final BmobDate expirationDate) {
         Log.d(TAG, "RELEASE");
 
-//        final BmobFile photoBmobFile = new BmobFile(new File(imagePath));
         final BmobFile photoBmobFile = new BmobFile(new File(Environment.getExternalStorageDirectory().getPath(),"cccc.jpg"));
         final Activity activity = new Activity();
         photoBmobFile.uploadblock(new UploadFileListener() {
             @Override
             public void done(BmobException e) {
                 if (e == null) {
-                    Log.d(TAG, "DONE 0");
-                }else {
-                    Log.d(TAG, "DONE 1");
-                }
-                activity.setManager(manager);
-                activity.setUniversity(university);
-                activity.setImage(photoBmobFile);
-                activity.setPlace(place);
-                activity.setSawnum(sawnum);
-                activity.setSendtime(sendtime);
-                activity.setTag(tag);
-                activity.setTime(time);
-                activity.setTitle(title);
-                activity.setExpirationDate(expirationDate);
-                activity.setContent(content);
-                activity.save(new SaveListener<String>() {
-                    @Override
-                    public void done(String s, BmobException e) {
-                        if (e == null) {
-                            Log.d(TAG, "DONE 2");
-                            mPresenter.releaseResult(true, null);
-                            mPresenter.addTrip();   //...
-                        }else {
-                            Log.d(TAG, "DONE 3");
-                            mPresenter.releaseResult(false, "发布失败！" + e.getMessage());
+
+                    activity.setManager(manager);
+                    activity.setUniversity(university);
+                    activity.setImage(photoBmobFile);
+                    activity.setPlace(place);
+                    activity.setSawnum(sawnum);
+                    activity.setSendtime(sendtime);
+                    activity.setTag(tag);
+                    activity.setTime(time);
+                    activity.setTitle(title);
+                    activity.setExpirationDate(expirationDate);
+                    activity.setContent(content);
+                    activity.save(new SaveListener<String>() {
+                        @Override
+                        public void done(String s, BmobException e) {
+                            if (e == null) {
+
+                                mPresenter.releaseResult(true, null);
+                                mPresenter.addTrip();   //...
+                            }else {
+
+                                mPresenter.releaseResult(false, "发布失败！" + e.getMessage());
+                            }
                         }
-                    }
-                });
+                    });
+                }else {
+
+                }
             }
         });
     }
@@ -91,11 +90,8 @@ public class ReleaseModel implements ReleaseContract.IModel{
             @Override
             public void done(List<Activity> activityList, BmobException e) {
                 if(e == null) {
-                    Log.d(TAG, "获取刚发的活动成功");
                     Activity activityJustSend = activityList.get(0);
                     String activityJustSendObjectId = activityJustSend.getObjectId();
-                    Log.d(TAG, "刚发的活动的ID" + activityJustSendObjectId);
-
                     Activity activity = new Activity();
                     activity.setObjectId(activityJustSendObjectId);
                     BmobRelation relation = new BmobRelation();
@@ -105,14 +101,25 @@ public class ReleaseModel implements ReleaseContract.IModel{
                         @Override
                         public void done(BmobException e) {
                             if(e == null){
-                                Log.d(TAG,"添加trip成功");
+
                             }else{
-                                Log.d(TAG,"添加trip失败："+e.getMessage());
+
+                            }
+                        }
+                    });
+                    String newSendTime = activityJustSend.getSendtime();
+                    User currentUser = BmobUser.getCurrentUser(User.class);
+                    currentUser.setNewSendTime(newSendTime);
+                    currentUser.update(currentUser.getObjectId(), new UpdateListener() {
+                        @Override
+                        public void done(BmobException e) {
+                            if (e == null) {
+                            }else {
                             }
                         }
                     });
                 }else {
-                    Log.d(TAG, "获取刚发的活动失败："+e.getMessage()+","+e.getErrorCode());
+
                 }
             }
         });

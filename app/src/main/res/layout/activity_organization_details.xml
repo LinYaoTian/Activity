@@ -42,7 +42,7 @@
         android:layout_height="@dimen/dimenLayoutHeight">
         <ImageView
             android:id="@+id/imv_photo"
-            android:scaleType="fitXY"
+            android:scaleType="centerCrop"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dimenImageLargeHeight" />
         <de.hdodenhof.circleimageview.CircleImageView

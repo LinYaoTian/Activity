@@ -311,7 +311,7 @@
                     android:background="@color/white"
                     android:paddingBottom="10dp"
                     android:paddingTop="10dp"
-                    android:hint="详情描述"
+                    android:hint="详情描述（咨询电话，咨询QQ群，注意事项）"
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
                     android:layout_marginBottom="60dp"

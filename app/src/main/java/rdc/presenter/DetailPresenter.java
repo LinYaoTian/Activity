@@ -28,6 +28,7 @@ public class DetailPresenter extends BasePresenter<DetailContract.IView> impleme
     @Override
     public void setDetailAttcipator(List<User> userList) {
         getMvpView().setDetailAttcipator(userList);
+        getMvpView().dismissProgressDialog();
     }
 
     @Override

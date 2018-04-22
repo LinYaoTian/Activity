@@ -34,7 +34,6 @@ public class DetailModel implements DetailContract.IModel{
                 if (e == null) {
                     iPresenter.setDetail(activity);
                     iPresenter.releaseResult(true, null);
-                    Log.d(TAG, "获取详情成功");
                     BmobQuery<User> userBmobQuery = new BmobQuery<>();
                     Activity activity1 = new Activity();
                     activity1.setObjectId(objectId);
@@ -43,16 +42,16 @@ public class DetailModel implements DetailContract.IModel{
                         @Override
                         public void done(List<User> list, BmobException e) {
                             if (e == null) {
-                                Log.d(TAG, "获取详情参与者成功");
+
                                 iPresenter.setDetailAttcipator(list);
                             }else {
-                                Log.d(TAG, "获取详情参与者失败");
+
                                 iPresenter.releaseResult(false, e.getMessage());
                             }
                         }
                     });
                 }else {
-                    Log.d(TAG, "获取详情失败，" + e.getMessage() + " , " + e.getErrorCode());
+
                     iPresenter.releaseResult(false, e.getMessage());
                 }
             }
@@ -69,10 +68,10 @@ public class DetailModel implements DetailContract.IModel{
             @Override
             public void done(List<User> list, BmobException e) {
                 if (e == null) {
-                    Log.d(TAG, "查询我的关注列表成功" + list.size());
+
                     iPresenter.setUserconcernedList(list);
                 }else {
-                    Log.d(TAG, "查询我的关注列表失败" + e.getMessage());
+
                     iPresenter.releaseResult(false, e.getMessage());
                 }
             }
@@ -95,7 +94,7 @@ public class DetailModel implements DetailContract.IModel{
             @Override
             public void done(BmobException e) {
                 if (e == null) {
-                    Log.d(TAG, "报名成功（relation）");
+
                     iPresenter.onSingOrUnSingUpSuccess();
                     BmobRelation relation = new BmobRelation();
                     if (hasSignUp) {
@@ -108,14 +107,14 @@ public class DetailModel implements DetailContract.IModel{
                         @Override
                         public void done(BmobException e) {
                             if(e == null){
-                                Log.d(TAG,"添加/取消trip成功");
+
                             }else{
-                                Log.d(TAG,"添加/取消trip失败："+e.getMessage());
+
                             }
                         }
                     });
                 }else {
-                    Log.d(TAG, "报名失败（relation）" + e.getMessage() + " , " + e.getErrorCode());
+
                     iPresenter.releaseResult(false, e.getMessage());
                 }
             }
@@ -138,10 +137,10 @@ public class DetailModel implements DetailContract.IModel{
             @Override
             public void done(BmobException e) {
                 if (e == null) {
-                    Log.d(TAG, "关注/取消关注成功");
+
                     iPresenter.onConcernedSuccess();
                 }else {
-                    Log.d(TAG, "关注/取消关注失败，" + e.getMessage() + " , " + e.getErrorCode());
+
                     iPresenter.releaseResult(false, e.getMessage());
                 }
             }
@@ -156,9 +155,9 @@ public class DetailModel implements DetailContract.IModel{
             @Override
             public void done(BmobException e) {
                 if (e == null) {
-                    Log.d(TAG, "增加查看数量成功");
+
                 }else {
-                    Log.d(TAG, "增加查看数量失败");
+
                 }
             }
         });

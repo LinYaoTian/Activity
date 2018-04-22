@@ -68,12 +68,13 @@
             android:layout_weight="1"
             android:textSize="20sp"
             android:padding="15dp"
-            android:text="我要报名"
             android:gravity="center"
             android:textColor="@color/white"
-            android:background="@color/colorPrimary"/>
-            <!--android:background="@color/dodgerblue"/>-->
+            android:text="---"/>
+            <!--android:background="@color/colorPrimary"/>-->
             <!--android:background="@color/darkgray"/>-->
+            <!--android:background="@color/dodgerblue"/>-->
+
 
     </LinearLayout>
 
@@ -370,13 +371,12 @@
                         android:id="@+id/tv_add_detail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="关注"
                         android:layout_alignParentEnd="true"
                         android:layout_marginEnd="20dp"
                         android:textColor="@color/colorPrimary"
-                        android:textSize="15sp"
-                        android:drawableEnd="@drawable/ic_add_blue_24dp"/>
-
+                        android:textSize="15sp"/>
+                        <!--android:text="关注"-->
+                        <!--android:drawableEnd="@drawable/ic_add_blue_24dp"/>-->
                         <!--android:drawableEnd="@drawable/ic_check_blue_24dp"/>-->
 
                 </RelativeLayout>

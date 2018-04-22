@@ -22,6 +22,7 @@ import rdc.base.BaseActivity;
 import rdc.constant.Constant;
 import rdc.contract.AccountManageContract;
 import rdc.presenter.AccountManagePresenter;
+import rdc.util.ACacheUtil;
 import rdc.util.ActivityCollectorUtil;
 import rdc.util.RegisterUtils;
 import rdc.util.UserUtil;
@@ -42,6 +43,7 @@ public class AccountManageActivity extends BaseActivity<AccountManagePresenter> 
     private AlertDialog mDialogChangePassword;
 
     private boolean isSeePassword;//新密码是否显示明文
+    private ACacheUtil mACacheUtil;
 
     public static void actionStart(Context context) {
         Intent intent = new Intent(context, AccountManageActivity.class);
@@ -79,6 +81,7 @@ public class AccountManageActivity extends BaseActivity<AccountManagePresenter> 
     @Override
     protected void initData() {
         isSeePassword = false;
+        mACacheUtil = ACacheUtil.get(getApplicationContext());
     }
 
     @Override
@@ -149,6 +152,8 @@ public class AccountManageActivity extends BaseActivity<AccountManagePresenter> 
         mLlChangeAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mACacheUtil.clear();
+
                 ActivityCollectorUtil.finishAll();
                 UserUtil.clearUser();
                 startActivity(new Intent(AccountManageActivity.this,LoginActivity.class));
@@ -160,6 +165,7 @@ public class AccountManageActivity extends BaseActivity<AccountManagePresenter> 
     public void changePasswordSuccess() {
         showToast("修改密码成功！");
         mDialogChangePassword.dismiss();
+        mACacheUtil.clear();
     }
 
     @Override
