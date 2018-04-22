@@ -33,7 +33,7 @@ public class OrganizationDetailsModel implements IOrganizationDetailsContract.Mo
                 if (e==null){
                     presenter.setManagedActivity(list);
                 }else {
-                    presenter.setManagedActivity(new ArrayList<Activity>());
+
                     presenter.onError();
                 }
             }
