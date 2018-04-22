@@ -27,7 +27,7 @@
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/thisWeek"
+            android:text="@string/trip"
             android:layout_gravity="center"
             android:textColor="@color/white"
             android:textSize="@dimen/dimenTextSize" />
