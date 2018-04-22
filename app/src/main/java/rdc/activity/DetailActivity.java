@@ -152,6 +152,7 @@ public class DetailActivity extends BaseActivity<DetailPresenter> implements Det
     @OnClick(R.id.tv_add_detail)
     public void onAdd() {
         presenter.addFocus(activity.getManager().getObjectId(), hasFocus);
+        showProgressDialog();
     }
 
     /**
@@ -160,6 +161,7 @@ public class DetailActivity extends BaseActivity<DetailPresenter> implements Det
     @OnClick(R.id.tv_signUp_detail)
     public void onSignUp() {
         presenter.onSignUp(hasSignUp);
+        showProgressDialog();
     }
 
     /**
@@ -276,7 +278,7 @@ public class DetailActivity extends BaseActivity<DetailPresenter> implements Det
             mACacheUtil.clear();
         }
         mACacheUtil.clear();
-
+        dismissProgressDialog();
     }
 
     @Override
@@ -329,7 +331,7 @@ public class DetailActivity extends BaseActivity<DetailPresenter> implements Det
             mACacheUtil.clear();
         }
         mACacheUtil.clear();
-
+        dismissProgressDialog();
     }
 
     @Override
