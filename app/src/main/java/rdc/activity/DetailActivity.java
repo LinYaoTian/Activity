@@ -213,7 +213,7 @@ public class DetailActivity extends BaseActivity<DetailPresenter> implements Det
         if (Objects.equals(activity.getManager().getObjectId(), BmobUser.getCurrentUser().getObjectId())) {
             activity_detail_add_textView.setVisibility(View.GONE);
         }
-        dismissProgressDialog();
+//        dismissProgressDialog();
     }
 
     /**
@@ -224,6 +224,9 @@ public class DetailActivity extends BaseActivity<DetailPresenter> implements Det
     public void setDetailAttcipator(List<User> userList) {
         if (userList == null || userList.size() == 0) {
             activity_detail_attendNum_textView.setText(0 + "");
+            hasSignUp = false;
+            activity_detail_signUp_textView.setText("我要报名");
+            activity_detail_signUp_textView.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
         } else {
             activity_detail_attendNum_textView.setText(userList.size() + "");
             for (int i = 0; i < userList.size(); i++) {
@@ -234,7 +237,12 @@ public class DetailActivity extends BaseActivity<DetailPresenter> implements Det
                     return;
                 }
             }
+            if (!hasSignUp) {
+                activity_detail_signUp_textView.setText("我要报名");
+                activity_detail_signUp_textView.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+            }
         }
+//        dismissProgressDialog();
     }
 
     @Override
@@ -296,6 +304,10 @@ public class DetailActivity extends BaseActivity<DetailPresenter> implements Det
                     activity_detail_add_textView.setText("已关注");
                     activity_detail_add_textView.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.ic_check_blue_24dp, 0);
                     return;
+                }else {
+                    hasFocus = false;
+                    activity_detail_add_textView.setText("关注");
+                    activity_detail_add_textView.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.ic_add_blue_24dp, 0);
                 }
             }
         }

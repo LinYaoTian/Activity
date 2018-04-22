@@ -85,6 +85,7 @@ public class ReleaseActivity extends BaseActivity<ReleasePresenter> implements R
     private String currentTime;
     private Dialog mUpLoadingDialog;
     private ACacheUtil mACacheUtil;
+//    private boolean hasChooseStartTime = false;
 
     @Override
     protected int setLayoutResID() {
@@ -107,10 +108,15 @@ public class ReleaseActivity extends BaseActivity<ReleasePresenter> implements R
                 showDialog();
                 break;
             case R.id.tv_time_start_release:
-                showTime(activity_release_time_start_textView);
+                showTimeStart(activity_release_time_start_textView);
+                activity_release_time_end_textView.setText("");
                 break;
             case R.id.tv_time_end_release:
-                showTime(activity_release_time_end_textView);
+                if (TextUtils.isEmpty(activity_release_time_start_textView.getText())) {
+                    Toast.makeText(this, "先选择活动开始时间噢", Toast.LENGTH_SHORT).show();
+                }else {
+                    showTimeEnd(activity_release_time_end_textView);
+                }
                 break;
             case R.id.tv_university2_release:
                 chooseUniversity();
@@ -142,16 +148,32 @@ public class ReleaseActivity extends BaseActivity<ReleasePresenter> implements R
     }
 
     /**
-     * 时间选择控件初始化
+     * 时间选择控件初始化（开始）
      * @param v
      */
-    private void showTime(final TextView v) {
+    private void showTimeStart(final TextView v) {
         timePicker = new CustomDatePicker(this, "请选择时间", new CustomDatePicker.ResultHandler() {
             @Override
             public void handle(String time) {
                 v.setText(time);
             }
-        }, currentTime, "2027-12-31 23:59");
+        }, currentTime, "2050-12-31 23:59");
+        timePicker.showSpecificTime(true);
+        timePicker.setIsLoop(true);
+        timePicker.show(currentTime);
+    }
+
+    /**
+     * 时间选择控件初始化（结束）
+     * @param v
+     */
+    private void showTimeEnd(final TextView v) {
+        timePicker = new CustomDatePicker(this, "请选择时间", new CustomDatePicker.ResultHandler() {
+            @Override
+            public void handle(String time) {
+                v.setText(time);
+            }
+        },activity_release_time_start_textView.getText().toString(), "2050-12-31 23:59");
         timePicker.showSpecificTime(true);
         timePicker.setIsLoop(true);
         timePicker.show(currentTime);
