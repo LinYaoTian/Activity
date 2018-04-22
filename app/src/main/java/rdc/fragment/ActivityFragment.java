@@ -247,7 +247,6 @@ public class ActivityFragment extends BaseLazyLoadFragment<ActivityFragmentPrese
      * @param tag ActivityFragment的tag
      */
     public void needRefresh(String tag){
-        Log.d(TAG, mTag+"needRefresh: "+tag);
         if (tag.equals(mTag) || mTag.equals(getResources().getString(R.string.homePage))){
             if (isLazyLoadFinished){
                 mSrlRefresh.setRefreshing(true);

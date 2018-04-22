@@ -128,7 +128,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 if (resultCode == RESULT_OK){
                     String tagsOrder = data.getStringExtra("data_return");
                     if (!mTagsOrder.equals(tagsOrder)){
-                        Log.d(TAG, "onActivityResult: ");
                         //用户订阅的菜单顺序或种类有变
                         mTagsOrder = tagsOrder;
                         initData();
@@ -281,19 +280,15 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            exit();
+            if ((System.currentTimeMillis() - mExitTime) > 2000) {
+                showToast("再按一次退出程序");
+                mExitTime = System.currentTimeMillis();
+            } else {
+                ActivityCollectorUtil.finishAll();
+            }
             return false;
         }
         return super.onKeyDown(keyCode, event);
-    }
-
-    public void exit() {
-        if ((System.currentTimeMillis() - mExitTime) > 2000) {
-            showToast("再按一次退出程序");
-            mExitTime = System.currentTimeMillis();
-        } else {
-            ActivityCollectorUtil.finishAll();
-        }
     }
 
 }
