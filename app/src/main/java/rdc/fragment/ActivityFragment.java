@@ -235,6 +235,5 @@ public class ActivityFragment extends BaseLazyLoadFragment<ActivityFragmentPrese
         mPbLoading.setVisibility(View.GONE);
         mTvLoadTip.setVisibility(View.VISIBLE);
         mTvLoadTip.setText(getResources().getString(R.string.no_more_data));
-        Log.d(TAG, "noMoreData: ");
     }
 }

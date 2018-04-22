@@ -83,5 +83,14 @@ public class ActivitiesRvAdapter extends BaseRecyclerViewAdapter<Activity> {
             mTvTime.setText(activity.getTime());
             mTvSawNum.setText(String.valueOf(activity.getSawnum()));
         }
+
+        @Override
+        public void onClick(View v) {
+            super.onClick(v);
+            int position = getLayoutPosition();
+            Integer sawNum = mDataList.get(position).getSawnum();
+            mDataList.get(position).setSawnum(++sawNum);
+            notifyItemChanged(position);
+        }
     }
 }

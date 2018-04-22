@@ -194,7 +194,8 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
     @Override
     public void registerSuccess() {
         showToast("注册成功！");
-        onBackPressed();
+        MainActivity.actionStart(RegisterActivity.this);
+        finish();
     }
 
     @Override
