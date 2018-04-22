@@ -57,6 +57,16 @@
         <activity android:name="rdc.activity.AccountManageActivity" />
         <activity android:name="rdc.activity.TagsActivity"/>
         <activity android:name="rdc.activity.CheckManagedActivity" />
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="rdc.avtivity.imagefileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/image_path" />
+        </provider>
+
 
         <provider
             android:authorities="rdc.avtivity.fileprovider"

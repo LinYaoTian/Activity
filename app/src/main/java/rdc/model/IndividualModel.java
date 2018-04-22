@@ -203,7 +203,7 @@ public class IndividualModel implements IIndividualContract.Model {
 
         if (Build.VERSION.SDK_INT >= 24) {
 
-            mImageUrl = FileProvider.getUriForFile(App.getmContext(), "com.rdc.activity.fileprovider", outputImage);
+            mImageUrl = FileProvider.getUriForFile(App.getmContext(), "rdc.avtivity.imagefileprovider", outputImage);
         } else {
 
             mImageUrl = Uri.fromFile(outputImage);
