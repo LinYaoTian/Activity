@@ -421,7 +421,7 @@ public class ReleaseActivity extends BaseActivity<ReleasePresenter> implements R
             return new BmobDate(sdf.parse(expirationDate));
         } catch (ParseException e) {
             e.printStackTrace();
-            Log.d(TAG, "转换出错！");
+
         }
         return new BmobDate(new Date());
     }

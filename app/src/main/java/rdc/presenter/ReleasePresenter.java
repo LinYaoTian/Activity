@@ -24,18 +24,6 @@ public class ReleasePresenter extends BasePresenter<ReleaseContract.IView> imple
 
     @Override
     public void release() {
-//        ImageUtil.compressImage(getMvpView().getImagePath(), new FileCallback() {
-//            @Override
-//            public void callback(boolean isSuccess, String outfile, Throwable t) {
-//                if (isSuccess) {
-//                    mModel.release(BmobUser.getCurrentUser(User.class), getMvpView().getUniversity(), outfile, getMvpView().getPlace(), 0,
-//                            "4月17号", getMvpView().getTag(), getMvpView().getStartTime() + "~" + getMvpView().getEndTime(),
-//                            getMvpView().getActivityTheme(), getMvpView().getContent(),  null);
-//                }
-//            }
-//        });
-
-        Log.d(TAG, "RELEASE");
 
         mModel.release(BmobUser.getCurrentUser(User.class), getMvpView().getUniversity(), getMvpView().getImagePath(), getMvpView().getPlace(), 0,
                 getMvpView().getSendTime(), getMvpView().getTag(), getMvpView().getStartTime() + "~" + getMvpView().getEndTime(),
@@ -58,7 +46,6 @@ public class ReleasePresenter extends BasePresenter<ReleaseContract.IView> imple
 
     @Override
     public void addTrip() {
-//        mModel.addTrip(activityObjectId);
         mModel.addTrip();
     }
 }

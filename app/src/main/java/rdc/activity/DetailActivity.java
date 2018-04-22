@@ -74,7 +74,6 @@ public class DetailActivity extends BaseActivity<DetailPresenter> implements Det
     private String objectId;
     private boolean hasSignUp = false;
     private boolean hasFocus = false;
-    //    private List<User> focusUserList;
     private ACacheUtil mACacheUtil;
     private Dialog mUpLoadingDialog;
 
@@ -213,7 +212,6 @@ public class DetailActivity extends BaseActivity<DetailPresenter> implements Det
         if (Objects.equals(activity.getManager().getObjectId(), BmobUser.getCurrentUser().getObjectId())) {
             activity_detail_add_textView.setVisibility(View.GONE);
         }
-//        dismissProgressDialog();
     }
 
     /**
@@ -242,12 +240,11 @@ public class DetailActivity extends BaseActivity<DetailPresenter> implements Det
                 activity_detail_signUp_textView.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
             }
         }
-//        dismissProgressDialog();
     }
 
     @Override
     public void onSuccess() {
-        Log.d(TAG, "获取详情成功");
+
     }
 
     /**
@@ -278,7 +275,7 @@ public class DetailActivity extends BaseActivity<DetailPresenter> implements Det
 
     @Override
     public void onError(String errMeg) {
-        Log.d(TAG, "获取活动详情错误， " + errMeg);
+
         if (errMeg.substring(0,16).equals("object not found")){
             showConfirmDialog();
         }
@@ -293,12 +290,10 @@ public class DetailActivity extends BaseActivity<DetailPresenter> implements Det
 
     @Override
     public void setUserconcernedList(List<User> userconcernedList) {
-        Log.d(TAG, "我的ID ：" + BmobUser.getCurrentUser().getObjectId());
-        Log.d(TAG, "我关注的人数 ：" + userconcernedList.size());
-//        String userId = BmobUser.getCurrentUser().getObjectId();
+
         if (userconcernedList != null && userconcernedList.size() != 0) {
             for (int i = 0; i < userconcernedList.size(); i++) {
-                Log.d(TAG, "我关注的人的ID ：" + userconcernedList.get(i).getObjectId());
+
                 if (userconcernedList.get(i).getObjectId().equals(activity.getManager().getObjectId())) {
                     hasFocus = true;
                     activity_detail_add_textView.setText("已关注");
