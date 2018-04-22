@@ -1,5 +1,6 @@
 package rdc.activity;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -59,6 +60,8 @@ import static rdc.util.ImageUtil.gallery;
 
 public class ReleaseActivity extends BaseActivity<ReleasePresenter> implements ReleaseContract.IView, View.OnClickListener {
 
+    public static final int RELEASE_ACTIVITY = 1;//发布成功！
+
     private String TAG = "ReleaseActivity";
     @BindView(R.id.iv_poster_release) ImageView activity_release_poster_imageView;
     @BindView(R.id.tv_release_release) TextView activity_release_release_textView;
@@ -80,6 +83,7 @@ public class ReleaseActivity extends BaseActivity<ReleasePresenter> implements R
     public static final int SELECT_TAG = 3;
     public static final int RELEASE_TAG_RESULT_CODE = 4;
     private boolean hasPicture = false;
+    private boolean isReleaseSuccess = false;
 
     private CustomDatePicker timePicker;
     private String currentTime;
@@ -92,9 +96,9 @@ public class ReleaseActivity extends BaseActivity<ReleasePresenter> implements R
         return R.layout.activity_release;
     }
 
-    public static void actionStart(Context context) {
-        Intent intent = new Intent(context, ReleaseActivity.class);
-        context.startActivity(intent);
+    public static void actionStart(Activity activity) {
+        Intent intent = new Intent(activity, ReleaseActivity.class);
+        activity.startActivityForResult(intent, RELEASE_ACTIVITY);
     }
 
     @Override
@@ -102,7 +106,6 @@ public class ReleaseActivity extends BaseActivity<ReleasePresenter> implements R
         switch (v.getId()) {
             case R.id.tv_release_release:
                 release();
-//                DetailActivity.actionStart(this, "90ef5e8350");
                 break;
             case R.id.iv_poster_release:
                 showDialog();
@@ -240,7 +243,8 @@ public class ReleaseActivity extends BaseActivity<ReleasePresenter> implements R
     public void onSuccess() {
         Toast.makeText(this, "发布成功！" , Toast.LENGTH_SHORT).show();
         mACacheUtil.clear();
-        finish();
+        isReleaseSuccess = true;
+        onBackPressed();
     }
 
     @Override
@@ -271,8 +275,12 @@ public class ReleaseActivity extends BaseActivity<ReleasePresenter> implements R
         takePhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                camera(ReleaseActivity.this, imageUri);
-                mDialog.dismiss();
+                if (ContextCompat.checkSelfPermission(ReleaseActivity.this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(ReleaseActivity.this, new String[]{android.Manifest.permission.CAMERA}, 1);
+                } else {
+                    camera(ReleaseActivity.this, imageUri);
+                    mDialog.dismiss();
+                }
             }
         });
         cancel.setOnClickListener(new View.OnClickListener() {
@@ -350,10 +358,20 @@ public class ReleaseActivity extends BaseActivity<ReleasePresenter> implements R
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                finish();
+                onBackPressed();
                 break;
         }
         return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (isReleaseSuccess){
+            Intent intent = new Intent();
+            intent.putExtra("tag",getTag());
+            setResult(RESULT_OK,intent);
+        }
+        super.onBackPressed();
     }
 
     private void initToolBar() {

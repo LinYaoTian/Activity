@@ -91,7 +91,6 @@ public class ActivityFragmentModel implements ActivityFragmentContract.Model {
 
     @Override
     public void getMore(final String tag) {
-
         if (!isRefreshing && !isLoadingMore && hasMoreData){
             isLoadingMore = true;
             Date date  = null;

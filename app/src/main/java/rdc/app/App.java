@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.os.StrictMode;
 
 import java.io.File;
 
@@ -42,6 +43,10 @@ public class App extends Application {
         sCacheDir = getExternalCacheDir();
         sContentResolver = getContentResolver();
 
+        //7.0以上照片崩溃？
+        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+        builder.detectFileUriExposure();
+        StrictMode.setVmPolicy(builder.build());
     }
 
     public static Context getmContext() {

@@ -1,5 +1,6 @@
 package rdc.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -18,6 +19,7 @@ import java.util.List;
 import butterknife.BindView;
 import rdc.activity.DetailActivity;
 import rdc.activity.MainActivity;
+import rdc.activity.ReleaseActivity;
 import rdc.adapter.ActivitiesRvAdapter;
 import rdc.avtivity.R;
 import rdc.base.BaseLazyLoadFragment;
@@ -26,11 +28,14 @@ import rdc.contract.ActivityFragmentContract;
 import rdc.listener.OnClickRecyclerViewListener;
 import rdc.presenter.ActivityFragmentPresenter;
 
+import static android.app.Activity.RESULT_OK;
+
 /**
  * Created by Lin Yaotian on 2018/4/12.
  */
 
-public class ActivityFragment extends BaseLazyLoadFragment<ActivityFragmentPresenter> implements ActivityFragmentContract.View {
+public class ActivityFragment extends BaseLazyLoadFragment<ActivityFragmentPresenter> implements
+        ActivityFragmentContract.View{
 
     @BindView(R.id.rv_activities_fragment)
     RecyclerView mRvActivities;
@@ -193,14 +198,6 @@ public class ActivityFragment extends BaseLazyLoadFragment<ActivityFragmentPrese
         }
     }
 
-    /**
-     * 设置页面名字
-     * @param name
-     */
-    public void setTagName(String name){
-        this.mTag = name;
-    }
-
     @Override
     public void refresh(List<Activity> list) {
         mActivityListAdapter.updateData(list);
@@ -235,6 +232,28 @@ public class ActivityFragment extends BaseLazyLoadFragment<ActivityFragmentPrese
         mPbLoading.setVisibility(View.GONE);
         mTvLoadTip.setVisibility(View.VISIBLE);
         mTvLoadTip.setText(getResources().getString(R.string.no_more_data));
-        Log.d(TAG, "noMoreData: ");
     }
+
+    /**
+     * 设置页面名字
+     * @param name
+     */
+    public void setTagName(String name){
+        this.mTag = name;
+    }
+
+    /**
+     * 用于MainActivity通知ActivityFragment刷新
+     * @param tag ActivityFragment的tag
+     */
+    public void needRefresh(String tag){
+        if (tag.equals(mTag) || mTag.equals(getResources().getString(R.string.homePage))){
+            if (isLazyLoadFinished){
+                mSrlRefresh.setRefreshing(true);
+                mTvNoData.setVisibility(View.GONE);
+                presenter.refresh(mTag);
+            }
+        }
+    }
+
 }

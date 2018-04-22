@@ -30,6 +30,8 @@ import rdc.widget.ItemTouchHelperCallback;
 
 public class TagsActivity extends BaseActivity<TagsPresenter> implements OnStartDragListener,TagsContract.View {
 
+    public static final int TAGS_ACTIVITY = 0;
+
     @BindView(R.id.toolbar_act_tags)
     Toolbar mToolbar;
     @BindView(R.id.rv_tag_list_act_tags)
@@ -43,7 +45,7 @@ public class TagsActivity extends BaseActivity<TagsPresenter> implements OnStart
     public static void actionStart(Activity activity,String tagsOrder) {
         mTagsOrder = tagsOrder;
         Intent intent = new Intent(activity, TagsActivity.class);
-        activity.startActivityForResult(intent,0);
+        activity.startActivityForResult(intent,TAGS_ACTIVITY);
     }
 
     @Override

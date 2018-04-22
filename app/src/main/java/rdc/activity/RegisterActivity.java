@@ -176,10 +176,12 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
                 if (!RegisterUtils.checkUsername(getString(mEtUsername))){
                     showToast("请输入正确的手机/邮箱！");
                 }else if (!RegisterUtils.checkPassword(getString(mEtPassword))){
-                    showToast("密码位数必须不小于"+Constant.PASSWORD_NUM+"位");
+                    showToast("密码位数必须不小于"+Constant.PASSWORD_NUM+"位！");
                 }else if (TextUtils.isEmpty(getString(mEtNickname))){
                     showToast("昵称不能为空！");
-                } else{
+                }else if (TextUtils.isEmpty(getString(mEtUniversity))){
+                    showToast("请选择所在学校！");
+                }else{
                     User user = new User();
                     user.setUsername(getString(mEtUsername));
                     user.setPassword(getString(mEtPassword));
@@ -194,7 +196,8 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
     @Override
     public void registerSuccess() {
         showToast("注册成功！");
-        onBackPressed();
+        MainActivity.actionStart(RegisterActivity.this);
+        finish();
     }
 
     @Override

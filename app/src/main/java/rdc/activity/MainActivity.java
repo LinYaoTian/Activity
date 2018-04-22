@@ -10,7 +10,6 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -64,8 +63,9 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
     private static final String TAG = "MainActivity";
 
+
     private List<String> mTabNameList;//顶部Tab名字列表
-    private List<Fragment> mActivityFragmentList;
+    private List<ActivityFragment> mActivityFragmentList;
     private ActivityFragmentPagerAdapter mFragmentPagerAdapter;
     private String mTagsOrder;
     private long mExitTime;
@@ -124,15 +124,24 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode){
-            case 0:
+            case TagsActivity.TAGS_ACTIVITY:
                 if (resultCode == RESULT_OK){
                     String tagsOrder = data.getStringExtra("data_return");
                     if (!mTagsOrder.equals(tagsOrder)){
-                        Log.d(TAG, "onActivityResult: ");
                         //用户订阅的菜单顺序或种类有变
                         mTagsOrder = tagsOrder;
                         initData();
                         mFragmentPagerAdapter.setFragments(mActivityFragmentList,mTabNameList);
+                    }
+                }
+                break;
+            case ReleaseActivity.RELEASE_ACTIVITY:
+                if (resultCode == RESULT_OK){
+                    String tag = data.getStringExtra("tag");
+                    if (tag != null){
+                        for (ActivityFragment fragment : mActivityFragmentList) {
+                            fragment.needRefresh(tag);
+                        }
                     }
                 }
                 break;
@@ -226,6 +235,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         PropertyValuesHolder pvhY = PropertyValuesHolder.ofFloat("scaleX", 0f);
         PropertyValuesHolder pvhZ = PropertyValuesHolder.ofFloat("scaleY", 0f);
         ObjectAnimator.ofPropertyValuesHolder(mFabSend, pvhX, pvhY, pvhZ).setDuration(400).start();
+        mFabSend.setClickable(false);
     }
 
     /**
@@ -236,6 +246,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         PropertyValuesHolder pvhY = PropertyValuesHolder.ofFloat("scaleX", 1f);
         PropertyValuesHolder pvhZ = PropertyValuesHolder.ofFloat("scaleY", 1f);
         ObjectAnimator.ofPropertyValuesHolder(mFabSend, pvhX, pvhY, pvhZ).setDuration(400).start();
+        mFabSend.setClickable(true);
     }
 
     /**
@@ -269,19 +280,15 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            exit();
+            if ((System.currentTimeMillis() - mExitTime) > 2000) {
+                showToast("再按一次退出程序");
+                mExitTime = System.currentTimeMillis();
+            } else {
+                ActivityCollectorUtil.finishAll();
+            }
             return false;
         }
         return super.onKeyDown(keyCode, event);
-    }
-
-    public void exit() {
-        if ((System.currentTimeMillis() - mExitTime) > 2000) {
-            showToast("再按一次退出程序");
-            mExitTime = System.currentTimeMillis();
-        } else {
-            ActivityCollectorUtil.finishAll();
-        }
     }
 
 }

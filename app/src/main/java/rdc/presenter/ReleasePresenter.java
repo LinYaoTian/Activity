@@ -24,10 +24,11 @@ public class ReleasePresenter extends BasePresenter<ReleaseContract.IView> imple
 
     @Override
     public void release() {
-
-        mModel.release(BmobUser.getCurrentUser(User.class), getMvpView().getUniversity(), getMvpView().getImagePath(), getMvpView().getPlace(), 0,
-                getMvpView().getSendTime(), getMvpView().getTag(), getMvpView().getStartTime() + "~" + getMvpView().getEndTime(),
-                getMvpView().getActivityTheme(), getMvpView().getContent(),  null, getMvpView().getExpirationDate());
+        if (isAttachView()) {
+            mModel.release(BmobUser.getCurrentUser(User.class), getMvpView().getUniversity(), getMvpView().getImagePath(), getMvpView().getPlace(), 0,
+                    getMvpView().getSendTime(), getMvpView().getTag(), getMvpView().getStartTime() + "~" + getMvpView().getEndTime(),
+                    getMvpView().getActivityTheme(), getMvpView().getContent(),  null, getMvpView().getExpirationDate());
+        }
     }
 
     @Override
@@ -47,5 +48,12 @@ public class ReleasePresenter extends BasePresenter<ReleaseContract.IView> imple
     @Override
     public void addTrip() {
         mModel.addTrip();
+    }
+
+    @Override
+    public void onError(String errMeg) {
+        if (isAttachView()) {
+            getMvpView().onError(errMeg);
+        }
     }
 }

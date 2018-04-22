@@ -102,8 +102,8 @@ public class ReleaseModel implements ReleaseContract.IModel{
                         public void done(BmobException e) {
                             if(e == null){
 
-                            }else{
-
+                            }else {
+                                mPresenter.onError(e.getMessage());
                             }
                         }
                     });
@@ -115,11 +115,12 @@ public class ReleaseModel implements ReleaseContract.IModel{
                         public void done(BmobException e) {
                             if (e == null) {
                             }else {
+                                mPresenter.onError(e.getMessage());
                             }
                         }
                     });
                 }else {
-
+                    mPresenter.onError(e.getMessage());
                 }
             }
         });

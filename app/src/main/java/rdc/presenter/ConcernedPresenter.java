@@ -23,7 +23,6 @@ public class ConcernedPresenter extends BasePresenter<IConcernedContract.View> i
     }
     /**
      * 在这里进行类型的转换
-     * @param list
      */
     @Override
     public void setOrganization(List<User> users) {

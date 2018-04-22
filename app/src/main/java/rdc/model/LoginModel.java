@@ -28,13 +28,7 @@ public class LoginModel implements LoginContract.Model {
             @Override
             public void done(User user, BmobException e) {
                 if (e == null){
-                    //保存用户帐号密码，下次可以自动登录
                     UserUtil.saveUser(userName, password);
-//                    //获取用户的
-//                    String tagsOrder = user.getTagsOrder();
-//                    if (tagsOrder == null){
-//                        tagsOrder = Constant.DEFAULT_TAGS_ORDER;
-//                    }
                     mPresenter.loginSuccess();
                 }else if (e.getMessage().startsWith("username or password incorrect.")){
                     mPresenter.loginError("用户名或密码错误！");

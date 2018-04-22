@@ -22,13 +22,17 @@ public class DetailPresenter extends BasePresenter<DetailContract.IView> impleme
 
     @Override
     public void setDetail(Activity activity) {
-        getMvpView().setDetail(activity);
+        if (isAttachView()) {
+            getMvpView().setDetail(activity);
+        }
     }
 
     @Override
     public void setDetailAttcipator(List<User> userList) {
-        getMvpView().setDetailAttcipator(userList);
-        getMvpView().dismissProgressDialog();
+        if (isAttachView()) {
+            getMvpView().setDetailAttcipator(userList);
+            getMvpView().dismissProgressDialog();
+        }
     }
 
     @Override
@@ -38,7 +42,9 @@ public class DetailPresenter extends BasePresenter<DetailContract.IView> impleme
 
     @Override
     public void onSignUp(boolean hasSignUp) {
-        mModel.onSignUp(this, getMvpView().getobjectId(), hasSignUp);
+        if (isAttachView()) {
+            mModel.onSignUp(this, getMvpView().getobjectId(), hasSignUp);
+        }
     }
 
     @Override
@@ -48,7 +54,9 @@ public class DetailPresenter extends BasePresenter<DetailContract.IView> impleme
 
     @Override
     public void addSawNum(int currentNum) {
-        mModel.addSawNum(this, currentNum, getMvpView().getobjectId());
+        if (isAttachView()) {
+            mModel.addSawNum(this, currentNum, getMvpView().getobjectId());
+        }
     }
 
     @Override
@@ -63,12 +71,23 @@ public class DetailPresenter extends BasePresenter<DetailContract.IView> impleme
 
     @Override
     public void setUserconcernedList(List<User> userconcernedList) {
-        getMvpView().setUserconcernedList(userconcernedList);
+        if (isAttachView()) {
+            getMvpView().setUserconcernedList(userconcernedList);
+        }
     }
 
     @Override
     public void onConcernedSuccess() {
-        getMvpView().onConcernedSuccess();
+        if (isAttachView()) {
+            getMvpView().onConcernedSuccess();
+        }
+    }
+
+    @Override
+    public void onError(String errMeg) {
+        if (isAttachView()) {
+            getMvpView().onError(errMeg);
+        }
     }
 
     @Override

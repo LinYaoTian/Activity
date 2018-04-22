@@ -122,8 +122,14 @@ public class DetailActivity extends BaseActivity<DetailPresenter> implements Det
      */
     @OnClick(R.id.iv_forward_detail)
     public void onForward() {
-        Uri uri = ShareUtil.saveBitmap(ShareUtil.getBitmapByView(activity_rootView_scrollView),"share");
-        ShareUtil.share(getSupportFragmentManager(),"活动信息",uri);
+        showToast("生成图片中...");
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Uri uri = ShareUtil.saveBitmap(ShareUtil.getBitmapByView(activity_rootView_scrollView),"share");
+                ShareUtil.share(getSupportFragmentManager(),"活动信息",uri);
+            }
+        }).start();
     }
 
     /**

@@ -7,17 +7,19 @@ import android.support.v4.app.FragmentTransaction;
 
 import java.util.List;
 
+import rdc.fragment.ActivityFragment;
+
 /**
  * Created by Lin Yaotian on 2018/4/20.
  */
 
 public class ActivityFragmentPagerAdapter extends FragmentPagerAdapter {
 
-    private List<Fragment> mFragmentList;
+    private List<ActivityFragment> mFragmentList;
     private List<String> mTitleList;
     private FragmentManager mFM;
 
-    public ActivityFragmentPagerAdapter(FragmentManager fm, List<Fragment> list,List<String> list1) {
+    public ActivityFragmentPagerAdapter(FragmentManager fm, List<ActivityFragment> list,List<String> list1) {
         super(fm);
         mFragmentList = list;
         mFM = fm;
@@ -34,7 +36,7 @@ public class ActivityFragmentPagerAdapter extends FragmentPagerAdapter {
         return mFragmentList == null ? 0 : mFragmentList.size();
     }
 
-    public void setFragments(List<Fragment> fragments,List<String> titleList) {
+    public void setFragments(List<ActivityFragment> fragments,List<String> titleList) {
         if (this.mFragmentList != null) {
             FragmentTransaction ft = mFM.beginTransaction();
             for (Fragment f : this.mFragmentList) {
