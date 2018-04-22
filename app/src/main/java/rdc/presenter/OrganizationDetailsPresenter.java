@@ -33,7 +33,7 @@ public class OrganizationDetailsPresenter extends BasePresenter<IOrganizationDet
     @Override
     public void setManagedActivity(List<Activity> list) {
         List<OrganizationActivity> organizationActivities = new ArrayList<>();
-        for (int i=0;i<list.size();i++){
+        for (int i=list.size()-1;i>-1;i--){
             OrganizationActivity organizationActivity = new OrganizationActivity();
             Activity activity = list.get(i);
             organizationActivity.setId(activity.getObjectId());
@@ -45,7 +45,6 @@ public class OrganizationDetailsPresenter extends BasePresenter<IOrganizationDet
             organizationActivity.setType(sACTIVITY);
             organizationActivities.add(organizationActivity);
         }
-        Log.e("TAG", "setManagedActivity: "+organizationActivities.size() );
 
         getMvpView().setManagedActivity(organizationActivities);
     }
