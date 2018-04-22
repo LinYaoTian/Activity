@@ -25,9 +25,8 @@ public class User extends BmobUser {
         return newActivityTitle;
     }
 
-    public User setNewActivityTitle(String newActivityTitle) {
+    public void setNewActivityTitle(String newActivityTitle) {
         this.newActivityTitle = newActivityTitle;
-        return this;
     }
 
     public String getTagsOrder() {
@@ -105,9 +104,5 @@ public class User extends BmobUser {
 
     public String getNewsActivityTitle() {
         return newActivityTitle == null ? "" : newActivityTitle;
-    }
-
-    public void setNewsActivityTitle(String newsActivityTitle) {
-        this.newActivityTitle = newsActivityTitle;
     }
 }
