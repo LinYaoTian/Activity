@@ -62,7 +62,7 @@ public class IndividualPresenter extends BasePresenter<IIndividualContract.View>
                             @Override
                             public void callback(boolean isSuccess, String outfile, Throwable t) {
                                 if (isSuccess) {
-                                    mModel.updateUserWithAllFile(imagefile, outfile, getMvpView().getName(), getMvpView().getIntroduction(), getMvpView().getUniversity(), IndividualPresenter.this);
+                                    mModel.updateUserWithAllFile(imagefile, outfile, getMvpView().getName(), getMvpView().getIntroduction(),getMvpView().getPhone(), getMvpView().getUniversity(), IndividualPresenter.this);
                                 }
                             }
                         });
@@ -78,7 +78,7 @@ public class IndividualPresenter extends BasePresenter<IIndividualContract.View>
                 @Override
                 public void callback(boolean isSuccess, String outfile, Throwable t) {
                     if (isSuccess) {
-                        mModel.updateUserWithImage(outfile, getMvpView().getName(), getMvpView().getIntroduction(), getMvpView().getUniversity(), IndividualPresenter.this);
+                        mModel.updateUserWithImage(outfile, getMvpView().getName(), getMvpView().getIntroduction(), getMvpView().getUniversity(),getMvpView().getPhone(), IndividualPresenter.this);
                     }
                 }
             });
@@ -87,13 +87,13 @@ public class IndividualPresenter extends BasePresenter<IIndividualContract.View>
                 @Override
                 public void callback(boolean isSuccess, String outfile, Throwable t) {
                     if (isSuccess) {
-                        mModel.updateUserWithPhoto(outfile, getMvpView().getName(), getMvpView().getIntroduction(), getMvpView().getUniversity(), IndividualPresenter.this);
+                        mModel.updateUserWithPhoto(outfile, getMvpView().getName(), getMvpView().getIntroduction(), getMvpView().getUniversity(), getMvpView().getPhone(),IndividualPresenter.this);
 
                     }
                 }
             });
         } else {
-            mModel.updateUserWithNoneFile(getMvpView().getName(), getMvpView().getIntroduction(), getMvpView().getUniversity(), IndividualPresenter.this);
+            mModel.updateUserWithNoneFile(getMvpView().getName(), getMvpView().getIntroduction(), getMvpView().getUniversity(),getMvpView().getPhone(), IndividualPresenter.this);
         }
 
 

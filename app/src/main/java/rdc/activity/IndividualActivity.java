@@ -59,6 +59,8 @@ public class IndividualActivity extends BaseActivity<IndividualPresenter> implem
     RelativeLayout mIntroductionLayout;
     @BindView(R.id.rl_university)
     RelativeLayout mUnversityLayout;
+    @BindView(R.id.rl_phone)
+    RelativeLayout mPhoneLayout;
 
 
     @BindView(R.id.tv_name)
@@ -71,6 +73,8 @@ public class IndividualActivity extends BaseActivity<IndividualPresenter> implem
     ImageView mPhotoView;
     @BindView(R.id.tv_university)
     TextView mUniversityTextView;
+    @BindView(R.id.tv_phone)
+    TextView mPhoneTextView;
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
     @BindView(R.id.btn_commit)
@@ -158,6 +162,13 @@ public class IndividualActivity extends BaseActivity<IndividualPresenter> implem
                 showEditDialog("学校", mUniversityTextView.getText().toString());
             }
         });
+        //更改电话
+        mPhoneLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showEditDialog("电话", mPhoneTextView.getText().toString());
+            }
+        });
         //提交更改
         mCommitButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -172,7 +183,8 @@ public class IndividualActivity extends BaseActivity<IndividualPresenter> implem
 
     @Override
     public void setOnError() {
-        Toast.makeText(this,"上传失败！",Toast.LENGTH_SHORT).show();
+        Toast.makeText(this,"请检查电话号码的格式，以及不要重复上传",Toast.LENGTH_SHORT).show();
+        LoadingDialogUtil.closeDialog(mUpLoadingDialog);
     }
 
     @Override
@@ -241,10 +253,12 @@ public class IndividualActivity extends BaseActivity<IndividualPresenter> implem
                                     break;
                                 case "简介":
                                     mIntroductionTextView.setText(input);
-
                                     break;
                                 case "学校":
                                     mUniversityTextView.setText(input);
+                                    break;
+                                case "电话":
+                                    mPhoneTextView.setText(input);
                                     break;
                                 default:
                                     break;
@@ -253,7 +267,8 @@ public class IndividualActivity extends BaseActivity<IndividualPresenter> implem
                             User user = BmobUser.getCurrentUser(User.class);
                             if (!mNameTextView.getText().toString().equals(user.getNickname()) ||
                                     !mIntroductionTextView.getText().toString().equals(user.getIntroduction()) ||
-                                    !mUniversityTextView.getText().toString().equals(user.getUniversity())) {
+                                    !mUniversityTextView.getText().toString().equals(user.getUniversity()) ||
+                                    !mPhoneTextView.getText().toString().equals(user.getUniversity())) {
                                 mCommitButton.setEnabled(true);
                             } else {
                                 mCommitButton.setEnabled(false);
@@ -351,9 +366,9 @@ public class IndividualActivity extends BaseActivity<IndividualPresenter> implem
         mNameTextView.setText(user.getNickname());
         mIntroductionTextView.setText(!TextUtils.isEmpty(user.getIntroduction())==true?user.getIntroduction():"暂无个人简介");
         mUniversityTextView.setText(user.getUniversity());
+        mPhoneTextView.setText(!TextUtils.isEmpty(user.getMobilePhoneNumber())==true?user.getMobilePhoneNumber():"暂无联系电话");
         if (TextUtils.isEmpty(user.getUserImg().getUrl())) {//为空就设置默认图片
             Glide.with(this).load(R.drawable.iv_app_ic_blue).into(mImageView);
-
         } else {
             Glide.with(this).load(user.getUserImg().getUrl()).into(mImageView);
         }
@@ -362,7 +377,6 @@ public class IndividualActivity extends BaseActivity<IndividualPresenter> implem
 
         } else {
             Glide.with(this).load(user.getUserPhoto().getUrl()).into(mPhotoView);
-
         }
     }
 
@@ -462,6 +476,11 @@ public class IndividualActivity extends BaseActivity<IndividualPresenter> implem
     @Override
     public String getUniversity() {
         return mUniversityTextView.getText().toString();
+    }
+
+    @Override
+    public String getPhone() {
+        return mPhoneTextView.getText().toString();
     }
 
     /**

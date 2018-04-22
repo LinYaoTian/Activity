@@ -199,4 +199,37 @@
 
     </RelativeLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorDivider" />
+
+    <RelativeLayout
+        android:id="@+id/rl_phone"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimenItemLittleHeight"
+        android:background="@drawable/item_background_selector"
+        android:clickable="true"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimenTvMarginLeftRight"
+            android:gravity="center_vertical"
+            android:minHeight="@dimen/dimenItemLittleHeight"
+            android:text="@string/phone"
+            android:textSize="@dimen/dimenTextSize" />
+        <TextView
+            android:id="@+id/tv_phone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginStart="@dimen/dimenImvMarginStartPhone"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:textSize="@dimen/dimenTextSize" />
+
+    </RelativeLayout>
+
 </LinearLayout>

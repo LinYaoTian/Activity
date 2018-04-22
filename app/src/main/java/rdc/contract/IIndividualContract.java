@@ -21,18 +21,17 @@ public interface IIndividualContract {
         String getName();
         String getIntroduction();
         String getUniversity();
+        String getPhone();
         void back();
         void setOnError();
-
-
     }
 
 
     interface Model{
-        void updateUserWithAllFile(String imageUrl,String Photo,String name,String introduction,String university,Presenter presenter);
-        void updateUserWithPhoto(String Photo,String name,String introduction,String university,Presenter presenter);
-        void updateUserWithImage(String imageUrl,String name,String introduction,String university,Presenter presenter);
-        void updateUserWithNoneFile(String name,String introduction,String university,Presenter presenter);
+        void updateUserWithAllFile(String imageUrl,String Photo,String name,String introduction,String phone,String university,Presenter presenter);
+        void updateUserWithPhoto(String Photo,String name,String introduction,String university,String phone,Presenter presenter);
+        void updateUserWithImage(String imageUrl,String name,String introduction,String university,String phone,Presenter presenter);
+        void updateUserWithNoneFile(String name,String introduction,String university,String phone,Presenter presenter);
 
     }
 

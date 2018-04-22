@@ -34,7 +34,7 @@ public class IndividualModel implements IIndividualContract.Model {
     private String mImageFilePath;
 
     @Override
-    public void updateUserWithAllFile(String imageUrl, String Photo, final String name, final String introduction, final String university, final IIndividualContract.Presenter presenter) {
+    public void updateUserWithAllFile(String imageUrl, String Photo, final String name, final String introduction, final String phone, final String university, final IIndividualContract.Presenter presenter) {
         final User user = BmobUser.getCurrentUser(User.class);
 
         final User newUser = new User();
@@ -54,6 +54,7 @@ public class IndividualModel implements IIndividualContract.Model {
                                 newUser.setNickname(name);
                                 newUser.setIntroduction(introduction);
                                 newUser.setUniversity(university);
+                                newUser.setMobilePhoneNumber(phone);
                                 newUser.update(user.getObjectId(), new UpdateListener() {
                                     @Override
                                     public void done(BmobException e) {
@@ -64,6 +65,7 @@ public class IndividualModel implements IIndividualContract.Model {
                                             user.setUniversity(university);
                                             user.setNickname(name);
                                             user.setIntroduction(introduction);
+                                            user.setMobilePhoneNumber(phone);
                                             presenter.back();
 
                                         }else {
@@ -85,7 +87,7 @@ public class IndividualModel implements IIndividualContract.Model {
     }
 
     @Override
-    public void updateUserWithPhoto(String Photo, final String name, final String introduction, final String university, final IIndividualContract.Presenter presenter) {
+    public void updateUserWithPhoto(String Photo, final String name, final String introduction, final String university, final String phone, final IIndividualContract.Presenter presenter) {
         final User user = BmobUser.getCurrentUser(User.class);
         final User newUser = new User();
         final BmobFile photoBmobFile = new BmobFile(new File(Photo));
@@ -97,6 +99,7 @@ public class IndividualModel implements IIndividualContract.Model {
                     newUser.setNickname(name);
                     newUser.setIntroduction(introduction);
                     newUser.setUniversity(university);
+                    newUser.setMobilePhoneNumber(phone);
                     newUser.update(user.getObjectId(), new UpdateListener() {
                         @Override
                         public void done(BmobException e) {
@@ -106,6 +109,7 @@ public class IndividualModel implements IIndividualContract.Model {
                                 user.setUniversity(university);
                                 user.setNickname(name);
                                 user.setIntroduction(introduction);
+                                user.setMobilePhoneNumber(phone);
                                 presenter.back();
 
                             }else {
@@ -124,7 +128,7 @@ public class IndividualModel implements IIndividualContract.Model {
     }
 
     @Override
-    public void updateUserWithImage(String imageUrl, final String name, final String introduction, final String university, final IIndividualContract.Presenter presenter) {
+    public void updateUserWithImage(String imageUrl, final String name, final String introduction, final String university, final String phone, final IIndividualContract.Presenter presenter) {
         final User user = BmobUser.getCurrentUser(User.class);
         final User newUser = new User();
         final BmobFile imageBmobFile = new BmobFile(new File(imageUrl));
@@ -137,6 +141,7 @@ public class IndividualModel implements IIndividualContract.Model {
                     newUser.setNickname(name);
                     newUser.setIntroduction(introduction);
                     newUser.setUniversity(university);
+                    newUser.setMobilePhoneNumber(phone);
                     newUser.update(user.getObjectId(), new UpdateListener() {
                         @Override
                         public void done(BmobException e) {
@@ -146,6 +151,7 @@ public class IndividualModel implements IIndividualContract.Model {
                                 user.setUniversity(university);
                                 user.setNickname(name);
                                 user.setIntroduction(introduction);
+                                user.setMobilePhoneNumber(phone);
                                 presenter.back();
 
                             }else {
@@ -162,13 +168,14 @@ public class IndividualModel implements IIndividualContract.Model {
     }
 
     @Override
-    public void updateUserWithNoneFile(final String name, final String introduction, final String university, final IIndividualContract.Presenter presenter) {
+    public void updateUserWithNoneFile(final String name, final String introduction, final String university, final String phone, final IIndividualContract.Presenter presenter) {
         final User user = BmobUser.getCurrentUser(User.class);
         final User newUser = new User();
 
         newUser.setNickname(name);
         newUser.setIntroduction(introduction);
         newUser.setUniversity(university);
+        newUser.setMobilePhoneNumber(phone);
         newUser.update(user.getObjectId(), new UpdateListener() {
             @Override
             public void done(BmobException e) {
@@ -177,6 +184,7 @@ public class IndividualModel implements IIndividualContract.Model {
                     user.setUniversity(university);
                     user.setNickname(name);
                     user.setIntroduction(introduction);
+                    user.setMobilePhoneNumber(phone);
                     presenter.back();
 
                 }else {

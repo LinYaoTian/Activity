@@ -70,6 +70,7 @@
     <string name="activityDetails">活动详情</string>
     <string name="headerImage">头像</string>
     <string name="school">学校</string>
+    <string name="phone">发布者联系电话</string>
     <string name="name">名称</string>
     <string name="introduction">简介</string>
     <string name="managedActivity">管理的活动</string>
