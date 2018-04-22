@@ -106,7 +106,6 @@ public class ReleaseActivity extends BaseActivity<ReleasePresenter> implements R
         switch (v.getId()) {
             case R.id.tv_release_release:
                 release();
-//                DetailActivity.actionStart(this, "90ef5e8350");
                 break;
             case R.id.iv_poster_release:
                 showDialog();
@@ -276,8 +275,12 @@ public class ReleaseActivity extends BaseActivity<ReleasePresenter> implements R
         takePhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                camera(ReleaseActivity.this, imageUri);
-                mDialog.dismiss();
+                if (ContextCompat.checkSelfPermission(ReleaseActivity.this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(ReleaseActivity.this, new String[]{android.Manifest.permission.CAMERA}, 1);
+                } else {
+                    camera(ReleaseActivity.this, imageUri);
+                    mDialog.dismiss();
+                }
             }
         });
         cancel.setOnClickListener(new View.OnClickListener() {

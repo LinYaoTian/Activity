@@ -45,6 +45,7 @@ public interface DetailContract {
         void getUserconcernedList();
         void setUserconcernedList(List<User> userconcernedList);
         void onConcernedSuccess();
+        void onError(String errMeg);
 //        void addTrip();
     }
 }

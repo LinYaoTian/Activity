@@ -37,5 +37,6 @@ public interface ReleaseContract {
         void release();
         void releaseResult(Boolean state,String message);
         void addTrip();
+        void onError(String errMeg);
     }
 }

@@ -109,7 +109,7 @@ public class DetailModel implements DetailContract.IModel{
                             if(e == null){
 
                             }else{
-
+                                iPresenter.onError(e.getMessage());
                             }
                         }
                     });
@@ -148,7 +148,7 @@ public class DetailModel implements DetailContract.IModel{
     }
 
     @Override
-    public void addSawNum(DetailContract.IPresenter iPresenter, int currentNum, String objectId) {
+    public void addSawNum(final DetailContract.IPresenter iPresenter, int currentNum, String objectId) {
         Activity activity = new Activity();
         activity.setSawnum(currentNum + 1);
         activity.update(objectId, new UpdateListener() {
@@ -157,7 +157,7 @@ public class DetailModel implements DetailContract.IModel{
                 if (e == null) {
 
                 }else {
-
+                    iPresenter.onError(e.getMessage());
                 }
             }
         });
