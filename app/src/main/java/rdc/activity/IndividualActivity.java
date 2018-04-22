@@ -47,6 +47,7 @@ import static rdc.configs.PhotoChooseType.sCHOOSEALBUM;
 import static rdc.configs.PhotoChooseType.sTAKEPHOTO;
 import static rdc.configs.PictureType.sIMAGE;
 import static rdc.configs.PictureType.sPHOTO;
+import static rdc.util.ImageUtil.camera;
 
 public class IndividualActivity extends BaseActivity<IndividualPresenter> implements IIndividualContract.View {
     @BindView(R.id.rl_photo)
@@ -309,9 +310,13 @@ public class IndividualActivity extends BaseActivity<IndividualPresenter> implem
         takePhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                presenter.takePhoto();
-                mDialog.dismiss();
 
+                if (ContextCompat.checkSelfPermission(IndividualActivity.this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(IndividualActivity.this, new String[]{android.Manifest.permission.CAMERA}, 1);
+                } else {
+                    presenter.takePhoto();
+                    mDialog.dismiss();
+                }
 
             }
         });

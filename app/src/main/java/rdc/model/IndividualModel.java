@@ -9,6 +9,7 @@ import android.os.Build;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
+import android.util.Log;
 
 import java.io.File;
 import java.io.IOException;
@@ -210,8 +211,8 @@ public class IndividualModel implements IIndividualContract.Model {
         }
 
         if (Build.VERSION.SDK_INT >= 24) {
-
-            mImageUrl = FileProvider.getUriForFile(App.getmContext(), "rdc.avtivity.imagefileprovider", outputImage);
+            Log.e("TAG", "getmImageUrl: " );
+            mImageUrl = FileProvider.getUriForFile(App.getmContext(), "rdc.avtivity.fileprovider", outputImage);
         } else {
 
             mImageUrl = Uri.fromFile(outputImage);
